@@ -1,1 +1,34 @@
-<p>state works!</p>
+<div class="card">
+    <div class="card">
+        <p-table #dt1 [value]="states" [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template #caption>
+                <div class="flex">
+
+                    <p-button label="Create"></p-button>
+
+                    <p-iconfield iconPosition="left" class="ml-auto">
+                        <p-inputicon>
+                            <i class="pi pi-search"></i>
+                        </p-inputicon>
+                        <input pInputText type="text" placeholder="Search keyword" />
+                    </p-iconfield>
+                </div>
+            </ng-template>
+            <ng-template #header>
+                <tr>
+                    <th>StaeID</th>
+                    <th>Name</th>
+                    <th>StateNameMm</th>
+
+                </tr>
+            </ng-template>
+            <ng-template #body let-state>
+                <tr>
+                    <td>{{ state.stateId }}</td>
+                    <td>{{ state.stateName }}</td>
+                    <td>{{state.stateNameMm }}</td>
+
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
