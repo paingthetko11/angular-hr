@@ -8,7 +8,7 @@
         [paginator]="true"
         [rows]="10"
         [rowsPerPageOptions]="[10, 20, 30]"
-        [globalFilterFields]="['stateName', 'stateNameMm']"
+        [globalFilterFields]="['stateId','stateName', 'stateNameMm']"
         [tableStyle]="{ 'min-width': '50rem' }"
       >
             <ng-template #caption>
@@ -36,6 +36,32 @@
                     <th>StateNameMm</th>
 
                 </tr>
+                <tr>
+                    <th>
+                      <p-columnFilter
+                        type="text"
+                        field="stateId"
+                        placeholder="Search by ID"
+                        ariaLabel="Filter ID"
+                      ></p-columnFilter>
+                    </th>
+                    <th>
+                      <p-columnFilter
+                        type="text"
+                        field="stateName"
+                        placeholder="Search by StateName"
+                        ariaLabel="Filter Name"
+                      ></p-columnFilter>
+                    </th>
+                    <th>
+                      <p-columnFilter
+                        type="text"
+                        field="stateNameMm"
+                        placeholder="Search by StateNameMm"
+                        ariaLabel="Filter state"
+                      ></p-columnFilter>
+                    </th>
+                  </tr>
             </ng-template>
             <ng-template #body let-state>
                 <tr>
