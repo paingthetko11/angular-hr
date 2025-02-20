@@ -1,1 +1,22 @@
-<p>entry works!</p>
+<div class="p-8">
+
+    <form [formGroup]="stateForm" (submit)="submit()">
+        <div class="grid grid-cols-12 gap-2">
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>State Id</label>
+                <input pInputText formControlName="stateId" type="number">
+            </div>
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>state Name </label>
+                <input pInputText formControlName="stateName" type="text">
+            </div>
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>State Name MM</label>
+                <input pInputText formControlName="stateNameMm" type="text">
+            </div>
+            <div class="col-sapn-12">
+                <button pButton type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>

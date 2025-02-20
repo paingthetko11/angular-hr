@@ -1,31 +1,20 @@
 <div class="card">
     <div class="card">
-       
-        <p-table
-        #dt1
-        [value]="states"
-        dataKey="stateId"
-        [paginator]="true"
-        [rows]="10"
-        [rowsPerPageOptions]="[10, 20, 30]"
-        [globalFilterFields]="['stateId','stateName', 'stateNameMm']"
-        [tableStyle]="{ 'min-width': '50rem' }"
-      >
+
+        <p-table #dt1 [value]="states" dataKey="stateId" [paginator]="true" [rows]="10"
+            [rowsPerPageOptions]="[10, 20, 30]" [globalFilterFields]="['stateId','stateName', 'stateNameMm']"
+            [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template #caption>
                 <div class="flex">
 
-                    <p-button label="Create"></p-button>
+                    <p-button label="Create" routerLink="entry"></p-button>
 
                     <p-iconfield iconPosition="left" class="ml-auto">
                         <p-inputicon>
                             <span class="material-symbols-outlined"> search </span>
                         </p-inputicon>
-                        <input
-                        pInputText
-                        type="text"
-                        (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
-                        placeholder="Search keyword"
-                      />
+                        <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+                            placeholder="Search keyword" />
                     </p-iconfield>
                 </div>
             </ng-template>
@@ -34,40 +23,34 @@
                     <th>StaeID</th>
                     <th>Name</th>
                     <th>StateNameMm</th>
+                    <th>Action</th>
 
                 </tr>
                 <tr>
                     <th>
-                      <p-columnFilter
-                        type="text"
-                        field="stateId"
-                        placeholder="Search by ID"
-                        ariaLabel="Filter ID"
-                      ></p-columnFilter>
+                        <p-columnFilter type="text" field="stateId" placeholder="Search by ID"
+                            ariaLabel="Filter ID"></p-columnFilter>
                     </th>
                     <th>
-                      <p-columnFilter
-                        type="text"
-                        field="stateName"
-                        placeholder="Search by StateName"
-                        ariaLabel="Filter Name"
-                      ></p-columnFilter>
+                        <p-columnFilter type="text" field="stateName" placeholder="Search by StateName"
+                            ariaLabel="Filter Name"></p-columnFilter>
                     </th>
                     <th>
-                      <p-columnFilter
-                        type="text"
-                        field="stateNameMm"
-                        placeholder="Search by StateNameMm"
-                        ariaLabel="Filter state"
-                      ></p-columnFilter>
+                        <p-columnFilter type="text" field="stateNameMm" placeholder="Search by StateNameMm"
+                            ariaLabel="Filter state"></p-columnFilter>
                     </th>
-                  </tr>
+                </tr>
             </ng-template>
             <ng-template #body let-state>
                 <tr>
                     <td>{{ state.stateId }}</td>
                     <td>{{ state.stateName }}</td>
                     <td>{{state.stateNameMm }}</td>
+                    <td>
+                        <p-button (onClick)="update(state)">Edit</p-button>
+                        <p-button (onClick)="delete(state)">Delete</p-button>
+
+                    </td>
 
                 </tr>
             </ng-template>
