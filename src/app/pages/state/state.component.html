@@ -1,6 +1,16 @@
 <div class="card">
     <div class="card">
-        <p-table #dt1 [value]="states" [tableStyle]="{ 'min-width': '50rem' }">
+       
+        <p-table
+        #dt1
+        [value]="states"
+        dataKey="stateId"
+        [paginator]="true"
+        [rows]="10"
+        [rowsPerPageOptions]="[10, 20, 30]"
+        [globalFilterFields]="['stateName', 'stateNameMm']"
+        [tableStyle]="{ 'min-width': '50rem' }"
+      >
             <ng-template #caption>
                 <div class="flex">
 
@@ -8,9 +18,14 @@
 
                     <p-iconfield iconPosition="left" class="ml-auto">
                         <p-inputicon>
-                            <i class="pi pi-search"></i>
+                            <span class="material-symbols-outlined"> search </span>
                         </p-inputicon>
-                        <input pInputText type="text" placeholder="Search keyword" />
+                        <input
+                        pInputText
+                        type="text"
+                        (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+                        placeholder="Search keyword"
+                      />
                     </p-iconfield>
                 </div>
             </ng-template>
