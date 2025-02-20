@@ -8,17 +8,26 @@ import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-state',
-  imports: [TableModule, ButtonModule, IconFieldModule, InputIconModule,InputTextModule,FormsModule,CommonModule],
+  imports: [
+    RouterModule,
+    TableModule,
+    ButtonModule,
+    IconFieldModule,
+    InputIconModule,
+    InputTextModule,
+  ],
   templateUrl: './state.component.html',
   styleUrl: './state.component.scss',
 })
 export class StateComponent implements OnInit {
+  selectedState!: StateModel;
   states: StateModel[] = [];
 
-  constructor(private stateServices: StateService) {}
+  constructor(private stateServices: StateService, private route: Router) {}
 
   ngOnInit(): void {
     this.loaddata();
@@ -28,5 +37,19 @@ export class StateComponent implements OnInit {
     this.stateServices.get().subscribe((res) => {
       this.states = res.data as StateModel[];
     });
+  }
+
+  update(state: StateModel): void {
+    this.selectedState = state;
+    this.route.navigate(['state/entry',this.selectedState.stateId]);
+  }
+
+  delete(state: StateModel): void {
+    this.selectedState = state;
+    if (this.selectedState !== null) {
+      this.stateServices.delete(this.selectedState.stateId).subscribe((res) => {
+        this.loaddata();
+      });
+    }
   }
 }
