@@ -1,0 +1,64 @@
+<div class="card">
+    <div class="card">
+
+        <p-table #policy [value]="policies" dataKey="id" [paginator]="true" [rows]="10"
+            [rowsPerPageOptions]="[10, 20, 30]"
+            [globalFilterFields]="['id','title', 'description','policyType','companyId']"
+            [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template #caption>
+                <div class="flex">
+
+                    <p-button label="Create" routerLink="entity"></p-button>
+
+                    <p-iconfield iconPosition="left" class="ml-auto">
+                        <p-inputicon>
+                            <span class="material-symbols-outlined"> search </span>
+                        </p-inputicon>
+                        <input pInputText type="text"
+                            (input)="policy.filterGlobal($any($event.target).value, 'contains')"
+                            placeholder="Search keyword" />
+                    </p-iconfield>
+                </div>
+            </ng-template>
+            <ng-template #header>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Policy Type</th>
+                    <th>Company ID</th>
+                    <th>Created On</th>
+                    <th>Created by</th>
+                    <th>Updated On</th>
+                    <th>Updated By</th>
+                    <th>Deleted On</th>
+                    <th>Deleted By</th>
+                    <th>Remark</th>
+
+                </tr>
+
+            </ng-template>
+            <ng-template #body let-policies>
+                <tr>
+                    <td>{{ policies.id }}</td>
+                    <td>{{ policies.title }}</td>
+                    <td>{{policies.description }}</td>
+                    <td>{{policies.policyType}}</td>
+                    <td>{{policies.companyId}}</td>
+                    <td>{{policies.createdOn}}</td>
+                    <td>{{policies.createdBy}}</td>
+                    <td>{{policies.updatedOn}}</td>
+                    <td>{{policies.updatedBy}}</td>
+                    <td>{{policies.deletedOn}}</td>
+                    <td>{{policies.deletedBy}}</td>
+                    <td>{{policies.remark}}</td>
+                    <td>
+                        <p-button (onClick)="update(policies)">Edit</p-button>
+                        <p-button (onClick)="delete(policies)">Delete</p-button>
+
+                    </td>
+
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>

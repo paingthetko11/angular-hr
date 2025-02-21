@@ -1,0 +1,30 @@
+<div class="p-8">
+
+    <form [formGroup]="policyForm" (submit)="submit()">
+        <div class="grid grid-cols-12 gap-2">
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>Id</label>
+                <input pInputText formControlName="id" type="number">
+            </div>
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>Title </label>
+                <input pInputText formControlName="title" type="text">
+            </div>
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>Description</label>
+                <input pInputText formControlName="description" type="text">
+            </div>
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>policyType</label>
+                <input pInputText formControlName="policyType" type="number">
+            </div>
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>companyId</label>
+                <input pInputText formControlName="companyId" type="text">
+            </div>
+            <div class="col-sapn-12">
+                <button pButton type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
