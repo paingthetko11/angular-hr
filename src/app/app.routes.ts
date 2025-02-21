@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { StateComponent } from './pages/state/state.component';
 import { EntryComponent } from './pages/state/entry/entry.component';
+import { PolicyComponent } from './policy/policy.component';
+import { EntityComponent } from './policy/entity/entity.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -12,6 +14,14 @@ export const routes: Routes = [
       { path: '', component: StateComponent },
       { path: 'entry/:id', component: EntryComponent },
       { path: 'entry', component: EntryComponent },
+    ],
+  },
+  {
+    path: 'policy',
+    children: [
+      { path: '', component: PolicyComponent },
+      { path: 'entity/:id', component: EntityComponent },
+      { path: 'entity', component: EntityComponent },
     ],
   },
 ];
