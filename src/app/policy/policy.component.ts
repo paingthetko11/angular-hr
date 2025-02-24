@@ -8,6 +8,7 @@ import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-policy',
@@ -18,7 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     IconField,
     InputIconModule,
     InputTextModule,
-   
+    CommonModule,
   ],
 
   templateUrl: './policy.component.html',
