@@ -22,11 +22,21 @@
             </ng-template>
             <ng-template #header>
                 <tr>
-                    <th>Id</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Policy Type</th>
-                    <th>Company ID</th>
+                    <th pSortableColumn="id" style="width:20%">
+                        ID <p-sortIcon field="id" />
+                    </th>
+                    <th pSortableColumn="title" style="width:20%">
+                        Title <p-sortIcon field="title" />
+                    </th>
+                    <th pSortableColumn="description" style="width:20%">
+                        Description <p-sortIcon field="description" />
+                    </th>
+                    <th pSortableColumn="policyType" style="width:20%">
+                         Policy Type<p-sortIcon field="policyType" />
+                    </th>
+                    <th pSortableColumn="companyId" style="width:20%">
+                        Company ID<p-sortIcon field="companyId" />
+                   </th>
                     <th>Created On</th>
                     <th>Created by</th>
                     <th>Updated On</th>
@@ -65,4 +75,3 @@
             <p-rating formControlName="value" />
         </form>
     </div> -->
-    
