@@ -1,8 +1,8 @@
 <div class="card">
     <div class="card">
 
-        <p-table #policy [value]="policies" dataKey="id" [paginator]="true" [rows]="10"
-            [rowsPerPageOptions]="[10, 20, 30]"
+        <p-table #policy [value]="policies" dataKey="id" [paginator]="true" [rows]="10" [scrollable]="true"
+            scrollHeight="400px" [rowsPerPageOptions]="[10, 20, 30]"
             [globalFilterFields]="['id','title', 'description','policyType','companyId']"
             [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template #caption>
@@ -22,42 +22,43 @@
             </ng-template>
             <ng-template #header>
                 <tr>
-                    <th pSortableColumn="id" style="width:20%">
+                    <th pSortableColumn="id" style="min-width:200px">
                         ID <p-sortIcon field="id" />
                     </th>
-                    <th pSortableColumn="title" style="width:20%">
+                    <th pSortableColumn="title" style="min-width:200px">
                         Title <p-sortIcon field="title" />
                     </th>
-                    <th pSortableColumn="description" style="width:20%">
+                    <th pSortableColumn="description" style="min-width:200px">
                         Description <p-sortIcon field="description" />
                     </th>
-                    <th pSortableColumn="policyType" style="width:20%">
+                    <th pSortableColumn="policyType" style="min-width:200px">
                         Policy Type<p-sortIcon field="policyType" />
                     </th>
-                    <th pSortableColumn="companyId" style="width:20%">
-                        Company ID<p-sortIcon field="companyId" />
+                    <th pSortableColumn="companyId" style="min-width:200px">
+                        CompanyID<p-sortIcon field="companyId" />
                     </th>
-                    <th pSortableColumn="createdOn" style="width:20%">
+                    <th pSortableColumn="createdOn" style="min-width:200px">
                         Created On<p-sortIcon field="createdOn" />
                     </th>
-                    <th pSortableColumn="createdBy" style="width:20%">
+                    <th pSortableColumn="createdBy" style="min-width:200px">
                         Created By<p-sortIcon field="createdBy" />
                     </th>
-                    <th pSortableColumn="updatedOn" style="width:20%">
+                    <th pSortableColumn="updatedOn" style="min-width:200px">
                         Updated On<p-sortIcon field="updatedOn" />
                     </th>
-                    <th pSortableColumn="updatedBy" style="width:20%">
+                    <th pSortableColumn="updatedBy" style="min-width:200px">
                         updated By<p-sortIcon field="updaetdBy" />
                     </th>
-                    <th pSortableColumn="deletedOn" style="width:20%">
+                    <th pSortableColumn="deletedOn" style="min-width:200px">
                         Deleted On <p-sortIcon field="deletedOn" />
                     </th>
-                    <th pSortableColumn="deletedBy" style="width:20%">
+                    <th pSortableColumn="deletedBy" style="min-width:200px">
                         Deleted By <p-sortIcon field="deletedBy" />
                     </th>
-                    <th pSortableColumn="remark" style="width:20%">
+                    <th pSortableColumn="remark" style="min-width:200px">
                         Remark<p-sortIcon field="remark" />
                     </th>
+                    <th>Action</th>
 
                 </tr>
 
@@ -84,6 +85,19 @@
 
                 </tr>
             </ng-template>
+            <!-- <ng-template #footer>
+                <tr>
+                    <td>Id</td>
+                    <td>Title</td>
+                    <td>Description</td>
+                    <td>PolicyType</td>
+                    <td>Balance</td>
+                    <td>Company</td>
+                    <td>Status</td>
+                    <td>Activity</td>
+                    <td>Representative</td>
+                </tr>
+            </ng-template> -->
         </p-table>
         <!-- <form [formGroup]="formGroup">
             <p-rating formControlName="value" />
