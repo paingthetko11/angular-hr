@@ -25,5 +25,12 @@ export const routes: Routes = [
       { path: 'entity', component: EntityComponent },
     ],
   },
-  { path: 'allowance', component: AllowanceComponent },
+  {
+  path: 'allowance',
+  children: [
+    { path: '', component: AllowanceComponent },
+    { path: 'entey/:id', component: EntryComponent },
+    { path: 'entry', component: EntryComponent },
+  ],
+},
 ];
