@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RootModel } from '../models/root.model';
 import { environment } from '../../../environments/environment';
+import { AllowaneModel } from '../models/allowane.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,4 +14,17 @@ export class AllowanceService {
     let url: string = `${environment.apiUrl}/api/Allowance`;
     return this.http.get<RootModel>(url);
   }
+  getbyID(id: number): Observable<RootModel> {
+      let url: string = `${environment.apiUrl}/api/Allowance/${id}`;
+      return this.http.get<RootModel>(url);
+    }
+    create(model: AllowaneModel): Observable<RootModel> {
+      let url: string = `${environment.apiUrl}/api/Allowance`;
+      return this.http.post<RootModel>(url, JSON.stringify(model), {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    }
 }
+
