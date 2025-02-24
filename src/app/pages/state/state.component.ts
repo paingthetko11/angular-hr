@@ -19,6 +19,7 @@ import { Router, RouterModule } from '@angular/router';
     IconFieldModule,
     InputIconModule,
     InputTextModule,
+    CommonModule,
   ],
   templateUrl: './state.component.html',
   styleUrl: './state.component.scss',
@@ -41,7 +42,7 @@ export class StateComponent implements OnInit {
 
   update(state: StateModel): void {
     this.selectedState = state;
-    this.route.navigate(['state/entry',this.selectedState.stateId]);
+    this.route.navigate(['state/entry', this.selectedState.stateId]);
   }
 
   delete(state: StateModel): void {
