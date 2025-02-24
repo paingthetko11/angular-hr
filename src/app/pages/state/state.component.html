@@ -20,9 +20,15 @@
             </ng-template>
             <ng-template #header>
                 <tr>
-                    <th>StaeID</th>
-                    <th>Name</th>
-                    <th>StateNameMm</th>
+                    <th pSortableColumn="stateId" style="width:20%">
+                        State ID<p-sortIcon field="stateId" />
+                    </th>
+                    <th pSortableColumn="stateName" style="width:20%">
+                        State Name <p-sortIcon field="stateName" />
+                    </th>
+                    <th pSortableColumn="stateNameMm" style="width:20%">
+                        State Name MM<p-sortIcon field="stateNameMm" />
+
                     <th>Action</th>
 
                 </tr>
