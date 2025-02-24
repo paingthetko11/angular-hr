@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Button, ButtonModule } from 'primeng/button';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
@@ -29,10 +29,13 @@ import { AllowaneModel } from '../../core/models/allowane.model';
   templateUrl: './allowance.component.html',
   styleUrl: './allowance.component.scss',
 })
-export class AllowanceComponent { 
+export class AllowanceComponent {
   allowances: AllowaneModel[] = [];
 
-  constructor(private allowanceService: AllowanceService) {}
+  constructor(
+    private allowanceService: AllowanceService,
+    private route: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadData();
@@ -45,11 +48,10 @@ export class AllowanceComponent {
   }
   getSeverity(status: boolean) {
     switch (status) {
-        case true:
-            return 'success';
-        case false:
-            return 'warn';
+      case true:
+        return 'success';
+      case false:
+        return 'warn';
     }
+  }
 }
-}
-
