@@ -29,7 +29,7 @@ import { AllowaneModel } from '../../core/models/allowane.model';
   templateUrl: './allowance.component.html',
   styleUrl: './allowance.component.scss',
 })
-export class AllowanceComponent {
+export class AllowanceComponent { 
   allowances: AllowaneModel[] = [];
 
   constructor(private allowanceService: AllowanceService) {}
@@ -43,5 +43,13 @@ export class AllowanceComponent {
       this.allowances = res.data as AllowaneModel[];
     });
   }
+  getSeverity(status: boolean) {
+    switch (status) {
+        case true:
+            return 'success';
+        case false:
+            return 'warn';
+    }
+}
 }
 

@@ -1,13 +1,7 @@
 <div class="card">
     <p-table #dt1 [value]="allowances" dataKey="allowanceId" [paginator]="true" [rows]="10"
         [rowsPerPageOptions]="[5, 10, 20]" [globalFilterFields]="[
-        'allowanceId',
-        'companyId',
-        'branchId',
-        'deptId',
-        'positionId',
         'allowanceName',
-        'description'
       ]" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template #caption>
             <div class="flex">
@@ -23,22 +17,52 @@
 
         <ng-template #header>
             <tr>
-                <th>AllowanceId</th>
-                <th>Company Id</th>
-                <th>Branch Id</th>
-                <th>Department Id</th>
-                <th>Position Id</th>
-                <th>Allowance Name</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Created On</th>
-                <th>Created By</th>
-                <th>Updated On</th>
-                <th>Updated By</th>
-                <th>Deleted On</th>
-                <th>Deleted By</th>
-                <th>Remark</th>
+                <th pSortableColumn="allowanceId" style="min-width:200px">
+                    AllowanceID <p-sortIcon field="allowanceId" />
+                </th>
+                <th pSortableColumn="companyId" style="min-width:200px">
+                    CompanyID<p-sortIcon field="companyId" />
+                </th>
+                <th pSortableColumn="branchId" style="min-width:200px">
+                    BranchID <p-sortIcon field="branchId" />
+                </th>
+                <th pSortableColumn="deptId" style="min-width:200px">
+                    DeptID<p-sortIcon field="deptId" />
+                </th>
+                <th pSortableColumn="companyId" style="min-width:200px">
+                    AllowanceName<p-sortIcon field="companyId" />
+                </th>
+                <th pSortableColumn="description" style="min-width:200px">
+                    Description<p-sortIcon field="description" />
+                </th>
+                <th pSortableColumn="status" style="min-width:200px">
+                    Status<p-sortIcon field="status" />
+                </th>
+                <th pSortableColumn="createdOn" style="min-width:200px">
+                    Created On<p-sortIcon field="createdOn" />
+                </th>
+                <th pSortableColumn="createdBy" style="min-width:200px">
+                    Created By<p-sortIcon field="createdBy" />
+                </th>
+                <th pSortableColumn="updatedOn" style="min-width:200px">
+                    Updated On<p-sortIcon field="updatedOn" />
+                </th>
+                <th pSortableColumn="updatedBy" style="min-width:200px">
+                    updated By<p-sortIcon field="updaetdBy" />
+                </th>
+                <th pSortableColumn="deletedOn" style="min-width:200px">
+                    Deleted On <p-sortIcon field="deletedOn" />
+                </th>
+                <th pSortableColumn="deletedBy" style="min-width:200px">
+                    Deleted By <p-sortIcon field="deletedBy" />
+                </th>
+                <th pSortableColumn="remark" style="min-width:200px">
+                    Remark<p-sortIcon field="remark" />
+                </th>
+                <th>Action</th>
+
             </tr>
+
             <tr>
                 <th>
                     <p-columnFilter type="text" field="allowanceId" placeholder="Search by ID"
@@ -76,7 +100,9 @@
                 <td>{{ allowance.positionId }}</td>
                 <td>{{ allowance.allowanceName }}</td>
                 <td>{{ allowance.description }}</td>
-                <td>{{ allowance.status }}</td>
+                <td>
+                    <p-tag [value]="allowance.status" [severity]="getSeverity(allowance.status)" />
+                </td>
                 <td>{{ allowance.createdOn }}</td>
                 <td>{{ allowance.createdBy }}</td>
                 <td>{{ allowance.updatedOn }}</td>
