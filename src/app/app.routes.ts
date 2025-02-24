@@ -4,6 +4,7 @@ import { StateComponent } from './pages/state/state.component';
 import { EntryComponent } from './pages/state/entry/entry.component';
 import { PolicyComponent } from './policy/policy.component';
 import { EntityComponent } from './policy/entity/entity.component';
+import { AllowanceComponent } from './pages/allowance/allowance.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -24,4 +25,5 @@ export const routes: Routes = [
       { path: 'entity', component: EntityComponent },
     ],
   },
+  { path: 'allowance', component: AllowanceComponent },
 ];
