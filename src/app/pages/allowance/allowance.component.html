@@ -104,8 +104,10 @@
                 <td>{{ allowance.allowanceName }}</td>
                 <td>{{ allowance.description }}</td>
                 <td>
-                    <p-tag [value]="allowance.status" [severity]="getSeverity(allowance.status)" />
-                </td>
+                    <p-tag value="{{ allowance.status? 'Active' : 'Inactive' }}" [severity]="allowance.status ? 'success' : 'info'
+                    "
+                           icon="{{ allowance.status? 'pi pi-check' : 'pi pi-minus-circle' }}" [rounded]="true"></p-tag>
+                  </td>
                 <td>{{ allowance.createdOn }}</td>
                 <td>{{ allowance.createdBy }}</td>
                 <td>{{ allowance.updatedOn }}</td>
