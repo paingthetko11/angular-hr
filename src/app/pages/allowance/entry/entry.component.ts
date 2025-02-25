@@ -111,10 +111,19 @@ export class EntryComponent implements OnInit {
       status: this.allowenceForm.controls.status.value?? true,
       createdOn: createdOn?? '',
       createdBy: this.allowenceForm.controls.createdBy.value?? '',
-      // updatedOn: updatedOn?? '',
-      // updatedBy: this.allowenceForm.controls.updatedBy.value?? '',
-      // deletedOn: deletedOn?? '',
-      // remark: this.allowenceForm.controls.remark.value?? '',
-    }
+      updatedOn: updatedOn?? '',
+      updatedBy: this.allowenceForm.controls.updatedBy.value?? '',
+      deletedOn: deletedOn?? '',
+      remark: this.allowenceForm.controls.remark.value?? '',
+    };
+    // if (this.id > 0) {
+    //   this.allowencesService.update(this.id,model).subscribe((res) => {
+    //     console.log(res);
+    //   });
+    // } else {
+    //   this.allowencesService.create(model).subscribe((res) => {
+    //     console.log(res);
+    //   });
+    // }
   }
 }
