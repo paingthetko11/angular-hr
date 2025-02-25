@@ -1,1 +1,70 @@
-<p>entry works!</p>
+<div class="p-8">
+
+    <form [formGroup]="allowanceForm" (submit)="submit()">
+        <div class="grid grid-cols-12 gap-2">
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>AllowanceId</label>
+                <input pInputText formControlName="allowanceId" type="number">
+            </div>
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>CompanyId</label>
+                <input pInputText formControlName="companyId" type="text">
+            </div>
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>BracnchId </label>
+                <input pInputText formControlName="branchId" type="number">
+            </div>
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>DeptId</label>
+                <input pInputText formControlName="deptId" type="number">
+            </div>
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>PositionId </label>
+                <input pInputText formControlName="positionId" type="number">
+            </div>
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>AllowanceName</label>
+                <input pInputText formControlName="allowanceName" type="text">
+            </div>
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>Description</label>
+                <input pInputText formControlName="description" type="text">
+            </div>
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>Status</label>
+                <input pInputText formControlName="status" type="text">
+            </div>
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>Created On</label>
+                <input pInputText formControlName="createdOn" type="text" />
+            </div>
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>Created By</label>
+                <input pInputText formControlName="createdBy" type="text" />
+            </div>
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>Updated On</label>
+                <input pInputText formControlName="updatedOn" type="text" />
+            </div>
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>Updated By</label>
+                <input pInputText formControlName="updatedBy" type="text" />
+            </div>
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>Deleted On</label>
+                <input pInputText formControlName="deletedOn" type="text" />
+            </div>
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>Deleted By</label>
+                <input pInputText formControlName="deletedBy" type="text" />
+            </div>
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>Remark</label>
+                <input pInputText formControlName="remark" type="text" />
+            </div>
+            <div class="col-span-12">
+                <button pButton type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
