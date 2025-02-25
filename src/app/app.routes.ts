@@ -1,10 +1,11 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { StateComponent } from './pages/state/state.component';
-import { EntryComponent } from './pages/state/entry/entry.component';
+import { EntryComponent as StateEntryComponent } from './pages/state/entry/entry.component';
 import { PolicyComponent } from './policy/policy.component';
 import { EntityComponent } from './policy/entity/entity.component';
 import { AllowanceComponent } from './pages/allowance/allowance.component';
+import { EntryComponent as AllowanceEntryComponent } from './pages/allowance/entry/entry.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -13,8 +14,8 @@ export const routes: Routes = [
     path: 'state',
     children: [
       { path: '', component: StateComponent },
-      { path: 'entry/:id', component: EntryComponent },
-      { path: 'entry', component: EntryComponent },
+      { path: 'entry/:id', component: StateEntryComponent },
+      { path: 'entry', component: StateEntryComponent },
     ],
   },
   {
@@ -29,8 +30,8 @@ export const routes: Routes = [
   path: 'allowance',
   children: [
     { path: '', component: AllowanceComponent },
-    { path: 'entey/:id', component: EntryComponent },
-    { path: 'entry', component: EntryComponent },
+    { path: 'entey/:id', component: AllowanceEntryComponent },
+    { path: 'entry', component: AllowanceEntryComponent },
   ],
 },
 ];
