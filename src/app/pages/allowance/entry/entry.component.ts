@@ -12,8 +12,9 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { AllowaneModel } from '../../../core/models/allowane.model';
 import { AllowanceService } from '../../../core/services/allowance.service';
 import { ActivatedRoute } from '@angular/router';
-import { Message } from 'primeng/message';
+import { Message, MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-entry',
@@ -24,10 +25,10 @@ import { ToastModule } from 'primeng/toast';
     InputTextModule,
     ButtonModule,
     ToggleSwitchModule,
-    Message,
+    MessageModule,
     ToastModule,
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, MessageService],
   templateUrl: './entry.component.html',
   styleUrl: './entry.component.scss',
 })
@@ -37,13 +38,13 @@ export class EntryComponent implements OnInit {
   errorMessage!: Message[];
   isSubmitting: boolean = false;
   modalVisible: boolean = false;
-  messageService: any;
-  isEdit: any;
+  isEdit: boolean = false;
 
   constructor(
     private allowancesService: AllowanceService,
     private route: ActivatedRoute,
-    private datepipe: DatePipe
+    private datepipe: DatePipe,
+    private messageService: MessageService
   ) {}
 
   private formBuilder = inject(FormBuilder);
@@ -164,12 +165,11 @@ export class EntryComponent implements OnInit {
             if (res.success) {
               this.modalVisible = false;
 
-              // this.messageService.add({
-              //   key: 'globalMessage',
-              //   severity: 'info',
-              //   summary: 'Success',
-              //   detail: res.message.toString(),
-              // });
+              this.messageService.add({
+                severity: 'info',
+                summary: 'Success',
+                detail: 'Successfully Created',
+              });
 
               this.isSubmitting = false;
             }
