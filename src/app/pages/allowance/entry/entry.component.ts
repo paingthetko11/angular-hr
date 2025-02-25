@@ -1,6 +1,11 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
@@ -8,6 +13,7 @@ import { AllowaneModel } from '../../../core/models/allowane.model';
 import { AllowanceService } from '../../../core/services/allowance.service';
 import { ActivatedRoute } from '@angular/router';
 import { Message } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-entry',
@@ -19,6 +25,7 @@ import { Message } from 'primeng/message';
     ButtonModule,
     ToggleSwitchModule,
     Message,
+    ToastModule,
   ],
   providers: [DatePipe],
   templateUrl: './entry.component.html',
@@ -41,12 +48,12 @@ export class EntryComponent implements OnInit {
 
   private formBuilder = inject(FormBuilder);
   allowanceForm = this.formBuilder.group({
-    allowanceId: [0,Validators.required],
-    companyId: ['',Validators.required],
-    branchId: [0,Validators.required],
-    deptId: [0,Validators.required],
-    positionId: [0,Validators.required],
-    allowanceName: ['',Validators.required],
+    allowanceId: [0, Validators.required],
+    companyId: ['', Validators.required],
+    branchId: [0, Validators.required],
+    deptId: [0, Validators.required],
+    positionId: [0, Validators.required],
+    allowanceName: ['', Validators.required],
     description: [''],
     status: [false],
     createdOn: [''],
@@ -61,6 +68,7 @@ export class EntryComponent implements OnInit {
   ngOnInit(): void {
     this.allowanceId = parseInt(this.route.snapshot.paramMap.get('id') ?? '');
     if (this.allowanceId > 0) {
+      this.isEdit = true;
       this.allowancesService.getbyID(this.allowanceId).subscribe((res) => {
         this.model = res.data as AllowaneModel;
         console.log(this.model);
@@ -143,7 +151,10 @@ export class EntryComponent implements OnInit {
       };
       if (!this.isEdit) {
         model.allowanceId = 0;
-        model.createdOn = this.datepipe.transform(new Date(), 'yyyy-MM-dd');
+        model.createdOn = this.datepipe.transform(
+          new Date(),
+          'yyyy-MM-ddTHH:mm:ss'
+        );
         model.createdBy = 'Admin';
 
         this.isSubmitting = true;
@@ -153,12 +164,12 @@ export class EntryComponent implements OnInit {
             if (res.success) {
               this.modalVisible = false;
 
-              this.messageService.add({
-                key: 'globalMessage',
-                severity: 'info',
-                summary: 'Success',
-                detail: res.message.toString(),
-              });
+              // this.messageService.add({
+              //   key: 'globalMessage',
+              //   severity: 'info',
+              //   summary: 'Success',
+              //   detail: res.message.toString(),
+              // });
 
               this.isSubmitting = false;
             }
@@ -169,7 +180,10 @@ export class EntryComponent implements OnInit {
           },
         });
       } else {
-        model.updatedOn = this.datepipe.transform(new Date(), 'yyyy-MM-dd');
+        model.updatedOn = this.datepipe.transform(
+          new Date(),
+          'yyyy-MM-ddTHH:mm:ss'
+        );
         model.updatedBy = 'Admin';
         this.allowancesService.update(this.allowanceId, model).subscribe({
           next: (res) => {
