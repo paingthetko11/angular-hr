@@ -15,16 +15,28 @@ export class AllowanceService {
     return this.http.get<RootModel>(url);
   }
   getbyID(id: number): Observable<RootModel> {
-      let url: string = `${environment.apiUrl}/api/Allowance/${id}`;
-      return this.http.get<RootModel>(url);
-    }
-    create(model: AllowaneModel): Observable<RootModel> {
-      let url: string = `${environment.apiUrl}/api/Allowance`;
-      return this.http.post<RootModel>(url, JSON.stringify(model), {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-    }
+    let url: string = `${environment.apiUrl}/api/Allowance/${id}`;
+    return this.http.get<RootModel>(url);
+  }
+  create(model: AllowaneModel): Observable<RootModel> {
+    let url: string = `${environment.apiUrl}/api/Allowance`;
+    return this.http.post<RootModel>(url, JSON.stringify(model), {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+  update(id: number, model: AllowaneModel): Observable<RootModel> {
+    let url: string = `${environment.apiUrl}/api/Allowance
+/${id}`;
+    return this.http.put<RootModel>(url, JSON.stringify(model), {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+  delete(id: number): Observable<RootModel> {
+    let url: string = `${environment.apiUrl}/api/Allowance/${id}`;
+    return this.http.delete<RootModel>(url);
+  }
 }
-
