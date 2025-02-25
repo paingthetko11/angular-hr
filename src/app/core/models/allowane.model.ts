@@ -7,11 +7,11 @@ export interface AllowaneModel {
   allowanceName: string;
   description: string;
   status: boolean;
-  createdOn: any;
-  createdBy: any;
-  updatedOn: any;
-  updatedBy: any;
-  deletedOn: any;
-  deletedBy: any;
-  remark: any;
+  createdOn: string | null;
+  createdBy: string | null;
+  updatedOn: string | null;
+  updatedBy: string | null;
+  deletedOn: string | null;
+  deletedBy: string | null;
+  remark: string | null;
 }
