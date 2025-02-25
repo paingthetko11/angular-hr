@@ -30,12 +30,12 @@ import { AllowaneModel } from '../../core/models/allowane.model';
   styleUrl: './allowance.component.scss',
 })
 export class AllowanceComponent {
+  selectedAllowance!: AllowaneModel;
   allowances: AllowaneModel[] = [];
 
   constructor(
     private allowanceService: AllowanceService,
-    private route: Router
-  ) {}
+    private route: Router  ) {}
 
   ngOnInit(): void {
     this.loadData();
@@ -54,4 +54,19 @@ export class AllowanceComponent {
         return 'warn';
     }
   }
+  update(allowances: AllowaneModel): void {
+    this.selectedAllowance = allowances;
+    this.route.navigate([
+      'allowance/entry',
+      this.selectedAllowance.allowanceId,
+    ]);
+  }
+   delete(allowances: AllowaneModel): void {
+      this.selectedAllowance = allowances;
+      if (this.selectedAllowance !== null) {
+        this.allowanceService.delete(this.selectedAllowance.allowanceId).subscribe((res) => {
+          this.loadData();
+        });
+      }
+    }
 }
