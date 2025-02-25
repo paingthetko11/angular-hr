@@ -2,6 +2,7 @@
 
     <form [formGroup]="allowanceForm" (submit)="submit()">
         <div class="grid grid-cols-12 gap-2">
+             <!-- <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">Validation Failed</p-message> -->
             <div class="col-span-12 flex flex-col gap-2">
                 <label>AllowanceId</label>
                 <input pInputText formControlName="allowanceId" type="number">
@@ -9,6 +10,9 @@
             <div class="col-span-12 flex flex-col gap-2">
                 <label>CompanyId</label>
                 <input pInputText formControlName="companyId" type="text">
+                <small *ngIf="allowanceForm.controls['companyId'].invalid && allowanceForm.get('companyId')?.dirty" class="p-text">
+                    CompanyID is Require
+                  </small>
             </div>
             <div class="col-span-12 flex flex-col gap-2">
                 <label>BracnchId </label>
@@ -25,15 +29,20 @@
             <div class="col-span-12 flex flex-col gap-2">
                 <label>AllowanceName</label>
                 <input pInputText formControlName="allowanceName" type="text">
+                <small *ngIf="allowanceForm.controls['allowanceName'].invalid && allowanceForm.get('allowanceName')?.dirty" class="p-text">
+                    Allowance Name Is Required
+                  </small>
             </div>
             <div class="col-span-12 flex flex-col gap-2">
                 <label>Description</label>
                 <input pInputText formControlName="description" type="text">
             </div>
-            <div class="col-span-12 flex flex-col gap-2">
-                <label>Status</label>
-                <input pInputText formControlName="status" type="text">
-            </div>
+            <div class="col-6 flex flex-column gap-2">
+                <div class="flex align-items-center gap-1">
+                  <p-toggleswitch formControlName="status"></p-toggleswitch>
+                  <span class="text-md font-medium ml-2">Status</span>
+                </div>
+              </div>
             <div class="col-span-12 flex flex-col gap-2">
                 <label>Created On</label>
                 <input pInputText formControlName="createdOn" type="text" />
