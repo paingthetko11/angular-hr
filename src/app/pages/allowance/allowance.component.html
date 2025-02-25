@@ -1,7 +1,7 @@
 <div class="card">
     <p-table #dt1 [value]="allowances" dataKey="allowanceId" [paginator]="true" [rows]="10"
         [rowsPerPageOptions]="[5, 10, 20]" [globalFilterFields]="[
-        'allowanceName',
+        'allowanceId',
       ]" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template #caption>
             <div class="flex">
