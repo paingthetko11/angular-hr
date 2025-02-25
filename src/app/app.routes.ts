@@ -30,7 +30,7 @@ export const routes: Routes = [
   path: 'allowance',
   children: [
     { path: '', component: AllowanceComponent },
-    { path: 'entey/:id', component: AllowanceEntryComponent },
+    { path: 'entry/:id', component: AllowanceEntryComponent },
     { path: 'entry', component: AllowanceEntryComponent },
   ],
 },
