@@ -75,7 +75,11 @@
                 <input pInputText formControlName="remark" type="text" />
             </div>
             <div class="col-span-12">
-                <button pButton type="submit" [loading]="loading" (onClick)="load()">Submit</button>
+                <button pButton
+                type="submit"
+                icon="pi pi-check"
+                [disabled]="isSubmitting"
+                [loading]="isSubmitting"type="submit" >Submit</button>
             </div>
         </div>
     </form>
