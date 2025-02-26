@@ -1,5 +1,5 @@
 <div class="card">
-    <p-table #dt1 [value]="allowances" dataKey="allowanceId" [paginator]="true" [rows]="10"
+    <p-table #dt1 [value]="allowances" dataKey="allowanceId" [paginator]="true" [rows]="10" 
         [rowsPerPageOptions]="[5, 10, 20]" [globalFilterFields]="[
         'allowanceId',
       ]" [tableStyle]="{ 'min-width': '50rem' }">
@@ -105,9 +105,8 @@
                 <td>{{ allowance.description }}</td>
                 <td>
                     <p-tag value="{{ allowance.status? 'Active' : 'Inactive' }}" [severity]="allowance.status ? 'success' : 'info'
-                    "
-                           icon="{{ allowance.status? 'pi pi-check' : 'pi pi-minus-circle' }}" [rounded]="true"></p-tag>
-                  </td>
+                    " icon="{{ allowance.status? 'pi pi-check' : 'pi pi-minus-circle' }}" [rounded]="true"></p-tag>
+                </td>
                 <td>{{ allowance.createdOn }}</td>
                 <td>{{ allowance.createdBy }}</td>
                 <td>{{ allowance.updatedOn }}</td>
@@ -116,13 +115,9 @@
                 <td>{{ allowance.deletedBy }}</td>
                 <td>{{ allowance.remark }}</td>
                 <td class="flex flex-row gap-2">
-            <p-button (onClick)="update(allowance)"
-              ><i class="pi pi-user-edit"></i>Edit</p-button
-            >
-            <p-button (onClick)="delete(allowance)"
-              ><i class="pi pi-times"></i>Delete</p-button
-            >
-          </td>
+                    <p-button (onClick)="update(allowance)"><i class="pi pi-user-edit"></i>Edit</p-button>
+                    <p-button (onClick)="delete(allowance)"><i class="pi pi-times"></i>Delete</p-button>
+                </td>
             </tr>
         </ng-template>
 
