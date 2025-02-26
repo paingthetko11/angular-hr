@@ -71,6 +71,7 @@ export class EntryComponent implements OnInit {
     this.allowanceId = parseInt(this.route.snapshot.paramMap.get('id') ?? '');
     if (this.allowanceId > 0) {
       this.isEdit = true;
+      this.loading = true;
       this.allowancesService.getbyID(this.allowanceId).subscribe((res) => {
         this.model = res.data as AllowaneModel;
         console.log(this.model);
@@ -120,7 +121,7 @@ export class EntryComponent implements OnInit {
 
     setTimeout(() => {
       this.loading = false;
-    }, 5000);
+    }, 10000);
   }
 
   submit(): void {
