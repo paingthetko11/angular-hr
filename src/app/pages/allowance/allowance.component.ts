@@ -47,6 +47,7 @@ export class AllowanceComponent {
   loadData(): void {
     this.allowanceService.get().subscribe((res) => {
       this.allowances = res.data as AllowaneModel[];
+      this.isLoading = false;
     });
   }
   // load() {
@@ -56,14 +57,7 @@ export class AllowanceComponent {
   //     this.loading = false;
   //   }, 2000);
   // }
-  getSeverity(status: boolean) {
-    switch (status) {
-      case true:
-        return 'success';
-      case false:
-        return 'warn';
-    }
-  }
+
   update(allowances: AllowaneModel): void {
     this.selectedAllowance = allowances;
     this.route.navigate([
@@ -71,6 +65,7 @@ export class AllowanceComponent {
       this.selectedAllowance.allowanceId,
     ]);
   }
+
   delete(allowances: AllowaneModel): void {
     this.selectedAllowance = allowances;
     if (this.selectedAllowance !== null) {
@@ -81,4 +76,5 @@ export class AllowanceComponent {
         });
     }
   }
+  
 }
