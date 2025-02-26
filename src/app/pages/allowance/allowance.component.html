@@ -1,11 +1,12 @@
 <div class="card">
-    <p-table #dt1 [value]="allowances" dataKey="allowanceId" [paginator]="true" [rows]="10" 
+    <p-table #dt1 [value]="allowances" dataKey="allowanceId" [paginator]="true" [rows]="10"
         [rowsPerPageOptions]="[5, 10, 20]" [globalFilterFields]="[
         'allowanceId',
       ]" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template #caption>
             <div class="flex">
                 <p-button label="Create" routerLink="entry"><i class="pi pi-plus"></i></p-button>
+                <!-- <p-splitbutton label="Save" icon="pi pi-check" dropdownIcon="pi pi-cog" [model]="items" /> -->
                 <p-iconfield iconPosition="left" class="ml-auto">
                     <p-inputicon>
                         <i class="pi pi-search"></i>
@@ -17,49 +18,49 @@
 
         <ng-template #header>
             <tr style="white-space:nowrap">
-                <th pSortableColumn="allowanceId" >
+                <th pSortableColumn="allowanceId">
                     AllowanceID <p-sortIcon field="allowanceId" />
                 </th>
-                <th pSortableColumn="companyId" >
+                <th pSortableColumn="companyId">
                     CompanyID<p-sortIcon field="companyId" />
                 </th>
-                <th pSortableColumn="branchId" >
+                <th pSortableColumn="branchId">
                     BranchID <p-sortIcon field="branchId" />
                 </th>
-                <th pSortableColumn="deptId" >
+                <th pSortableColumn="deptId">
                     DeptID<p-sortIcon field="deptId" />
                 </th>
-                <th pSortableColumn="deptId" >
+                <th pSortableColumn="deptId">
                     PositionID<p-sortIcon field="deptId" />
                 </th>
-                <th pSortableColumn="companyId" >
+                <th pSortableColumn="companyId">
                     AllowanceName<p-sortIcon field="companyId" />
                 </th>
-                <th pSortableColumn="description" >
+                <th pSortableColumn="description">
                     Description<p-sortIcon field="description" />
                 </th>
-                <th pSortableColumn="status" >
+                <th pSortableColumn="status">
                     Status<p-sortIcon field="status" />
                 </th>
-                <th pSortableColumn="createdOn" >
+                <th pSortableColumn="createdOn">
                     Created On<p-sortIcon field="createdOn" />
                 </th>
-                <th pSortableColumn="createdBy" >
+                <th pSortableColumn="createdBy">
                     Created By<p-sortIcon field="createdBy" />
                 </th>
-                <th pSortableColumn="updatedOn" >
+                <th pSortableColumn="updatedOn">
                     Updated On<p-sortIcon field="updatedOn" />
                 </th>
-                <th pSortableColumn="updatedBy" >
+                <th pSortableColumn="updatedBy">
                     updated By<p-sortIcon field="updaetdBy" />
                 </th>
-                <th pSortableColumn="deletedOn" >
+                <th pSortableColumn="deletedOn">
                     Deleted On <p-sortIcon field="deletedOn" />
                 </th>
-                <th pSortableColumn="deletedBy" >
+                <th pSortableColumn="deletedBy">
                     Deleted By <p-sortIcon field="deletedBy" />
                 </th>
-                <th pSortableColumn="remark" >
+                <th pSortableColumn="remark">
                     Remark<p-sortIcon field="remark" />
                 </th>
                 <th>Action</th>
@@ -102,7 +103,9 @@
                 <td>{{ allowance.deptId }}</td>
                 <td>{{ allowance.positionId }}</td>
                 <td>{{ allowance.allowanceName }}</td>
-                <td>{{ allowance.description }}</td>
+                <td>
+                    <div [innerHTML]="allowance.description"></div>
+                </td>
                 <td>
                     <p-tag value="{{ allowance.status? 'Active' : 'Inactive' }}" [severity]="allowance.status ? 'success' : 'info'
                     " icon="{{ allowance.status? 'pi pi-check' : 'pi pi-minus-circle' }}" [rounded]="true"></p-tag>
