@@ -16,50 +16,50 @@
         </ng-template>
 
         <ng-template #header>
-            <tr>
-                <th pSortableColumn="allowanceId" style="min-width:200px">
+            <tr style="white-space:nowrap">
+                <th pSortableColumn="allowanceId" >
                     AllowanceID <p-sortIcon field="allowanceId" />
                 </th>
-                <th pSortableColumn="companyId" style="min-width:200px">
+                <th pSortableColumn="companyId" >
                     CompanyID<p-sortIcon field="companyId" />
                 </th>
-                <th pSortableColumn="branchId" style="min-width:200px">
+                <th pSortableColumn="branchId" >
                     BranchID <p-sortIcon field="branchId" />
                 </th>
-                <th pSortableColumn="deptId" style="min-width:200px">
+                <th pSortableColumn="deptId" >
                     DeptID<p-sortIcon field="deptId" />
                 </th>
-                <th pSortableColumn="deptId" style="min-width:200px">
+                <th pSortableColumn="deptId" >
                     PositionID<p-sortIcon field="deptId" />
                 </th>
-                <th pSortableColumn="companyId" style="min-width:200px">
+                <th pSortableColumn="companyId" >
                     AllowanceName<p-sortIcon field="companyId" />
                 </th>
-                <th pSortableColumn="description" style="min-width:200px">
+                <th pSortableColumn="description" >
                     Description<p-sortIcon field="description" />
                 </th>
-                <th pSortableColumn="status" style="min-width:200px">
+                <th pSortableColumn="status" >
                     Status<p-sortIcon field="status" />
                 </th>
-                <th pSortableColumn="createdOn" style="min-width:200px">
+                <th pSortableColumn="createdOn" >
                     Created On<p-sortIcon field="createdOn" />
                 </th>
-                <th pSortableColumn="createdBy" style="min-width:200px">
+                <th pSortableColumn="createdBy" >
                     Created By<p-sortIcon field="createdBy" />
                 </th>
-                <th pSortableColumn="updatedOn" style="min-width:200px">
+                <th pSortableColumn="updatedOn" >
                     Updated On<p-sortIcon field="updatedOn" />
                 </th>
-                <th pSortableColumn="updatedBy" style="min-width:200px">
+                <th pSortableColumn="updatedBy" >
                     updated By<p-sortIcon field="updaetdBy" />
                 </th>
-                <th pSortableColumn="deletedOn" style="min-width:200px">
+                <th pSortableColumn="deletedOn" >
                     Deleted On <p-sortIcon field="deletedOn" />
                 </th>
-                <th pSortableColumn="deletedBy" style="min-width:200px">
+                <th pSortableColumn="deletedBy" >
                     Deleted By <p-sortIcon field="deletedBy" />
                 </th>
-                <th pSortableColumn="remark" style="min-width:200px">
+                <th pSortableColumn="remark" >
                     Remark<p-sortIcon field="remark" />
                 </th>
                 <th>Action</th>
@@ -95,7 +95,7 @@
         </ng-template>
 
         <ng-template #body let-allowance>
-            <tr>
+            <tr style="white-space:nowrap">
                 <td>{{ allowance.allowanceId }}</td>
                 <td>{{ allowance.companyId }}</td>
                 <td>{{ allowance.branchId }}</td>
@@ -107,11 +107,11 @@
                     <p-tag value="{{ allowance.status? 'Active' : 'Inactive' }}" [severity]="allowance.status ? 'success' : 'info'
                     " icon="{{ allowance.status? 'pi pi-check' : 'pi pi-minus-circle' }}" [rounded]="true"></p-tag>
                 </td>
-                <td>{{ allowance.createdOn }}</td>
+                <td>{{ allowance.createdOn | date: 'dd/MMM/yyyy hh:mm:ss a'}}</td>
                 <td>{{ allowance.createdBy }}</td>
-                <td>{{ allowance.updatedOn }}</td>
+                <td>{{ allowance.updatedOn | date: 'dd/MMM/yyyy hh:mm:ss a'}}</td>
                 <td>{{ allowance.updatedBy }}</td>
-                <td>{{ allowance.deletedOn }}</td>
+                <td>{{ allowance.deletedOn | date: 'dd/MMM/yyyy hh:mm:ss a'}}</td>
                 <td>{{ allowance.deletedBy }}</td>
                 <td>{{ allowance.remark }}</td>
                 <td class="flex flex-row gap-2">
