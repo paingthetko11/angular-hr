@@ -39,6 +39,7 @@ export class EntryComponent implements OnInit {
   isSubmitting: boolean = false;
   modalVisible: boolean = false;
   isEdit: boolean = false;
+  loading: boolean = false;
 
   constructor(
     private allowancesService: AllowanceService,
@@ -113,6 +114,13 @@ export class EntryComponent implements OnInit {
         this.allowanceForm.controls.remark.setValue(this.model.remark);
       });
     }
+  }
+  load() {
+    this.loading = true;
+
+    setTimeout(() => {
+      this.loading = false;
+    }, 5000);
   }
 
   submit(): void {
