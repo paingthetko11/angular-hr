@@ -32,10 +32,12 @@ import { AllowaneModel } from '../../core/models/allowane.model';
 export class AllowanceComponent {
   selectedAllowance!: AllowaneModel;
   allowances: AllowaneModel[] = [];
+  loading: boolean = false;
 
   constructor(
     private allowanceService: AllowanceService,
-    private route: Router  ) {}
+    private route: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadData();
@@ -45,6 +47,13 @@ export class AllowanceComponent {
     this.allowanceService.get().subscribe((res) => {
       this.allowances = res.data as AllowaneModel[];
     });
+  }
+  load() {
+    this.loading = true;
+
+    setTimeout(() => {
+      this.loading = false;
+    }, 2000);
   }
   getSeverity(status: boolean) {
     switch (status) {
@@ -61,12 +70,14 @@ export class AllowanceComponent {
       this.selectedAllowance.allowanceId,
     ]);
   }
-   delete(allowances: AllowaneModel): void {
-      this.selectedAllowance = allowances;
-      if (this.selectedAllowance !== null) {
-        this.allowanceService.delete(this.selectedAllowance.allowanceId).subscribe((res) => {
+  delete(allowances: AllowaneModel): void {
+    this.selectedAllowance = allowances;
+    if (this.selectedAllowance !== null) {
+      this.allowanceService
+        .delete(this.selectedAllowance.allowanceId)
+        .subscribe((res) => {
           this.loadData();
         });
-      }
     }
+  }
 }
