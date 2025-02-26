@@ -32,7 +32,8 @@ import { AllowaneModel } from '../../core/models/allowane.model';
 export class AllowanceComponent {
   selectedAllowance!: AllowaneModel;
   allowances: AllowaneModel[] = [];
-  loading: boolean = false;
+  // loading: boolean = false;
+  isLoading: boolean = false;
 
   constructor(
     private allowanceService: AllowanceService,
@@ -48,13 +49,13 @@ export class AllowanceComponent {
       this.allowances = res.data as AllowaneModel[];
     });
   }
-  load() {
-    this.loading = true;
+  // load() {
+  //   this.loading = true;
 
-    setTimeout(() => {
-      this.loading = false;
-    }, 2000);
-  }
+  //   setTimeout(() => {
+  //     this.loading = false;
+  //   }, 2000);
+  // }
   getSeverity(status: boolean) {
     switch (status) {
       case true:
