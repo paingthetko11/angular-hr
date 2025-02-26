@@ -2,7 +2,7 @@
     <p-toast></p-toast>
     <form [formGroup]="allowanceForm" (submit)="submit()">
         <div class="grid grid-cols-12 gap-2">
-            
+
             <!-- <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">Validation Failed</p-message> -->
             <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
                 <label>AllowanceId</label>
@@ -43,16 +43,17 @@
             </div> -->
             <div class="col-span-12 flex flex-col gap-2">
                 <label>Description</label>
-
-                <p-editor formControlName="description"[style]="{ height: '320px' }">
+                <p-editor formControlName="description" [style]="{ height: '320px' }">
                 </p-editor>
             </div>
+
             <div class="col-6 flex flex-column gap-2">
                 <div class="flex align-items-center gap-1">
                     <p-toggleswitch formControlName="status"></p-toggleswitch>
                     <span class="text-md font-medium ml-2">Status</span>
                 </div>
             </div>
+            <!-- <div [innerHTML]="sanitizeHtml(allowanceForm.controls.description.value)"></div> -->
             <!-- <div class="col-span-12 flex flex-col gap-2">
                 <label>Created On</label>
                 <input pInputText formControlName="createdOn" type="text" />
