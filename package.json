@@ -22,6 +22,7 @@
     "primeclt": "^0.1.5",
     "primeicons": "^7.0.0",
     "primeng": "^19.0.6",
+    "quill": "^2.0.3",
     "rxjs": "~7.8.0",
     "tailwindcss-primeui": "^0.4.0",
     "tslib": "^2.3.0",
