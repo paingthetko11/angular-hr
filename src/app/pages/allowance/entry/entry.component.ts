@@ -18,6 +18,7 @@ import { Message, MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { Editor } from 'primeng/editor';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-entry',
@@ -51,7 +52,8 @@ export class EntryComponent implements OnInit {
     private route: ActivatedRoute,
     private datepipe: DatePipe,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private sanitizer: DomSanitizer
   ) {}
 
   private formBuilder = inject(FormBuilder);
@@ -72,6 +74,10 @@ export class EntryComponent implements OnInit {
     deletedBy: [''],
     remark: [''],
   });
+
+  sanitizeHtml(html: string | null): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(html || '');
+  }
 
   ngOnInit(): void {
     this.allowanceId = parseInt(this.route.snapshot.paramMap.get('id') ?? '');
@@ -130,6 +136,8 @@ export class EntryComponent implements OnInit {
   //     this.loading = false;
   //   }, 10000);
   // }
+
+  
 
   submit(): void {
     console.log('Form Submitted:', this.allowanceForm.value);
