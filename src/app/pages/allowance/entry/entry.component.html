@@ -2,12 +2,13 @@
     <p-toast></p-toast>
     <form [formGroup]="allowanceForm" (submit)="submit()">
         <div class="grid grid-cols-12 gap-2">
+            
             <!-- <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">Validation Failed</p-message> -->
-            <div class="col-span-12 flex flex-col gap-2">
+            <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
                 <label>AllowanceId</label>
                 <input pInputText formControlName="allowanceId" type="number">
             </div>
-            <div class="col-span-12 flex flex-col gap-2">
+            <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
                 <label>CompanyId</label>
                 <input pInputText formControlName="companyId" type="text">
                 <small *ngIf="allowanceForm.controls['companyId'].invalid && allowanceForm.get('companyId')?.dirty"
@@ -15,19 +16,19 @@
                     CompanyID is Require
                 </small>
             </div>
-            <div class="col-span-12 flex flex-col gap-2">
+            <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
                 <label>BracnchId </label>
                 <input pInputText formControlName="branchId" type="number">
             </div>
-            <div class="col-span-12 flex flex-col gap-2">
+            <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
                 <label>DeptId</label>
                 <input pInputText formControlName="deptId" type="number">
             </div>
-            <div class="col-span-12 flex flex-col gap-2">
+            <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
                 <label>PositionId </label>
                 <input pInputText formControlName="positionId" type="number">
             </div>
-            <div class="col-span-12 flex flex-col gap-2">
+            <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
                 <label>AllowanceName</label>
                 <input pInputText formControlName="allowanceName" type="text">
                 <small
