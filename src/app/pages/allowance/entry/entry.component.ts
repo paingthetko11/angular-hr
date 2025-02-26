@@ -158,9 +158,15 @@ export class EntryComponent implements OnInit {
         allowanceName: this.allowanceForm.controls.allowanceName.value ?? '',
         description: this.allowanceForm.controls.description.value ?? '',
         status: this.allowanceForm.controls.status.value ?? true,
-        createdOn: createdOn,
+        createdOn: this.datepipe.transform(
+          this.allowanceForm.controls.createdOn.value,
+          'yyyy-MM-dd'
+        ),
         createdBy: this.allowanceForm.controls.createdBy.value ?? '',
-        updatedOn: updatedOn,
+        updatedOn:  this.datepipe.transform(
+          this.allowanceForm.controls.updatedOn.value,
+          'yyyy-MM-dd'
+        ),
         updatedBy: this.allowanceForm.controls.updatedBy.value ?? '',
         deletedOn: deletedOn,
         deletedBy: this.allowanceForm.controls.deletedBy.value ?? '',
@@ -209,10 +215,9 @@ export class EntryComponent implements OnInit {
               this.modalVisible = false;
 
               this.messageService.add({
-                key: 'globalMessage',
                 severity: 'info',
                 summary: 'Success',
-                detail: res.message.toString(),
+                detail: "Successfully Update",
               });
               this.loading = false;
               this.router.navigate(['/allowance']);
