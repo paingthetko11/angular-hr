@@ -2,6 +2,8 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
+  FormControl,
+  FormGroup,
   FormsModule,
   ReactiveFormsModule,
   Validators,
@@ -11,14 +13,16 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { AllowaneModel } from '../../../core/models/allowane.model';
 import { AllowanceService } from '../../../core/services/allowance.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Message, MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { Editor } from 'primeng/editor';
 
 @Component({
   selector: 'app-entry',
   imports: [
+    RouterModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -27,6 +31,7 @@ import { MessageService } from 'primeng/api';
     ToggleSwitchModule,
     MessageModule,
     ToastModule,
+    Editor,
   ],
   providers: [DatePipe, MessageService],
   templateUrl: './entry.component.html',
@@ -45,7 +50,8 @@ export class EntryComponent implements OnInit {
     private allowancesService: AllowanceService,
     private route: ActivatedRoute,
     private datepipe: DatePipe,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {}
 
   private formBuilder = inject(FormBuilder);
@@ -72,6 +78,7 @@ export class EntryComponent implements OnInit {
     if (this.allowanceId > 0) {
       this.isEdit = true;
       this.loading = true;
+
       this.allowancesService.getbyID(this.allowanceId).subscribe((res) => {
         this.model = res.data as AllowaneModel;
         console.log(this.model);
@@ -116,13 +123,13 @@ export class EntryComponent implements OnInit {
       });
     }
   }
-  load() {
-    this.loading = true;
+  // load() {
+  //   this.loading = true;
 
-    setTimeout(() => {
-      this.loading = false;
-    }, 10000);
-  }
+  //   setTimeout(() => {
+  //     this.loading = false;
+  //   }, 10000);
+  // }
 
   submit(): void {
     console.log('Form Submitted:', this.allowanceForm.value);
@@ -180,7 +187,8 @@ export class EntryComponent implements OnInit {
                 detail: 'Successfully Created',
               });
 
-              this.isSubmitting = false;
+              this.loading = false;
+              this.router.navigate(['/allowance']);
             }
           },
           error: (err) => {
@@ -206,6 +214,8 @@ export class EntryComponent implements OnInit {
                 summary: 'Success',
                 detail: res.message.toString(),
               });
+              this.loading = false;
+              this.router.navigate(['/allowance']);
             }
           },
           error: (err) => {
