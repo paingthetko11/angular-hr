@@ -14,8 +14,17 @@ export class CompanyService {
     let url: string = `${environment.apiUrl}/api/Company`;
     return this.http.get<RootModel>(url);
   }
-  getById(id : number): Observable<RootModel>{
+  getById(id: string): Observable<RootModel> {
     let url: string = `${environment.apiUrl}/api/Company/${id}`;
+    return this.http.get<RootModel>(url);
+  }
+  getByCBDId(
+    companyId: string,
+    branchId: number,
+    deptId: number
+  ): Observable<RootModel> {
+    let url: string = `${environment.apiUrl}/api/Company/by-CBDid
+?companyid=${companyId}&branchid=${branchId}&deptid=${deptId}`;
     return this.http.get<RootModel>(url);
   }
 }
