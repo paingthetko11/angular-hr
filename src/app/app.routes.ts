@@ -6,6 +6,9 @@ import { PolicyComponent } from './policy/policy.component';
 import { EntityComponent } from './policy/entity/entity.component';
 import { AllowanceComponent } from './pages/allowance/allowance.component';
 import { EntryComponent as AllowanceEntryComponent } from './pages/allowance/entry/entry.component';
+import { CompanyComponent } from './pages/company/company.component';
+import { BranchComponent } from './pages/branch/branch.component';
+import { PositionComponent } from './pages/position/position.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -27,13 +30,16 @@ export const routes: Routes = [
     ],
   },
   {
-  path: 'allowance',
-  children: [
-    { path: '', component: AllowanceComponent },
-    { path: 'entry/:id', component: AllowanceEntryComponent },
-    { path: 'entry', component: AllowanceEntryComponent },
-    { path: 'allowance/entry', component: AllowanceEntryComponent },
+    path: 'allowance',
+    children: [
+      { path: '', component: AllowanceComponent },
+      { path: 'entry/:id', component: AllowanceEntryComponent },
+      { path: 'entry', component: AllowanceEntryComponent },
+      { path: 'allowance/entry', component: AllowanceEntryComponent },
       { path: '', redirectTo: 'allowance', pathMatch: 'full' },
-  ],
-},
+    ],
+  },
+  { path: 'company', component: CompanyComponent },
+  { path: 'branch', component: BranchComponent },
+  { path: 'position', component: PositionComponent },
 ];
