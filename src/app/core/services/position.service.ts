@@ -14,7 +14,16 @@ export class PositionService {
     return this.http.get<RootModel>(url);
   }
   getById(id: number): Observable<RootModel> {
-    let url: string = `${environment.apiUrl}/api/Position/${id}`;
+    let url: string = `${environment.apiUrl}/api/Position/by`;
     return this.http.get<RootModel>(url);
   }
+  getByCId(id: number): Observable<RootModel> {
+    let url: string = `${environment.apiUrl}/api/Position/by-companyId`;
+    return this.http.get<RootModel>(url);
+  }
+  getByPId(id: number): Observable<RootModel> {
+    let url: string = `${environment.apiUrl}/api/Position/by-positionId`;
+    return this.http.get<RootModel>(url);
+  }
+  
 }
