@@ -19,7 +19,13 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { Editor } from 'primeng/editor';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { SelectModule } from 'primeng/select';
+import { CompanyModel } from '../../../core/models/company.model';
 
+interface Companies {
+  name: string;
+  code: string;
+}
 @Component({
   selector: 'app-entry',
   imports: [
@@ -32,6 +38,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
     ToggleSwitchModule,
     MessageModule,
     ToastModule,
+    SelectModule,
     Editor,
   ],
   providers: [DatePipe, MessageService],
@@ -46,6 +53,8 @@ export class EntryComponent implements OnInit {
   modalVisible: boolean = false;
   isEdit: boolean = false;
   loading: boolean = false;
+   isLoading: boolean = false;companies: Companies[] | undefined;
+    selectedCompany!: CompanyModel;
 
   constructor(
     private allowancesService: AllowanceService,
@@ -78,6 +87,8 @@ export class EntryComponent implements OnInit {
   sanitizeHtml(html: string | null): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(html || '');
   }
+
+  get(): void{}
 
   ngOnInit(): void {
     this.allowanceId = parseInt(this.route.snapshot.paramMap.get('id') ?? '');
@@ -137,8 +148,6 @@ export class EntryComponent implements OnInit {
   //   }, 10000);
   // }
 
-  
-
   submit(): void {
     console.log('Form Submitted:', this.allowanceForm.value);
     if (this.allowanceForm.valid) {
@@ -171,7 +180,7 @@ export class EntryComponent implements OnInit {
           'yyyy-MM-dd'
         ),
         createdBy: this.allowanceForm.controls.createdBy.value ?? '',
-        updatedOn:  this.datepipe.transform(
+        updatedOn: this.datepipe.transform(
           this.allowanceForm.controls.updatedOn.value,
           'yyyy-MM-dd'
         ),
@@ -225,7 +234,7 @@ export class EntryComponent implements OnInit {
               this.messageService.add({
                 severity: 'info',
                 summary: 'Success',
-                detail: "Successfully Update",
+                detail: 'Successfully Update',
               });
               this.loading = false;
               this.router.navigate(['/allowance']);

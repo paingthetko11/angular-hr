@@ -9,7 +9,15 @@
                 <input pInputText formControlName="allowanceId" type="number">
             </div>
             <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
-                <label>CompanyId</label>
+                <label>
+                <p-select
+              formControlName="selectedName"
+              [options]="companies"
+              optionLabel="company"
+              placeholder="Select a Name"
+              class="w-full md:w-56"
+            />
+                    CompanyId</label>
                 <input pInputText formControlName="companyId" type="text">
                 <small *ngIf="allowanceForm.controls['companyId'].invalid && allowanceForm.get('companyId')?.dirty"
                     class="p-text">
