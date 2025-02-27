@@ -1,7 +1,12 @@
 export interface PositionModel {
   positionId: number;
-  deptId: number;
   positionName: string;
+  deptId: number;
+  deptName: string;
+  branchId: number;
+  branchName: string;
+  companyId: string;
+  companyName: string;
   status: boolean;
   createdOn: string;
   createdBy: string;
@@ -10,5 +15,4 @@ export interface PositionModel {
   deletedOn: null;
   deletedBy: null;
   remark: null;
-  dept: null;
 }
