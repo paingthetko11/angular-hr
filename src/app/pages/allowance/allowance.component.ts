@@ -11,6 +11,13 @@ import { RatingModule } from 'primeng/rating';
 import { TagModule } from 'primeng/tag';
 import { AllowanceService } from '../../core/services/allowance.service';
 import { AllowaneModel } from '../../core/models/allowane.model';
+import { Select, SelectModule } from 'primeng/select';
+import { CompanyModel } from '../../core/models/company.model';
+
+interface Companies {
+  name: string;
+  code: string;
+}
 
 @Component({
   selector: 'app-allowance',
@@ -25,6 +32,7 @@ import { AllowaneModel } from '../../core/models/allowane.model';
     CommonModule,
     TagModule,
     RatingModule,
+    SelectModule,
   ],
   templateUrl: './allowance.component.html',
   styleUrl: './allowance.component.scss',
@@ -33,7 +41,8 @@ export class AllowanceComponent {
   selectedAllowance!: AllowaneModel;
   allowances: AllowaneModel[] = [];
   // loading: boolean = false;
-  isLoading: boolean = false;
+  isLoading: boolean = false;companies: Companies[] | undefined;
+  selectedCompany!: CompanyModel;
 
   constructor(
     private allowanceService: AllowanceService,

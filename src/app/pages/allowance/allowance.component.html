@@ -25,7 +25,14 @@
                     CompanyID<p-sortIcon field="companyId" />
                 </th>
                 <th pSortableColumn="branchId">
-                    BranchID <p-sortIcon field="branchId" />
+                    BranchID 
+                    <p-select
+              formControlName="selectedName"
+              [options]="companies"
+              optionLabel="company"
+              placeholder="Select a Name"
+              class="w-full md:w-56"
+            /><p-sortIcon field="branchId" />
                 </th>
                 <th pSortableColumn="deptId">
                     DeptID<p-sortIcon field="deptId" />
