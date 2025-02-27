@@ -19,4 +19,8 @@ export class BranchService {
       let url: string = `${environment.apiUrl}/api/HrBranch/${id}`;
       return this.http.get<RootModel>(url);
     }
+    getbyCompanyId(companyId : string): Observable<RootModel> {
+      let url: string = `${environment.apiUrl}/api/HrBranch/?companyId=${companyId}`;
+      return this.http.get<RootModel>(url);
+    }
 }
