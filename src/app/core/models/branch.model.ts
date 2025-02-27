@@ -1,19 +1,20 @@
 export interface BranchModel {
-  branchId: number;
   companyId: string;
-  branchName: string;
+  companyName: string;
+  joinDate: string;
+  licenseNo: string;
   contactPerson: string;
   primaryPhone: string;
   otherPhone: string;
   email: string;
   houseNo: string;
   streetId: number;
-  streetName: null;
+  streetName: string;
   townshipId: number;
+  townshipName: string;
   stateId: number;
+  stateName: string;
   photo: null;
-  isDefault: boolean;
-  isAutoDeduction: boolean;
   status: boolean;
   createdOn: string;
   createdBy: string;
@@ -22,7 +23,4 @@ export interface BranchModel {
   deletedOn: null;
   deletedBy: null;
   remark: null;
-  company: null;
-  hrDepartments: any[];
-  hrLeaveGroups: any[];
 }
