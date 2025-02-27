@@ -5,21 +5,28 @@ import { environment } from '../../../environments/environment';
 import { RootModel } from '../models/root.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DepartmentService {
-
-  constructor(private http:HttpClient) { }
-   get(): Observable<RootModel> {
-      let url: string = `${environment.apiUrl}/api/Department`;
-      return this.http.get<RootModel>(url);
-    }
-    getbyID(id: number): Observable<RootModel> {
-      let url: string = `${environment.apiUrl}/api/HrDepartment/${id}`;
-      return this.http.get<RootModel>(url);
-    }
-    getbyCID(id: number): Observable<RootModel> {
-      let url: string = `${environment.apiUrl}/api/HrDepartment/by`;
-      return this.http.get<RootModel>(url);
-    }
+  constructor(private http: HttpClient) {}
+  get(): Observable<RootModel> {
+    let url: string = `${environment.apiUrl}/api/Department`;
+    return this.http.get<RootModel>(url);
+  }
+  getbyID(id: number): Observable<RootModel> {
+    let url: string = `${environment.apiUrl}/api/HrDepartment/${id}`;
+    return this.http.get<RootModel>(url);
+  }
+  getbyCID(companyId: string, branchId: number): Observable<RootModel> {
+    let url: string = `${environment.apiUrl}/api/HrDepartment/by?companyid=${companyId}&branchid=${branchId}`;
+    return this.http.get<RootModel>(url);
+  }
+  getbyName(
+    deptName: string,
+    companyId: string,
+    branchId: number
+  ): Observable<RootModel> {
+    let url: string = `${environment.apiUrl}/api/HrDepartment/byName?deptName=${deptName}&companyId=${companyId}&branchId=${branchId}`;
+    return this.http.get<RootModel>(url);
+  }
 }
