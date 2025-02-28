@@ -69,6 +69,7 @@ export class AllowanceComponent {
 
   update(allowances: AllowaneModel): void {
     this.selectedAllowance = allowances;
+    
     this.route.navigate([
       'allowance/entry',
       this.selectedAllowance.allowanceId,
