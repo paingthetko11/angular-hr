@@ -20,7 +20,7 @@ export class BranchService {
       return this.http.get<RootModel>(url);
     }
     getbyCompanyId(companyId : string): Observable<RootModel> {
-      let url: string = `${environment.apiUrl}/api/HrBranch/?companyId=${companyId}`;
+      let url: string = `${environment.apiUrl}/api/HrBranch/by-companyId?companyId=${companyId}`;
       return this.http.get<RootModel>(url);
     }
 }
