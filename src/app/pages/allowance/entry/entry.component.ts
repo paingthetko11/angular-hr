@@ -21,6 +21,7 @@ import { Editor } from 'primeng/editor';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { SelectModule } from 'primeng/select';
 import { CompanyModel } from '../../../core/models/company.model';
+import { CompanyService } from '../../../core/services/company.service';
 
 interface Companies {
   name: string;
@@ -53,8 +54,9 @@ export class EntryComponent implements OnInit {
   modalVisible: boolean = false;
   isEdit: boolean = false;
   loading: boolean = false;
-   isLoading: boolean = false;companies: Companies[] | undefined;
-    selectedCompany!: CompanyModel;
+  isLoading: boolean = false;
+  companies: CompanyModel[] = [];
+  selectedCompany!: CompanyModel;
 
   constructor(
     private allowancesService: AllowanceService,
@@ -62,7 +64,8 @@ export class EntryComponent implements OnInit {
     private datepipe: DatePipe,
     private messageService: MessageService,
     private router: Router,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private companyService: CompanyService
   ) {}
 
   private formBuilder = inject(FormBuilder);
@@ -88,9 +91,22 @@ export class EntryComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustHtml(html || '');
   }
 
-  get(): void{}
+  getCompanies(): void {
+    this.companyService.get().subscribe((res) => {
+      this.companies = res.data;
+    });
+  }
+  onCompanyChange(): void {
+    if (this.selectedCompany !== undefined && this.selectedCompany !== null) {
+      this.allowanceForm.controls.companyId.setValue(
+        this.selectedCompany.companyId
+      );
+      this.errorMessage = [];
+    }
+  }
 
   ngOnInit(): void {
+    this.getCompanies();
     this.allowanceId = parseInt(this.route.snapshot.paramMap.get('id') ?? '');
     if (this.allowanceId > 0) {
       this.isEdit = true;
@@ -140,13 +156,6 @@ export class EntryComponent implements OnInit {
       });
     }
   }
-  // load() {
-  //   this.loading = true;
-
-  //   setTimeout(() => {
-  //     this.loading = false;
-  //   }, 10000);
-  // }
 
   submit(): void {
     console.log('Form Submitted:', this.allowanceForm.value);
