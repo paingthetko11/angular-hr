@@ -40,7 +40,6 @@ interface Companies {
 export class AllowanceComponent {
   selectedAllowance!: AllowaneModel;
   allowances: ViAllowanceModel[] = [];
-  // loading: boolean = false;
   isLoading: boolean = false;companies: Companies[] | undefined;
   selectedCompany!: CompanyModel;
 
