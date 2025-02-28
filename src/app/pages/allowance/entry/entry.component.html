@@ -10,15 +10,17 @@
             </div>
             <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
                 <label>
-                <p-select
-              formControlName="selectedName"
-              [options]="companies"
-              optionLabel="company"
-              placeholder="Select a Name"
-              class="w-full md:w-56"
-            />
                     CompanyId</label>
-                <input pInputText formControlName="companyId" type="text">
+                    <div class="card flex justify-center">
+                        <p-select
+                          [options]="companies"
+                          [(ngModel)]="selectedCompany"
+                          optionLabel="companyName"
+                          placeholder="Select a City"
+                          class="w-full md:w-56"
+                          [ngModelOptions]="{ standalone: true }"
+                        />
+                      </div>
                 <small *ngIf="allowanceForm.controls['companyId'].invalid && allowanceForm.get('companyId')?.dirty"
                     class="p-text">
                     CompanyID is Require
