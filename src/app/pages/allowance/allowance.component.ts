@@ -10,7 +10,7 @@ import { TableModule } from 'primeng/table';
 import { RatingModule } from 'primeng/rating';
 import { TagModule } from 'primeng/tag';
 import { AllowanceService } from '../../core/services/allowance.service';
-import { AllowaneModel } from '../../core/models/allowane.model';
+import { AllowaneModel, ViAllowanceModel } from '../../core/models/allowane.model';
 import { Select, SelectModule } from 'primeng/select';
 import { CompanyModel } from '../../core/models/company.model';
 
@@ -39,7 +39,7 @@ interface Companies {
 })
 export class AllowanceComponent {
   selectedAllowance!: AllowaneModel;
-  allowances: AllowaneModel[] = [];
+  allowances: ViAllowanceModel[] = [];
   // loading: boolean = false;
   isLoading: boolean = false;companies: Companies[] | undefined;
   selectedCompany!: CompanyModel;
@@ -55,7 +55,7 @@ export class AllowanceComponent {
 
   loadData(): void {
     this.allowanceService.get().subscribe((res) => {
-      this.allowances = res.data as AllowaneModel[];
+      this.allowances = res.data as ViAllowanceModel[];
       this.isLoading = false;
     });
   }
