@@ -24,6 +24,9 @@
                 <th pSortableColumn="companyId">
                     CompanyID<p-sortIcon field="companyId" />
                 </th>
+                <th pSortableColumn="companyName">
+                    Company<p-sortIcon field="companyName" />
+                </th>
                 <th pSortableColumn="branchId">
                     BranchID 
                     <!-- <p-select
@@ -85,6 +88,10 @@
                         ariaLabel="Filter Name"></p-columnFilter>
                 </th>
                 <th>
+                    <p-columnFilter type="text" field="companyName" placeholder="Search by Name"
+                        ariaLabel="Filter Name"></p-columnFilter>
+                </th>
+                <th>
                     <p-columnFilter type="text" field="branchId" placeholder="Search by Id"
                         ariaLabel="Filter Id"></p-columnFilter>
                 </th>
@@ -107,6 +114,7 @@
             <tr style="white-space:nowrap">
                 <td>{{ allowance.allowanceId }}</td>
                 <td>{{ allowance.companyId }}</td>
+                <td>{{ allowance.companyName }}</td>
                 <td>{{ allowance.branchId }}</td>
                 <td>{{ allowance.deptId }}</td>
                 <td>{{ allowance.positionId }}</td>
