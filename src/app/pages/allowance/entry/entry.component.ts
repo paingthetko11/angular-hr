@@ -11,7 +11,10 @@ import {
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
-import { AllowaneModel } from '../../../core/models/allowane.model';
+import {
+  AllowaneModel,
+  ViAllowanceModel,
+} from '../../../core/models/allowane.model';
 import { AllowanceService } from '../../../core/services/allowance.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Message, MessageModule } from 'primeng/message';
@@ -48,7 +51,7 @@ interface Companies {
 })
 export class EntryComponent implements OnInit {
   allowanceId: number = 0;
-  model!: AllowaneModel;
+  model!: ViAllowanceModel;
   errorMessage!: Message[];
   isSubmitting: boolean = false;
   modalVisible: boolean = false;
@@ -96,6 +99,7 @@ export class EntryComponent implements OnInit {
       this.companies = res.data;
     });
   }
+
   onCompanyChange(): void {
     if (this.selectedCompany !== undefined && this.selectedCompany !== null) {
       this.allowanceForm.controls.companyId.setValue(
@@ -111,9 +115,11 @@ export class EntryComponent implements OnInit {
     if (this.allowanceId > 0) {
       this.isEdit = true;
       this.loading = true;
+      
+ //     console.log('this is company id', this.model.companyId);
 
       this.allowancesService.getbyID(this.allowanceId).subscribe((res) => {
-        this.model = res.data as AllowaneModel;
+        this.model = res.data as ViAllowanceModel;
         console.log(this.model);
 
         this.allowanceForm.controls.allowanceId.setValue(
@@ -153,6 +159,7 @@ export class EntryComponent implements OnInit {
         );
         this.allowanceForm.controls.deletedBy.setValue(this.model.deletedBy);
         this.allowanceForm.controls.remark.setValue(this.model.remark);
+        this.onCompanyChange();
       });
     }
   }
@@ -160,21 +167,6 @@ export class EntryComponent implements OnInit {
   submit(): void {
     console.log('Form Submitted:', this.allowanceForm.value);
     if (this.allowanceForm.valid) {
-      let createdOn = this.datepipe.transform(
-        this.allowanceForm.controls.createdOn.value,
-        'yyyy-MM-dd'
-      );
-
-      let updatedOn = this.datepipe.transform(
-        this.allowanceForm.controls.updatedOn.value,
-        'yyyy-MM-dd'
-      );
-
-      let deletedOn = this.datepipe.transform(
-        this.allowanceForm.controls.deletedOn.value,
-        'yyyy-MM-dd'
-      );
-
       var model: AllowaneModel = {
         allowanceId: this.allowanceForm.controls.allowanceId.value ?? 0,
         companyId: this.allowanceForm.controls.companyId.value ?? '',
@@ -193,11 +185,15 @@ export class EntryComponent implements OnInit {
           this.allowanceForm.controls.updatedOn.value,
           'yyyy-MM-dd'
         ),
+        deletedOn: this.datepipe.transform(
+          this.allowanceForm.controls.updatedOn.value,
+          'yyyy-MM-dd'
+        ),
         updatedBy: this.allowanceForm.controls.updatedBy.value ?? '',
-        deletedOn: deletedOn,
         deletedBy: this.allowanceForm.controls.deletedBy.value ?? '',
         remark: this.allowanceForm.controls.remark.value ?? '',
       };
+
       if (!this.isEdit) {
         model.allowanceId = 0;
         model.createdOn = this.datepipe.transform(
