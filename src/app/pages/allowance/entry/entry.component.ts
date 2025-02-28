@@ -25,6 +25,8 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { SelectModule } from 'primeng/select';
 import { CompanyModel } from '../../../core/models/company.model';
 import { CompanyService } from '../../../core/services/company.service';
+import { BranchModel } from '../../../core/models/branch.model';
+import { BranchService } from '../../../core/services/branch.service';
 
 interface Companies {
   name: string;
@@ -59,7 +61,9 @@ export class EntryComponent implements OnInit {
   loading: boolean = false;
   isLoading: boolean = false;
   companies: CompanyModel[] = [];
+  branches: BranchModel[] = [];
   selectedCompany!: CompanyModel;
+  selectedBranch!: BranchModel;
 
   constructor(
     private allowancesService: AllowanceService,
@@ -68,7 +72,8 @@ export class EntryComponent implements OnInit {
     private messageService: MessageService,
     private router: Router,
     private sanitizer: DomSanitizer,
-    private companyService: CompanyService
+    private companyService: CompanyService,
+    private branchService: BranchService
   ) {}
 
   private formBuilder = inject(FormBuilder);
@@ -94,7 +99,6 @@ export class EntryComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustHtml(html || '');
   }
 
- 
   ngOnInit(): void {
     this.getCompanies();
     this.allowanceId = parseInt(this.route.snapshot.paramMap.get('id') ?? '');
@@ -219,22 +223,48 @@ export class EntryComponent implements OnInit {
           this.selectedCompany = this.companies.filter(
             (x) => x.companyId == this.model.companyId
           )[0];
-          this.onCompanyChange();
+          this.OnBranchChange();
         }
       },
       error: () => {},
     });
   }
+  // else {
+  //   this.branches = [];
+  //   this.selectedBranch = null;
+  // }
   onCompanyChange(): void {
     if (this.selectedCompany !== undefined && this.selectedCompany !== null) {
       this.allowanceForm.controls.companyId.setValue(
         this.selectedCompany.companyId
       );
+      this.getBranch(this.selectedCompany.companyId);
       this.errorMessage = [];
     }
   }
- 
 
+  getBranch(companyId : string): void {
+    this.branchService.getbyCompanyId(companyId).subscribe({
+      next: (res) => {
+        this.branches = res.data;
+        if (this.isEdit) {
+          this.selectedBranch = this.branches.filter(
+            (x) => x.branchId == this.model.branchId
+          )[0];
+        }
+      },
+      error: () => {},
+    });
+  }
+
+  OnBranchChange(): void {
+    if (this.selectedBranch !== undefined && this.selectedBranch !== null) {
+      this.allowanceForm.controls.branchId.setValue(
+        this.selectedBranch.branchId
+      );
+      this.errorMessage = [];
+    }
+  }
 
   submit(): void {
     console.log('Form Submitted:', this.allowanceForm.value);
