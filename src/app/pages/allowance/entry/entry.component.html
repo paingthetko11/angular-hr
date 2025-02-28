@@ -11,13 +11,14 @@
             <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
                 <label>
                     CompanyId</label>
-                    <div class="card flex justify-center">
+                    <div class="card flex w-full">
                         <p-select
                           [options]="companies"
                           [(ngModel)]="selectedCompany"
                           optionLabel="companyName"
-                          placeholder="Select a City"
-                          class="w-full md:w-56"
+                          placeholder="Select a Company"
+                          (onChange)="onCompanyChange()"
+                          class="w-full "
                           [ngModelOptions]="{ standalone: true }"
                         />
                       </div>
@@ -93,7 +94,7 @@
                 <input pInputText formControlName="remark" type="text" />
             </div> -->
             <div class="col-span-12">
-                <button pButton type="submit" icon="pi pi-check" [disabled]="isSubmitting" [loading]="isSubmitting"
+                <button pButton type="submit" icon="pi pi-check" [loading]="isSubmitting"
                     type="submit" class="w-24">Submit</button>
             </div>
         </div>
