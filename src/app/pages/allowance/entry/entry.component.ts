@@ -11,9 +11,7 @@ import {
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
-import {
-  AllowaneModel
-} from '../../../core/models/allowane.model';
+import { AllowaneModel } from '../../../core/models/allowane.model';
 import { AllowanceService } from '../../../core/services/allowance.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Message, MessageModule } from 'primeng/message';
@@ -66,11 +64,11 @@ export class EntryComponent implements OnInit {
   companies: CompanyModel[] = [];
   branches: BranchModel[] = [];
   deparments: DepartmentModel[] = [];
-  positions : PositionModel[] = [];
+  positions: PositionModel[] = [];
   selectedCompany!: CompanyModel;
   selectedBranch!: BranchModel;
   selectedDepartment!: DepartmentModel;
-  selectedposition !: PositionModel;
+  selectedPosition!: PositionModel;
 
   constructor(
     private allowancesService: AllowanceService,
@@ -82,7 +80,7 @@ export class EntryComponent implements OnInit {
     private companyService: CompanyService,
     private branchService: BranchService,
     private departmentService: DepartmentService,
-    private positionService: PositionService,
+    private positionService: PositionService
   ) {}
 
   private formBuilder = inject(FormBuilder);
@@ -279,6 +277,7 @@ export class EntryComponent implements OnInit {
       this.errorMessage = [];
     }
   }
+
   getDept(companyId: string, branchId: number): void {
     this.departmentService.getbyCID(companyId, branchId).subscribe({
       next: (res) => {
@@ -293,6 +292,7 @@ export class EntryComponent implements OnInit {
       error: () => {},
     });
   }
+
   OnDeptChange(): void {
     if (
       this.selectedDepartment !== undefined &&
@@ -301,23 +301,37 @@ export class EntryComponent implements OnInit {
       this.allowanceForm.controls.deptId.setValue(
         this.selectedDepartment.deptId
       );
+      this.getPos(
+        this.selectedCompany.companyId,
+        this.selectedBranch.branchId,
+        this.selectedDepartment.deptId
+      );
       this.errorMessage = [];
     }
   }
-  getPos(companyId : string ,branchId : number ,deptId : number):void{
-    this.positionService.getByCBDId(companyId,branchId,deptId).subscribe({
+
+  getPos(companyId: string, branchId: number, deptId: number): void {
+    this.positionService.getByCBDId(companyId, branchId, deptId).subscribe({
       next: (res) => {
-        this.positions =res.data;
-        if(this.isEdit){
-          this.selectedposition = this.positions.filter(
+        this.positions = res.data;
+        if (this.isEdit) {
+          this.selectedPosition = this.positions.filter(
             (x) => x.positionId == this.model.positionId
           )[0];
         }
       },
       error: () => {},
-    })
+    });
   }
 
+  OnPosChange(): void {
+    if (this.selectedPosition !== undefined && this.selectedPosition !== null) {
+      this.allowanceForm.controls.positionId.setValue(
+        this.selectedPosition.positionId
+      );
+      this.errorMessage = [];
+    }
+  }
 
   submit(): void {
     console.log('Form Submitted:', this.allowanceForm.value);
