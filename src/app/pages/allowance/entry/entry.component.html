@@ -11,17 +11,11 @@
             <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
                 <label>
                     CompanyId</label>
-                    <div class="card flex w-full">
-                        <p-select
-                          [options]="companies"
-                          [(ngModel)]="selectedCompany"
-                          optionLabel="companyName"
-                          placeholder="Select a Company"
-                          (onChange)="onCompanyChange()"
-                          class="w-full "
-                          [ngModelOptions]="{ standalone: true }"
-                        />
-                      </div>
+                <div class="card flex w-full">
+                    <p-select [options]="companies" [(ngModel)]="selectedCompany" optionLabel="companyName"
+                        placeholder="Select a Company" (onChange)="onCompanyChange()" class="w-full "
+                        [ngModelOptions]="{ standalone: true }" />
+                </div>
                 <small *ngIf="allowanceForm.controls['companyId'].invalid && allowanceForm.get('companyId')?.dirty"
                     class="p-text">
                     CompanyID is Require
@@ -30,38 +24,35 @@
             <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
                 <label>
                     <div class="card flex w-full">
-                        <p-select
-                          [options]="branches"
-                          [(ngModel)]="selectedBranch"
-                          optionLabel="branchName"
-                          placeholder="Select a Branch"
-                          (onChange)="OnBranchChange()"
-                          class="w-full "
-                          [ngModelOptions]="{ standalone: true }"
-                        />
-                      </div>
-                    BracnchId </label>
+                        <p-select [options]="branches" [(ngModel)]="selectedBranch" optionLabel="branchName"
+                            placeholder="Select a Branch" (onChange)="OnBranchChange()" class="w-full "
+                            [ngModelOptions]="{ standalone: true }" />
+                    </div>
+                    BracnchId
+                </label>
                 <input pInputText formControlName="branchId" type="number">
             </div>
-            
+
             <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
                 <label>
                     <div class="card flex w-full">
-                        <p-select
-                          [options]="deparments"
-                          [(ngModel)]="selectedDepartment"
-                          optionLabel="deptName"
-                          placeholder="Select a Department"
-                          (onChange)="OnDeptChange()"
-                          class="w-full "
-                          [ngModelOptions]="{ standalone: true }"
-                        />
-                      </div>
-                    DeptId</label>
+                        <p-select [options]="deparments" [(ngModel)]="selectedDepartment" optionLabel="deptName"
+                            placeholder="Select a Department" (onChange)="OnDeptChange()" class="w-full "
+                            [ngModelOptions]="{ standalone: true }" />
+                    </div>
+                    DeptId
+                </label>
                 <input pInputText formControlName="deptId" type="number">
             </div>
             <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
-                <label>PositionId </label>
+                <label>
+                    <div class="card flex w-full">
+                        <p-select [options]="positions" [(ngModel)]="selectedPosition" optionLabel="positionName"
+                            placeholder="Select a Position" (onChange)="OnPosChange()" class="w-full "
+                            [ngModelOptions]="{ standalone: true }" />
+                    </div>
+                    PositionId
+                </label>
                 <input pInputText formControlName="positionId" type="number">
             </div>
             <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
@@ -119,8 +110,8 @@
                 <input pInputText formControlName="remark" type="text" />
             </div> -->
             <div class="col-span-12">
-                <button pButton type="submit" icon="pi pi-check" [loading]="isSubmitting"
-                    type="submit" class="w-24">Submit</button>
+                <button pButton type="submit" icon="pi pi-check" [loading]="isSubmitting" type="submit"
+                    class="w-24">Submit</button>
             </div>
         </div>
     </form>
