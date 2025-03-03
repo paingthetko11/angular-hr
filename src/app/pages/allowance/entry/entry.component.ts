@@ -28,6 +28,8 @@ import { BranchModel } from '../../../core/models/branch.model';
 import { BranchService } from '../../../core/services/branch.service';
 import { DepartmentModel } from '../../../core/models/department.model';
 import { DepartmentService } from '../../../core/services/department.service';
+import { PositionModel } from '../../../core/models/position.model';
+import { PositionService } from '../../../core/services/position.service';
 
 interface Companies {
   name: string;
@@ -64,6 +66,7 @@ export class EntryComponent implements OnInit {
   companies: CompanyModel[] = [];
   branches: BranchModel[] = [];
   deparments: DepartmentModel[] = [];
+  positions : PositionModel[] = [];
   selectedCompany!: CompanyModel;
   selectedBranch!: BranchModel;
   selectedDepartment!: DepartmentModel;
@@ -77,7 +80,8 @@ export class EntryComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private companyService: CompanyService,
     private branchService: BranchService,
-    private departmentService: DepartmentService
+    private departmentService: DepartmentService,
+    private positionService: PositionService,
   ) {}
 
   private formBuilder = inject(FormBuilder);
@@ -299,6 +303,11 @@ export class EntryComponent implements OnInit {
       this.errorMessage = [];
     }
   }
+  // getPos():void{
+  //   this
+  // }
+
+
   submit(): void {
     console.log('Form Submitted:', this.allowanceForm.value);
     if (this.allowanceForm.valid) {
