@@ -13,20 +13,20 @@
                     CompanyId</label>
                 <div class="card flex w-full">
                     <p-select [options]="companies" [(ngModel)]="selectedCompany" optionLabel="companyName"
-                        placeholder="Select a Company" (onChange)="onCompanyChange()" class="w-full "
-                        [ngModelOptions]="{ standalone: true }" />
+                        placeholder="Select a Company" (onChange)="onCompanyChange()"
+                        class="ng-dirty ng-invalid w-full " [ngModelOptions]="{ standalone: true }" />
                 </div>
                 <small *ngIf="allowanceForm.controls['companyId'].invalid && allowanceForm.get('companyId')?.dirty"
                     class="p-text">
-                    CompanyID is Require
+                    CompanyID is Required
                 </small>
             </div>
             <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
                 <label>
                     <div class="card flex w-full">
                         <p-select [options]="branches" [(ngModel)]="selectedBranch" optionLabel="branchName"
-                            placeholder="Select a Branch" (onChange)="OnBranchChange()" class="w-full "
-                            [ngModelOptions]="{ standalone: true }" />
+                            placeholder="Select a Branch" (onChange)="OnBranchChange()"
+                            class="ng-dirty ng-invalid w-full " [ngModelOptions]="{ standalone: true }" />
                     </div>
                     BracnchId
                 </label>
@@ -37,8 +37,8 @@
                 <label>
                     <div class="card flex w-full">
                         <p-select [options]="deparments" [(ngModel)]="selectedDepartment" optionLabel="deptName"
-                            placeholder="Select a Department" (onChange)="OnDeptChange()" class="w-full "
-                            [ngModelOptions]="{ standalone: true }" />
+                            placeholder="Select a Department" (onChange)="OnDeptChange()"
+                            class="ng-dirty ng-invalid w-full " [ngModelOptions]="{ standalone: true }" />
                     </div>
                     DeptId
                 </label>
@@ -64,7 +64,7 @@
                     Allowance Name Is Required
                 </small>
             </div>
-        
+
             <div class="col-span-12 flex flex-col gap-2">
                 <label>Description</label>
                 <p-editor formControlName="description" [style]="{ height: '320px' }">
