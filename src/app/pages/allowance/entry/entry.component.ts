@@ -12,8 +12,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import {
-  AllowaneModel,
-  ViAllowanceModel,
+  AllowaneModel
 } from '../../../core/models/allowane.model';
 import { AllowanceService } from '../../../core/services/allowance.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -55,7 +54,7 @@ interface Companies {
 })
 export class EntryComponent implements OnInit {
   allowanceId: number = 0;
-  model!: ViAllowanceModel;
+  model!: AllowaneModel;
   errorMessage!: Message[];
   isSubmitting: boolean = false;
   modalVisible: boolean = false;
@@ -116,7 +115,7 @@ export class EntryComponent implements OnInit {
         console.log('API Response:', res); // Debugging
 
         if (res && res.data) {
-          this.model = res.data as ViAllowanceModel;
+          this.model = res.data as AllowaneModel;
           console.log('Model Data:', this.model);
 
           this.allowanceForm.controls.allowanceId.setValue(
@@ -228,7 +227,7 @@ export class EntryComponent implements OnInit {
           this.selectedCompany = this.companies.filter(
             (x) => x.companyId == this.model.companyId
           )[0];
-          this.OnBranchChange();
+          this.onCompanyChange();
         }
       },
       error: () => {},
@@ -256,6 +255,7 @@ export class EntryComponent implements OnInit {
           this.selectedBranch = this.branches.filter(
             (x) => x.branchId == this.model.branchId
           )[0];
+          this.OnBranchChange();
         }
       },
       error: () => {},
@@ -265,6 +265,10 @@ export class EntryComponent implements OnInit {
   OnBranchChange(): void {
     if (this.selectedBranch !== undefined && this.selectedBranch !== null) {
       this.allowanceForm.controls.branchId.setValue(
+        this.selectedBranch.branchId
+      );
+      this.getDept(
+        this.selectedCompany.companyId,
         this.selectedBranch.branchId
       );
       this.errorMessage = [];
@@ -278,19 +282,48 @@ export class EntryComponent implements OnInit {
           this.selectedDepartment = this.deparments.filter(
             (x) => x.deptId == this.model.deptId
           )[0];
+          this.OnDeptChange();
         }
       },
       error: () => {},
     });
   }
-  OnDeptChange():void{
-    if(this.selectedDepartment !== undefined && this.selectedDepartment !== null){
+  OnDeptChange(): void {
+    if (
+      this.selectedDepartment !== undefined &&
+      this.selectedDepartment !== null
+    ) {
       this.allowanceForm.controls.deptId.setValue(
         this.selectedDepartment.deptId
-      )
-      this.errorMessage=[];
+      );
+      this.errorMessage = [];
     }
   }
+  // getDepartments(branchId: string, companyId: number): void {
+  //   this.departmentService.getbyCID(branchId, companyId).subscribe({
+  //     next: (res) => {
+  //       this.deparments = res.data as DepartmentModel[];
+  //       if (this.isEdit) {
+  //         this.selectedDepartment = this.deparments.filter(
+  //           (x) => x.deptId == this.model.deptId
+  //         )[0];
+  //         this.onDeptChange();
+  //       }
+  //     },
+  //   });
+  // }
+
+  // onDeptChange() {
+  //   if (this.selectedDepartment !== undefined && this.selectedDepartment !== null) {
+  //     this.allowanceForm.controls.deptId.setValue(this.selectedDepartment.deptId);
+
+  //     // this.getPositions(
+  //     //   this.selectedCompany.companyId,
+  //     //   this.selectedBranch.branchId,
+  //     //   this.selectedDepartment.deptId
+  //     // );
+  //   }
+  // }
 
   submit(): void {
     console.log('Form Submitted:', this.allowanceForm.value);
