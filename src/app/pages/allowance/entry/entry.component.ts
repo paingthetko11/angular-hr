@@ -70,6 +70,7 @@ export class EntryComponent implements OnInit {
   selectedCompany!: CompanyModel;
   selectedBranch!: BranchModel;
   selectedDepartment!: DepartmentModel;
+  selectedposition !: PositionModel;
 
   constructor(
     private allowancesService: AllowanceService,
@@ -303,9 +304,19 @@ export class EntryComponent implements OnInit {
       this.errorMessage = [];
     }
   }
-  // getPos():void{
-  //   this
-  // }
+  getPos(companyId : string ,branchId : number ,deptId : number):void{
+    this.positionService.getByCBDId(companyId,branchId,deptId).subscribe({
+      next: (res) => {
+        this.positions =res.data;
+        if(this.isEdit){
+          this.selectedposition = this.positions.filter(
+            (x) => x.positionId == this.model.positionId
+          )[0];
+        }
+      },
+      error: () => {},
+    })
+  }
 
 
   submit(): void {
