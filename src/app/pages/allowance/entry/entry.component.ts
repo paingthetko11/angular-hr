@@ -236,10 +236,7 @@ export class EntryComponent implements OnInit {
       error: () => {},
     });
   }
-  // else {
-  //   this.branches = [];
-  //   this.selectedBranch = null;
-  // }
+ 
   onCompanyChange(): void {
     if (this.selectedCompany !== undefined && this.selectedCompany !== null) {
       this.allowanceForm.controls.companyId.setValue(
