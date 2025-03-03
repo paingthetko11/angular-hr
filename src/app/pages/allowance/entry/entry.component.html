@@ -21,38 +21,52 @@
                     CompanyID is Required
                 </small>
             </div>
+
             <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
                 <label>
-                    <div class="card flex w-full">
-                        <p-select [options]="branches" [(ngModel)]="selectedBranch" optionLabel="branchName"
-                            placeholder="Select a Branch" (onChange)="OnBranchChange()"
-                            class="ng-dirty ng-invalid w-full " [ngModelOptions]="{ standalone: true }" />
-                    </div>
                     BracnchId
                 </label>
+                <div class="card flex w-full">
+                    <p-select [options]="branches" [(ngModel)]="selectedBranch" optionLabel="branchName"
+                        placeholder="Select a Branch" (onChange)="OnBranchChange()" class="ng-dirty ng-invalid w-full "
+                        [ngModelOptions]="{ standalone: true }" />
+                </div>
+                <small *ngIf="allowanceForm.controls['branchId'].invalid && allowanceForm.get('branchId')?.dirty"
+                    class="p-text">
+                    Branch is Required
+                </small>
                 <input pInputText formControlName="branchId" type="number">
             </div>
 
             <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
                 <label>
-                    <div class="card flex w-full">
-                        <p-select [options]="deparments" [(ngModel)]="selectedDepartment" optionLabel="deptName"
-                            placeholder="Select a Department" (onChange)="OnDeptChange()"
-                            class="ng-dirty ng-invalid w-full " [ngModelOptions]="{ standalone: true }" />
-                    </div>
                     DeptId
                 </label>
+                <div class="card flex w-full">
+                    <p-select [options]="deparments" [(ngModel)]="selectedDepartment" optionLabel="deptName"
+                        placeholder="Select a Department" (onChange)="OnDeptChange()"
+                        class="ng-dirty ng-invalid w-full " [ngModelOptions]="{ standalone: true }" />
+                </div>
+                <small *ngIf="allowanceForm.controls['deptId'].invalid && allowanceForm.get('deptId')?.dirty"
+                    class="p-text">
+                    Department is Required
+                </small>
                 <input pInputText formControlName="deptId" type="number">
             </div>
+            
             <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
                 <label>
-                    <div class="card flex w-full">
-                        <p-select [options]="positions" [(ngModel)]="selectedPosition" optionLabel="positionName"
-                            placeholder="Select a Position" (onChange)="OnPosChange()" class="w-full "
-                            [ngModelOptions]="{ standalone: true }" />
-                    </div>
                     PositionId
                 </label>
+                <div class="card flex w-full">
+                    <p-select [options]="positions" [(ngModel)]="selectedPosition" optionLabel="positionName"
+                        placeholder="Select a Position" (onChange)="OnPosChange()" class="ng-dirty ng-invalid w-full "
+                        [ngModelOptions]="{ standalone: true }" />
+                </div>
+                <small *ngIf="allowanceForm.controls['positionId'].invalid && allowanceForm.get('positionId')?.dirty"
+                    class="p-text">
+                    Position is Required
+                </small>
                 <input pInputText formControlName="positionId" type="number">
             </div>
             <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
