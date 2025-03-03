@@ -1,4 +1,4 @@
-export interface Department {
+export interface DepartmentModel {
   deptId: number;
   deptName: string;
   branchId: number;
