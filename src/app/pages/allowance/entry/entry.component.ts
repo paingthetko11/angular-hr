@@ -299,32 +299,6 @@ export class EntryComponent implements OnInit {
       this.errorMessage = [];
     }
   }
-  // getDepartments(branchId: string, companyId: number): void {
-  //   this.departmentService.getbyCID(branchId, companyId).subscribe({
-  //     next: (res) => {
-  //       this.deparments = res.data as DepartmentModel[];
-  //       if (this.isEdit) {
-  //         this.selectedDepartment = this.deparments.filter(
-  //           (x) => x.deptId == this.model.deptId
-  //         )[0];
-  //         this.onDeptChange();
-  //       }
-  //     },
-  //   });
-  // }
-
-  // onDeptChange() {
-  //   if (this.selectedDepartment !== undefined && this.selectedDepartment !== null) {
-  //     this.allowanceForm.controls.deptId.setValue(this.selectedDepartment.deptId);
-
-  //     // this.getPositions(
-  //     //   this.selectedCompany.companyId,
-  //     //   this.selectedBranch.branchId,
-  //     //   this.selectedDepartment.deptId
-  //     // );
-  //   }
-  // }
-
   submit(): void {
     console.log('Form Submitted:', this.allowanceForm.value);
     if (this.allowanceForm.valid) {
