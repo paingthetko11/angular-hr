@@ -14,11 +14,11 @@ export class DepartmentService {
     return this.http.get<RootModel>(url);
   }
   getbyID(id: number): Observable<RootModel> {
-    let url: string = `${environment.apiUrl}/api/HrDepartment/${id}`;
+    let url: string = `${environment.apiUrl}/api/Deparment/${id}`;
     return this.http.get<RootModel>(url);
   }
   getbyCID(companyId: string, branchId: number): Observable<RootModel> {
-    let url: string = `${environment.apiUrl}/api/HrDepartment/by?companyid=${companyId}&branchid=${branchId}`;
+    let url: string = `${environment.apiUrl}/api/Deparment/by?companyid=${companyId}&branchid=${branchId}`;
     return this.http.get<RootModel>(url);
   }
   getbyName(
