@@ -27,6 +27,8 @@ import { CompanyModel } from '../../../core/models/company.model';
 import { CompanyService } from '../../../core/services/company.service';
 import { BranchModel } from '../../../core/models/branch.model';
 import { BranchService } from '../../../core/services/branch.service';
+import { DepartmentModel } from '../../../core/models/department.model';
+import { DepartmentService } from '../../../core/services/department.service';
 
 interface Companies {
   name: string;
@@ -62,8 +64,10 @@ export class EntryComponent implements OnInit {
   isLoading: boolean = false;
   companies: CompanyModel[] = [];
   branches: BranchModel[] = [];
+  deparments: DepartmentModel[] = [];
   selectedCompany!: CompanyModel;
   selectedBranch!: BranchModel;
+  selectedDepartment!: DepartmentModel;
 
   constructor(
     private allowancesService: AllowanceService,
@@ -73,7 +77,8 @@ export class EntryComponent implements OnInit {
     private router: Router,
     private sanitizer: DomSanitizer,
     private companyService: CompanyService,
-    private branchService: BranchService
+    private branchService: BranchService,
+    private departmentService: DepartmentService
   ) {}
 
   private formBuilder = inject(FormBuilder);
@@ -243,7 +248,7 @@ export class EntryComponent implements OnInit {
     }
   }
 
-  getBranch(companyId : string): void {
+  getBranch(companyId: string): void {
     this.branchService.getbyCompanyId(companyId).subscribe({
       next: (res) => {
         this.branches = res.data;
@@ -263,6 +268,27 @@ export class EntryComponent implements OnInit {
         this.selectedBranch.branchId
       );
       this.errorMessage = [];
+    }
+  }
+  getDept(companyId: string, branchId: number): void {
+    this.departmentService.getbyCID(companyId, branchId).subscribe({
+      next: (res) => {
+        this.deparments = res.data;
+        if (this.isEdit) {
+          this.selectedDepartment = this.deparments.filter(
+            (x) => x.deptId == this.model.deptId
+          )[0];
+        }
+      },
+      error: () => {},
+    });
+  }
+  OnDeptChange():void{
+    if(this.selectedDepartment !== undefined && this.selectedDepartment !== null){
+      this.allowanceForm.controls.deptId.setValue(
+        this.selectedDepartment.deptId
+      )
+      this.errorMessage=[];
     }
   }
 
