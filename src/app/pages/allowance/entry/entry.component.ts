@@ -106,126 +106,130 @@ export class EntryComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustHtml(html || '');
   }
 
-  ngOnInit(): void {
-    this.getCompanies();
-    this.allowanceId = parseInt(this.route.snapshot.paramMap.get('id') ?? '');
-
-    if (this.allowanceId > 0) {
-      this.isEdit = true;
-      this.loading = true;
-
-      this.allowancesService.getbyID(this.allowanceId).subscribe((res) => {
-        console.log('API Response:', res); // Debugging
-
-        if (res && res.data) {
-          this.model = res.data as AllowaneModel;
-          console.log('Model Data:', this.model);
-
-          this.allowanceForm.controls.allowanceId.setValue(
-            this.model.allowanceId
-          );
-          this.allowanceForm.controls.allowanceId.disable();
-          this.allowanceForm.controls.companyId.setValue(this.model.companyId);
-          this.allowanceForm.controls.branchId.setValue(this.model.branchId);
-          // this.allowanceForm.controls.companyId.setValue(this.model.companyId);
-          this.allowanceForm.controls.deptId.setValue(this.model.deptId);
-          this.allowanceForm.controls.positionId.setValue(
-            this.model.positionId
-          );
-          this.allowanceForm.controls.allowanceName.setValue(
-            this.model.allowanceName
-          );
-          this.allowanceForm.controls.description.setValue(
-            this.model.description
-          );
-          this.allowanceForm.controls.status.setValue(this.model.status);
-          this.allowanceForm.controls.createdOn.setValue(
-            this.model.createdOn
-              ? this.datepipe.transform(this.model.createdOn, 'yyyy-MM-dd')
-              : null
-          );
-
-          this.allowanceForm.controls.createdBy.setValue(this.model.createdBy);
-          this.allowanceForm.controls.updatedOn.setValue(
-            this.model.updatedOn
-              ? this.datepipe.transform(this.model.updatedOn, 'yyyy-MM-dd')
-              : null
-          );
-
-          this.allowanceForm.controls.updatedBy.setValue(this.model.updatedBy);
-          this.allowanceForm.controls.deletedOn.setValue(
-            this.model.deletedOn
-              ? this.datepipe.transform(this.model.deletedOn, 'yyyy-MM-dd')
-              : null
-          );
-
-          this.getCompanies(); // Call after model is assigned
-        } else {
-          console.error('API response does not contain expected data:', res);
-        }
-      });
-    }
-  }
   // ngOnInit(): void {
   //   this.getCompanies();
-
-  //   console.log('companies' + this.companies);
-
   //   this.allowanceId = parseInt(this.route.snapshot.paramMap.get('id') ?? '');
+
   //   if (this.allowanceId > 0) {
   //     this.isEdit = true;
   //     this.loading = true;
 
-  //     console.log(this.model);
   //     this.allowancesService.getbyID(this.allowanceId).subscribe((res) => {
-  //       this.model = res.data as ViAllowanceModel;
-  //       console.log(this.model);
+  //       console.log('API Response:', res); // Debugging
 
-  //       this.allowanceForm.controls.allowanceId.setValue(
-  //         this.model.allowanceId
-  //       );
-  //       this.allowanceForm.controls.allowanceId.disable();
-  //       this.allowanceForm.controls.branchId.setValue(this.model.branchId);
-  //       this.allowanceForm.controls.deptId.setValue(this.model.deptId);
-  //       this.allowanceForm.controls.positionId.setValue(this.model.positionId);
-  //       this.allowanceForm.controls.allowanceName.setValue(
-  //         this.model.allowanceName
-  //       );
-  //       this.allowanceForm.controls.description.setValue(
-  //         this.model.description
-  //       );
+  //       if (res && res.data) {
+  //         this.model = res.data as AllowaneModel;
+  //         console.log('Model Data:', this.model);
 
-  //       this.allowanceForm.controls.status.setValue(this.model.status);
-  //       this.allowanceForm.controls.createdOn.setValue(
-  //         this.model.createdOn
-  //           ? this.datepipe.transform(this.model.createdOn, 'yyyy-MM-dd')
-  //           : null
-  //       );
+  //         this.allowanceForm.controls.allowanceId.setValue(
+  //           this.model.allowanceId
+  //         );
+  //         this.allowanceForm.controls.allowanceId.disable();
+  //         this.allowanceForm.controls.companyId.setValue(this.model.companyId);
+  //         this.allowanceForm.controls.branchId.setValue(this.model.branchId);
+  //         // this.allowanceForm.controls.companyId.setValue(this.model.companyId);
+  //         this.allowanceForm.controls.deptId.setValue(this.model.deptId);
+  //         this.allowanceForm.controls.positionId.setValue(
+  //           this.model.positionId
+  //         );
+  //         this.allowanceForm.controls.allowanceName.setValue(
+  //           this.model.allowanceName
+  //         );
+  //         this.allowanceForm.controls.description.setValue(
+  //           this.model.description
+  //         );
+  //         this.allowanceForm.controls.status.setValue(this.model.status);
+  //         this.allowanceForm.controls.createdOn.setValue(
+  //           this.model.createdOn
+  //             ? this.datepipe.transform(this.model.createdOn, 'yyyy-MM-dd')
+  //             : null
+  //         );
 
-  //       this.allowanceForm.controls.createdBy.setValue(this.model.createdBy);
-  //       this.allowanceForm.controls.updatedOn.setValue(
-  //         this.model.updatedOn
-  //           ? this.datepipe.transform(this.model.updatedOn, 'yyyy-MM-dd')
-  //           : null
-  //       );
+  //         this.allowanceForm.controls.createdBy.setValue(this.model.createdBy);
+  //         this.allowanceForm.controls.updatedOn.setValue(
+  //           this.model.updatedOn
+  //             ? this.datepipe.transform(this.model.updatedOn, 'yyyy-MM-dd')
+  //             : null
+  //         );
 
-  //       this.allowanceForm.controls.updatedBy.setValue(this.model.updatedBy);
-  //       this.allowanceForm.controls.deletedOn.setValue(
-  //         this.model.deletedOn
-  //           ? this.datepipe.transform(this.model.deletedOn, 'yyyy-MM-dd')
-  //           : null
-  //       );
-  //       this.allowanceForm.controls.deletedBy.setValue(this.model.deletedBy);
-  //       this.allowanceForm.controls.remark.setValue(this.model.remark);
+  //         this.allowanceForm.controls.updatedBy.setValue(this.model.updatedBy);
+  //         this.allowanceForm.controls.deletedOn.setValue(
+  //           this.model.deletedOn
+  //             ? this.datepipe.transform(this.model.deletedOn, 'yyyy-MM-dd')
+  //             : null
+  //         );
+
+  //         this.getCompanies(); // Call after model is assigned
+  //       } else {
+  //         console.error('API response does not contain expected data:', res);
+  //       }
   //     });
-  //   } else {
-  //     this.onCompanyChange();
   //   }
   // }
+
+  ngOnInit(): void {
+    this.getCompanies();
+
+    console.log('companies' + this.companies);
+
+    this.allowanceId = parseInt(this.route.snapshot.paramMap.get('id') ?? '');
+    if (this.allowanceId > 0) {
+      this.isEdit = true;
+      this.loading = true;
+
+      console.log(this.model);
+      this.allowancesService.getbyID(this.allowanceId).subscribe((res) => {
+        this.model = res.data as AllowaneModel;
+        console.log(this.model);
+
+        this.allowanceForm.controls.allowanceId.setValue(
+          this.model.allowanceId
+        );
+        this.allowanceForm.controls.allowanceId.disable();
+        this.allowanceForm.controls.branchId.setValue(this.model.branchId);
+        this.allowanceForm.controls.deptId.setValue(this.model.deptId);
+        this.allowanceForm.controls.positionId.setValue(this.model.positionId);
+        this.allowanceForm.controls.allowanceName.setValue(
+          this.model.allowanceName
+        );
+        this.allowanceForm.controls.description.setValue(
+          this.model.description
+        );
+
+        this.allowanceForm.controls.status.setValue(this.model.status);
+        this.allowanceForm.controls.createdOn.setValue(
+          this.model.createdOn
+            ? this.datepipe.transform(this.model.createdOn, 'yyyy-MM-dd')
+            : null
+        );
+
+        this.allowanceForm.controls.createdBy.setValue(this.model.createdBy);
+        this.allowanceForm.controls.updatedOn.setValue(
+          this.model.updatedOn
+            ? this.datepipe.transform(this.model.updatedOn, 'yyyy-MM-dd')
+            : null
+        );
+
+        this.allowanceForm.controls.updatedBy.setValue(this.model.updatedBy);
+        this.allowanceForm.controls.deletedOn.setValue(
+          this.model.deletedOn
+            ? this.datepipe.transform(this.model.deletedOn, 'yyyy-MM-dd')
+            : null
+        );
+        this.allowanceForm.controls.deletedBy.setValue(this.model.deletedBy);
+        this.allowanceForm.controls.remark.setValue(this.model.remark);
+
+        this.getCompanies();
+      });
+    } else {
+      this.onCompanyChange();
+    }
+  }
+
   getCompanies(): void {
     this.companyService.get().subscribe({
       next: (res) => {
-        this.companies = res.data;
+        this.companies = res.data as CompanyModel[];
         if (this.isEdit) {
           this.selectedCompany = this.companies.filter(
             (x) => x.companyId == this.model.companyId
@@ -236,7 +240,7 @@ export class EntryComponent implements OnInit {
       error: () => {},
     });
   }
- 
+
   onCompanyChange(): void {
     if (this.selectedCompany !== undefined && this.selectedCompany !== null) {
       this.allowanceForm.controls.companyId.setValue(
