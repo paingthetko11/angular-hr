@@ -1,1 +1,150 @@
-<p>deduction works!</p>
+<div class="card">
+    <p-table #dt1 [value]="deductions" dataKey="deductionId" [paginator]="true" [rows]="10"
+        [rowsPerPageOptions]="[5, 10, 20]" [globalFilterFields]="[
+        'deductionId',
+      ]" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template #caption>
+            <div class="flex">
+                <p-button label="Create" routerLink="entry"><i class="pi pi-plus"></i></p-button>
+                <p-iconfield iconPosition="left" class="ml-auto">
+                    <p-inputicon>
+                        <i class="pi pi-search"></i>
+                    </p-inputicon>
+                    <input pInputText type="text" placeholder="Search keyword" />
+                </p-iconfield>
+            </div>
+        </ng-template>
+
+        <ng-template #header>
+            <tr style="white-space:nowrap">
+                <th pSortableColumn="deductionId">
+                    DeducionId <p-sortIcon field="deductionId" />
+                </th>
+                <th pSortableColumn="deductionName">
+                    DeductionName<p-sortIcon field="deductionName" />
+                </th>
+                <th pSortableColumn="companyId">
+                    CompanyId<p-sortIcon field="companyId" />
+                </th>
+                <th pSortableColumn="companyName">
+                    Company<p-sortIcon field="companyName" />
+                </th>
+                <th pSortableColumn="branchName">
+                    BranchName
+                    <p-sortIcon field="branchName" />
+                </th>
+                <th pSortableColumn="branchId">
+                    BranchID
+                    <p-sortIcon field="branchId" />
+                </th>
+                <th pSortableColumn="deptId">
+                    DeptID<p-sortIcon field="deptId" />
+                </th>
+                <th pSortableColumn="deptName">
+                    DeptName<p-sortIcon field="deptName" />
+                </th>
+          
+                <th pSortableColumn="description">
+                    Description<p-sortIcon field="description" />
+                </th>
+                <th pSortableColumn="isDefault">
+                    IsDefault<p-sortIcon field="isDefault" />
+                </th>
+                <th pSortableColumn="status">
+                    Status<p-sortIcon field="status" />
+                </th>
+                <th pSortableColumn="createdOn">
+                    Created On<p-sortIcon field="createdOn" />
+                </th>
+                <th pSortableColumn="createdBy">
+                    Created By<p-sortIcon field="createdBy" />
+                </th>
+                <th pSortableColumn="updatedOn">
+                    Updated On<p-sortIcon field="updatedOn" />
+                </th>
+                <th pSortableColumn="updatedBy">
+                    updated By<p-sortIcon field="updaetdBy" />
+                </th>
+                <th pSortableColumn="deletedOn">
+                    Deleted On <p-sortIcon field="deletedOn" />
+                </th>
+                <th pSortableColumn="deletedBy">
+                    Deleted By <p-sortIcon field="deletedBy" />
+                </th>
+                <th pSortableColumn="remark">
+                    Remark<p-sortIcon field="remark" />
+                </th>
+                <th>Action</th>
+
+            </tr>
+
+            <!-- <tr>
+                <th>
+                    <p-columnFilter type="text" field="allowanceId" placeholder="Search by ID"
+                        ariaLabel="Filter ID"></p-columnFilter>
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="companyId" placeholder="Search by Id"
+                        ariaLabel="Filter Name"></p-columnFilter>
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="companyName" placeholder="Search by Name"
+                        ariaLabel="Filter Name"></p-columnFilter>
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="branchId" placeholder="Search by Id"
+                        ariaLabel="Filter Id"></p-columnFilter>
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="deptId" placeholder="Search by Id"
+                        ariaLabel="Filter Id"></p-columnFilter>
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="positionId" placeholder="Search by Id"
+                        ariaLabel="Filter Id"></p-columnFilter>
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="allowanceName" placeholder="Search by Name"
+                        ariaLabel="Filter Id"></p-columnFilter>
+                </th>
+            </tr> -->
+        </ng-template>
+
+        <ng-template #body let-deductions>
+            <tr style="white-space:nowrap">
+                <td>{{ deductions.deductionId }}</td>
+                <td>{{ deductions.deductionName }}</td>
+                <td>{{ deductions.companyId }}</td>
+                <td>{{ deductions.companyName }}</td>
+                <td>{{ deductions.branchId }}</td>
+                <td>{{ deductions.branchName }}</td>
+                <td>{{ deductions.deptId }}</td>
+                <td>{{ deductions.deptName }}</td>
+                <td>
+                    <div [innerHTML]="deductions.description"></div>
+                </td>
+                <td>
+                    <p-tag value="{{ deductions.isDefault? 'Active' : 'Inactive' }}" [severity]="deductions.isDefault ? 'success' : 'info'
+                    " icon="{{ deductions.isDefault? 'pi pi-check' : 'pi pi-minus-circle' }}" [rounded]="true"></p-tag>
+                </td>
+                <td>
+                    <p-tag value="{{ deductions.status? 'Active' : 'Inactive' }}" [severity]="deductions.status ? 'success' : 'info'
+                    " icon="{{ deductions.status? 'pi pi-check' : 'pi pi-minus-circle' }}" [rounded]="true"></p-tag>
+                </td>
+                <td>{{ deductions.createdOn | date: 'dd/MMM/yyyy hh:mm:ss a'}}</td>
+                <td>{{ deductions.createdBy }}</td>
+                <td>{{ deductions.updatedOn | date: 'dd/MMM/yyyy hh:mm:ss a'}}</td>
+                <td>{{ deductions.updatedBy }}</td>
+                <td>{{ deductions.deletedOn | date: 'dd/MMM/yyyy hh:mm:ss a'}}</td>
+                <td>{{ deductions.deletedBy }}</td>
+                <td>{{ deductions.remark }}</td>
+            </tr>
+        </ng-template>
+
+        <ng-template #emptymessage>
+            <tr>
+                <td colspan="3">No departments found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
