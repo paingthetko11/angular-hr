@@ -23,7 +23,7 @@ export class DeductionService {
     let url: string = `${environment.apiUrl}/api/Deduction/by?companyid=${companyId}&branchid=${branchId}&depId=${deptId}&positionId=${positionId}`;
     return this.http.get<RootModel>(url);
   }
-  getById(id: string): Observable<RootModel> {
+  getById(id: number): Observable<RootModel> {
     let url: string = `${environment.apiUrl}/api/Deduction/${id}`;
     return this.http.get<RootModel>(url);
   }

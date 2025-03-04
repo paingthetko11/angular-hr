@@ -102,9 +102,7 @@ export class EntryComponent implements OnInit {
     remark: [''],
   });
 
-  sanitizeHtml(html: string | null): SafeHtml {
-    return this.sanitizer.bypassSecurityTrustHtml(html || '');
-  }
+ 
 
   ngOnInit(): void {
     this.getCompanies();
@@ -273,6 +271,10 @@ export class EntryComponent implements OnInit {
       );
       this.errorMessage = [];
     }
+  }
+
+  sanitizeHtml(html: string | null): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(html || '');
   }
 
   submit(): void {
