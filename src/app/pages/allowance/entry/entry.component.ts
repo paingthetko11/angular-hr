@@ -163,6 +163,7 @@ export class EntryComponent implements OnInit {
     } else {
       this.onCompanyChange();
     }
+    if (!this.isEdit) this.allowanceForm.reset();
   }
 
   getCompanies(): void {
