@@ -85,7 +85,7 @@ export class EntryComponent implements OnInit {
 
   private formBuilder = inject(FormBuilder);
   allowanceForm = this.formBuilder.group({
-    allowanceId: [0, Validators.required],
+    allowanceId: [0],
     companyId: ['', Validators.required],
     branchId: [0, Validators.required],
     deptId: [0, Validators.required],
@@ -164,6 +164,7 @@ export class EntryComponent implements OnInit {
       this.onCompanyChange();
     }
     if (!this.isEdit) this.allowanceForm.reset();
+    this.allowanceForm.controls.allowanceId.setValue(0);
   }
 
   getCompanies(): void {
