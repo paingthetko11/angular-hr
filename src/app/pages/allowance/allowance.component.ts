@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { Button, ButtonModule } from 'primeng/button';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -24,12 +24,15 @@ interface Companies {
   imports: [
     RouterModule,
     FormsModule,
+    CommonModule,
+    ReactiveFormsModule,
+
+    //PrimeNG
     TableModule,
     ButtonModule,
     IconFieldModule,
     InputIconModule,
     InputTextModule,
-    CommonModule,
     TagModule,
     RatingModule,
     SelectModule,
@@ -38,9 +41,11 @@ interface Companies {
   styleUrl: './allowance.component.scss',
 })
 export class AllowanceComponent {
-  selectedAllowance!: AllowaneModel;
   allowances: AllowaneModel[] = [];
-  isLoading: boolean = false;companies: Companies[] | undefined;
+  selectedAllowance!: AllowaneModel;
+
+  isLoading: boolean = false;
+  companies: Companies[] | undefined;
   selectedCompany!: CompanyModel;
 
   constructor(
@@ -48,6 +53,7 @@ export class AllowanceComponent {
     private route: Router
   ) {}
 
+  
   ngOnInit(): void {
     this.loadData();
   }
@@ -56,19 +62,13 @@ export class AllowanceComponent {
     this.allowanceService.get().subscribe((res) => {
       this.allowances = res.data as AllowaneModel[];
       this.isLoading = false;
+      console.log(this.allowances);
     });
   }
-  // load() {
-  //   this.loading = true;
-
-  //   setTimeout(() => {
-  //     this.loading = false;
-  //   }, 2000);
-  // }
 
   update(allowances: AllowaneModel): void {
     this.selectedAllowance = allowances;
-    
+
     this.route.navigate([
       'allowance/entry',
       this.selectedAllowance.allowanceId,
@@ -85,5 +85,4 @@ export class AllowanceComponent {
         });
     }
   }
-  
 }
