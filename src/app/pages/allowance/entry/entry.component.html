@@ -8,13 +8,18 @@
                 <label>AllowanceId</label>
                 <input pInputText formControlName="allowanceId" type="number">
             </div>
+            <!-- This is company -->
             <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
                 <label>
                     CompanyId</label>
                 <div class="card flex w-full">
                     <p-select [options]="companies" [(ngModel)]="selectedCompany" optionLabel="companyName"
                         placeholder="Select a Company" (onChange)="onCompanyChange()"
-                        class="ng-dirty ng-invalid w-full " [ngModelOptions]="{ standalone: true }" />
+                        class="ng-dirty ng-invalid w-full " [ngModelOptions]="{ standalone: true }" [ngClass]="{
+                            'ng-dirty ng-invalid':
+                              allowanceForm.controls['companyId'].invalid &&
+                              allowanceForm.get('companyId')?.dirty
+                          }" />
                 </div>
                 <small *ngIf="allowanceForm.controls['companyId'].invalid && allowanceForm.get('companyId')?.dirty"
                     class="p-text">
@@ -22,6 +27,7 @@
                 </small>
             </div>
 
+            <!-- BracnchId -->
             <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
                 <label>
                     BracnchId
@@ -29,7 +35,11 @@
                 <div class="card flex w-full">
                     <p-select [options]="branches" [(ngModel)]="selectedBranch" optionLabel="branchName"
                         placeholder="Select a Branch" (onChange)="OnBranchChange()" class="ng-dirty ng-invalid w-full "
-                        [ngModelOptions]="{ standalone: true }" />
+                        [ngModelOptions]="{ standalone: true }" [ngClass]="{
+                            'ng-dirty ng-invalid':
+                              allowanceForm.controls['branchId'].invalid &&
+                              allowanceForm.get('branchId')?.dirty
+                          }" />
                 </div>
                 <small *ngIf="allowanceForm.controls['branchId'].invalid && allowanceForm.get('branchId')?.dirty"
                     class="p-text">
@@ -37,6 +47,7 @@
                 </small>
             </div>
 
+            <!-- DeptId -->
             <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
                 <label>
                     DeptId
@@ -44,7 +55,11 @@
                 <div class="card flex w-full">
                     <p-select [options]="deparments" [(ngModel)]="selectedDepartment" optionLabel="deptName"
                         placeholder="Select a Department" (onChange)="OnDeptChange()"
-                        class="ng-dirty ng-invalid w-full " [ngModelOptions]="{ standalone: true }" />
+                        class="ng-dirty ng-invalid w-full " [ngModelOptions]="{ standalone: true }" [ngClass]="{
+                            'ng-dirty ng-invalid':
+                              allowanceForm.controls['deptId'].invalid &&
+                              allowanceForm.get('deptId')?.dirty
+                          }" />
                 </div>
                 <small *ngIf="allowanceForm.controls['deptId'].invalid && allowanceForm.get('deptId')?.dirty"
                     class="p-text">
@@ -52,6 +67,7 @@
                 </small>
             </div>
 
+            <!-- PositionId -->
             <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
                 <label>
                     PositionId
@@ -59,13 +75,19 @@
                 <div class="card flex w-full">
                     <p-select [options]="positions" [(ngModel)]="selectedPosition" optionLabel="positionName"
                         placeholder="Select a Position" (onChange)="OnPosChange()" class="ng-dirty ng-invalid w-full "
-                        [ngModelOptions]="{ standalone: true }" />
+                        [ngModelOptions]="{ standalone: true }" [ngClass]="{
+                            'ng-dirty ng-invalid':
+                              allowanceForm.controls['positionId'].invalid &&
+                              allowanceForm.get('positionId')?.dirty
+                          }" />
                 </div>
                 <small *ngIf="allowanceForm.controls['positionId'].invalid && allowanceForm.get('positionId')?.dirty"
                     class="p-text">
                     Position is Required
                 </small>
             </div>
+
+            <!-- AllowanceName -->
             <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
                 <label>AllowanceName</label>
                 <input pInputText formControlName="allowanceName" type="text">
@@ -76,12 +98,14 @@
                 </small>
             </div>
 
+            <!-- Description -->
             <div class="col-span-12 flex flex-col gap-2">
                 <label>Description</label>
                 <p-editor formControlName="description" [style]="{ height: '320px' }">
                 </p-editor>
             </div>
 
+            <!-- Status -->
             <div class="col-6 flex flex-column gap-2">
                 <div class="flex align-items-center gap-1">
                     <p-toggleswitch formControlName="status"></p-toggleswitch>
