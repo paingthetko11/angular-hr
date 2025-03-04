@@ -139,5 +139,61 @@ export class EntryComponent implements OnInit {
       });
     }
   }
-  Submit():void{}
+  Submit(): void {
+    console.log('Form Submitted:', this.deductionForm.value);
+    if (this.deductionForm) {
+      var model: DeductionModel = {
+        deductionId: this.deductionForm.controls.deductionId.value ?? 0,
+        companyId: this.deductionForm.controls.companyId.value ?? '',
+        branchId: this.deductionForm.controls.branchId.value ?? 0,
+        deptId: this.deductionForm.controls.deptId.value ?? 0,
+        deductionName: this.deductionForm.controls.deductionName.value ?? '',
+        description: this.deductionForm.controls.description.value ?? '',
+        isDefault: this.deductionForm.controls.isDefault.value ?? false,
+        status: this.deductionForm.controls.status.value ?? false,
+        createdOn: this.datepipe.transform(
+          this.deductionForm.controls.createdOn.value,
+          'yyyy-MM-dd'
+        ),
+        createdBy: this.deductionForm.controls.createdBy.value ?? '',
+        updatedOn: this.datepipe.transform(
+          this.deductionForm.controls.updatedOn.value,
+          'yyyy-MM-dd'
+        ),
+        updatedBy: this.deductionForm.controls.updatedBy.value ?? '',
+        deletedOn: this.datepipe.transform(
+          this.deductionForm.controls.deletedOn.value,
+          'yyyy-MM-dd'
+        ),
+        deletedBy: this.deductionForm.controls.deletedBy.value ?? '',
+        remark: this.deductionForm.controls.remark.value ?? '',
+      };
+      if(this.isEdit){
+        model.deductionId = 0;
+        model.createdOn = this.datepipe.transform(new Date(), 'yyyy-MM-dd');
+        model.createdBy = "Admin";
+
+        this.isSubmitting = true ;
+        this.deductionService.create(model).subscribe({
+          next: (res)=>{
+            console.log('API Response:', res);
+            if(res.success){
+              this.modalVisible = false;
+
+              this.messageService.add({
+                severity: 'info',
+                summary: 'Success',
+                detail: 'Successfully Created',
+              });
+
+              this.loading = false;
+              this.router.navigate(['/deducion']);
+            }
+          }
+        });
+        
+      }
+    }
+   
+  }
 }
