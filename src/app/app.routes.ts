@@ -10,6 +10,7 @@ import { CompanyComponent } from './pages/company/company.component';
 import { BranchComponent } from './pages/branch/branch.component';
 import { PositionComponent } from './pages/position/position.component';
 import { DeductionComponent } from './pages/deduction/deduction.component';
+import { EntryComponent as DeductionEntryComponent } from './pages/deduction/entry/entry.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -49,5 +50,14 @@ export const routes: Routes = [
   { path: 'branch', component: BranchComponent },
   { path: 'position', component: PositionComponent },
 
-  { path: 'deduction', component: DeductionComponent },
+  {
+    path: 'deduction',
+    children: [
+      { path: '', component: DeductionComponent },
+      { path: 'entry/:id', component: DeductionEntryComponent },
+      { path: 'entry', component: DeductionEntryComponent },
+      { path: 'deduction/entry', component: DeductionComponent },
+      { path: '', redirectTo: 'deduction', pathMatch: 'full' },
+    ],
+  },
 ];
