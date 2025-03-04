@@ -9,10 +9,13 @@ import { EntryComponent as AllowanceEntryComponent } from './pages/allowance/ent
 import { CompanyComponent } from './pages/company/company.component';
 import { BranchComponent } from './pages/branch/branch.component';
 import { PositionComponent } from './pages/position/position.component';
+import { DeductionComponent } from './pages/deduction/deduction.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
+
   { path: 'home', component: HomeComponent },
+
   {
     path: 'state',
     children: [
@@ -21,6 +24,7 @@ export const routes: Routes = [
       { path: 'entry', component: StateEntryComponent },
     ],
   },
+
   {
     path: 'policy',
     children: [
@@ -29,6 +33,7 @@ export const routes: Routes = [
       { path: 'entity', component: EntityComponent },
     ],
   },
+
   {
     path: 'allowance',
     children: [
@@ -39,7 +44,10 @@ export const routes: Routes = [
       { path: '', redirectTo: 'allowance', pathMatch: 'full' },
     ],
   },
+
   { path: 'company', component: CompanyComponent },
   { path: 'branch', component: BranchComponent },
   { path: 'position', component: PositionComponent },
+
+  { path: 'deduction', component: DeductionComponent },
 ];
