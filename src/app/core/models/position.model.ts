@@ -14,5 +14,5 @@ export interface PositionModel {
   updatedBy: null | string;
   deletedOn: null;
   deletedBy: null;
-  remark: null;
+  remark: null | string;
 }
