@@ -12,6 +12,10 @@ import {
   ViDeductionModel,
 } from '../../core/models/deduction.model';
 import { DeductionService } from '../../core/services/deduction.service';
+import { TagModule } from 'primeng/tag';
+import { SelectModule } from 'primeng/select';
+import { RatingModule } from 'primeng/rating';
+import { IconFieldModule } from 'primeng/iconfield';
 
 @Component({
   selector: 'app-deduction',
@@ -27,6 +31,10 @@ import { DeductionService } from '../../core/services/deduction.service';
     ButtonModule,
     InputTextModule,
     InputIconModule,
+    TagModule,
+    SelectModule,
+    RatingModule,
+    IconFieldModule,
   ],
   templateUrl: './deduction.component.html',
   styleUrl: './deduction.component.scss',
@@ -41,7 +49,9 @@ export class DeductionComponent implements OnInit {
     private deductionSevice: DeductionService,
     private route: Router
   ) {}
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadata();
+  }
 
   loadata(): void {
     this.deductionSevice.get().subscribe((res) => {
