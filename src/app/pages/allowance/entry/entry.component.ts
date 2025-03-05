@@ -241,7 +241,7 @@ export class EntryComponent implements OnInit {
       this.allowanceForm.controls.deptId.setValue(
         this.selectedDepartment.deptId
       );
-      this.getPos(
+      this.getPosition(
         this.selectedCompany.companyId,
         this.selectedBranch.branchId,
         this.selectedDepartment.deptId
@@ -250,7 +250,7 @@ export class EntryComponent implements OnInit {
     }
   }
 
-  getPos(companyId: string, branchId: number, deptId: number): void {
+  getPosition(companyId: string, branchId: number, deptId: number): void {
     this.positionService.getByCBDId(companyId, branchId, deptId).subscribe({
       next: (res) => {
         this.positions = res.data;
@@ -264,7 +264,7 @@ export class EntryComponent implements OnInit {
     });
   }
 
-  OnPosChange(): void {
+  onPositionChange(): void {
     if (this.selectedPosition !== undefined && this.selectedPosition !== null) {
       this.allowanceForm.controls.positionId.setValue(
         this.selectedPosition.positionId
