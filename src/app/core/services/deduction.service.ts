@@ -15,7 +15,7 @@ export class DeductionService {
     let url: string = `${environment.apiUrl}/api/Deduction`;
     return this.http.get<RootModel>(url);
   }
-  
+
   getByCBDPId(
     companyId: string,
     branchId: number,
@@ -45,7 +45,7 @@ export class DeductionService {
     });
   }
 
-  update(): Observable<RootModel> {
+  update(id: number, model: DeductionModel): Observable<RootModel> {
     let url: string = `${environment.apiUrl}/api/Deduction`;
     return this.http.put<RootModel>(url, JSON.stringify(model), {
       headers: {
