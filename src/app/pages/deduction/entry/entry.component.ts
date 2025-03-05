@@ -17,11 +17,15 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { DeductionModel } from '../../../core/models/deduction.model';
 import { DeductionService } from '../../../core/services/deduction.service';
 import { MessageService } from 'primeng/api';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CompanyService } from '../../../core/services/company.service';
 import { BranchService } from '../../../core/services/branch.service';
 import { DepartmentService } from '../../../core/services/department.service';
 import { PositionService } from '../../../core/services/position.service';
+import { CompanyModel } from '../../../core/models/company.model';
+import { BranchModel } from '../../../core/models/branch.model';
+import { DepartmentModel } from '../../../core/models/department.model';
+import { PositionModel } from '../../../core/models/position.model';
 
 @Component({
   selector: 'app-entry',
@@ -52,6 +56,14 @@ export class EntryComponent implements OnInit {
   isEdit: boolean = false;
   loading: boolean = false;
   isLoading: boolean = false;
+  companies: CompanyModel[] = [];
+  branches: BranchModel[] = [];
+  deparments: DepartmentModel[] = [];
+  positions: PositionModel[] = [];
+  selectedCompany!: CompanyModel;
+  selectedBranch!: BranchModel;
+  selectedDepartment!: DepartmentModel;
+  selectedPosition!: PositionModel;
 
   constructor(
     private route: ActivatedRoute,
@@ -139,6 +151,10 @@ export class EntryComponent implements OnInit {
       });
     }
   }
+  sanitizeHtml(html: string | null): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(html || '');
+  }
+
   Submit(): void {
     console.log('Form Submitted:', this.deductionForm.value);
     if (this.deductionForm) {
@@ -168,16 +184,17 @@ export class EntryComponent implements OnInit {
         deletedBy: this.deductionForm.controls.deletedBy.value ?? '',
         remark: this.deductionForm.controls.remark.value ?? '',
       };
-      if(this.isEdit){
+
+      if (this.isEdit) {
         model.deductionId = 0;
         model.createdOn = this.datepipe.transform(new Date(), 'yyyy-MM-dd');
-        model.createdBy = "Admin";
+        model.createdBy = 'Admin';
 
-        this.isSubmitting = true ;
+        this.isSubmitting = true;
         this.deductionService.create(model).subscribe({
-          next: (res)=>{
+          next: (res) => {
             console.log('API Response:', res);
-            if(res.success){
+            if (res.success) {
               this.modalVisible = false;
 
               this.messageService.add({
@@ -189,11 +206,19 @@ export class EntryComponent implements OnInit {
               this.loading = false;
               this.router.navigate(['/deducion']);
             }
-          }
+          },
+          error: (err) => {
+            this.isSubmitting = false;
+            console.error('Error:', err);
+          },
         });
-        
       }
     }
-   
+    // else {
+    //   Object.keys(this.deductionForm.control).forEach((field) => {
+    //     const control = this.deductionForm.get(field);
+    //     control?.markAsDirty({ onlySelf: true });
+    //   });
+    // }
   }
 }
