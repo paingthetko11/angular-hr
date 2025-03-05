@@ -49,6 +49,7 @@ export class DeductionComponent implements OnInit {
     private deductionSevice: DeductionService,
     private route: Router
   ) {}
+  
   ngOnInit(): void {
     this.loadata();
   }
@@ -61,12 +62,20 @@ export class DeductionComponent implements OnInit {
     });
   }
 
-  // update(deductions:DeductionModel):void{
-  //   this.selectedDecution= deductions;
+  update(deductions: ViDeductionModel): void {
+    this.selectedDecution = deductions;
 
-  //   this.route.navigate([
-  //     'deduction/entry',
-  //     this.selectedDecution.deductionId,
-  //   ]);
-  // }
+    this.route.navigate(['deduction/entry', this.selectedDecution.deductionId]);
+  }
+
+  delete(deductions: ViDeductionModel): void {
+    this.selectedDecution = deductions;
+    if (this.selectedDecution !== null) {
+      this.deductionSevice
+        .delete(this.selectedDecution.deductionId)
+        .subscribe((res) => {
+          this.loadata();
+        });
+    }
+  }
 }
