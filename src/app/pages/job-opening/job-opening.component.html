@@ -1,0 +1,120 @@
+<div class="card">
+    <p-table #dt1 [value]="jobopenings" dataKey="Id" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 20]"
+        [globalFilterFields]="[
+        'Id',
+      ]" [tableStyle]="{ 'min-width': '50rem' }">
+
+        <ng-template #caption>
+            <div class="flex">
+                <p-button label="Create" routerLink="entry"><i class="pi pi-plus"></i></p-button>
+                <p-iconfield iconPosition="left" class="ml-auto">
+                    <p-inputicon>
+                        <i class="pi pi-search"></i>
+                    </p-inputicon>
+                    <input pInputText type="text" placeholder="Search keyword" />
+                </p-iconfield>
+            </div>
+        </ng-template>
+
+        <ng-template #header>
+            <tr style="white-space:nowrap">
+                <th pSortableColumn="id">
+                    ID <p-sortIcon field="id" />
+                </th>
+                <th pSortableColumn="title">
+                    Title<p-sortIcon field="title" />
+                </th>
+                <th pSortableColumn="description">
+                    Description<p-sortIcon field="description" />
+                </th>
+                <th pSortableColumn="noOfApplicants">
+                    noOfApplicants<p-sortIcon field="noOfApplicants" />
+                </th>
+                <th pSortableColumn="startOn">
+                    StartOn<p-sortIcon field="startOn" />
+                </th>
+                <th pSortableColumn="endOn">
+                    End On
+                    <p-sortIcon field="endOn" />
+                </th>
+                <th pSortableColumn="companyId">
+                    CompanyID<p-sortIcon field="companyId" />
+                </th>
+                <th pSortableColumn="branchId">
+                    BranchID
+                    <p-sortIcon field="branchId" />
+                </th>
+                <th pSortableColumn="deptId">
+                    DeptID<p-sortIcon field="deptId" />
+                </th>
+                <th pSortableColumn="deptId">
+                    PositionID<p-sortIcon field="deptId" />
+                </th>
+                <th pSortableColumn="openingStatus">
+                    Opening Status<p-sortIcon field="openingStatus" />
+                </th>
+                <th pSortableColumn="createdOn">
+                    Created On<p-sortIcon field="createdOn" />
+                </th>
+                <th pSortableColumn="createdBy">
+                    Created By<p-sortIcon field="createdBy" />
+                </th>
+                <th pSortableColumn="updatedOn">
+                    Updated On<p-sortIcon field="updatedOn" />
+                </th>
+                <th pSortableColumn="updatedBy">
+                    updated By<p-sortIcon field="updaetdBy" />
+                </th>
+                <th pSortableColumn="deletedOn">
+                    Deleted On <p-sortIcon field="deletedOn" />
+                </th>
+                <th pSortableColumn="deletedBy">
+                    Deleted By <p-sortIcon field="deletedBy" />
+                </th>
+                <th pSortableColumn="remark">
+                    Remark<p-sortIcon field="remark" />
+                </th>
+                <th>Action</th>
+
+            </tr>
+        </ng-template>
+
+        <ng-template #body let-jobopening>
+            <tr style="white-space:nowrap">
+                <td>{{ jobopening.id }}</td>
+                <td>{{ jobopening.title }}</td>
+                <td>
+                    <div [innerHTML]="jobopening.description"></div>
+                </td>
+                <td>{{ jobopening.noOfApplicants }}</td>
+                <td>{{ jobopening.startOn }}</td>
+                <td>{{ jobopening.endOn }}</td>
+                <td>{{ jobopening.companyId }}</td>
+                <td>{{ jobopening.companyName }}</td>
+                <td>{{ jobopening.branchId }}</td>
+                <td>{{ jobopening.deptId }}</td>
+                <td>{{ jobopening.positionId }}</td>
+
+                <td>
+                    <p-tag value="{{ jobopening.openingStatus? 'Active' : 'Inactive' }}" [severity]="jobopening.openingStatus ? 'success' : 'info'
+                    " icon="{{ jobopening.openingStatus? 'pi pi-check' : 'pi pi-minus-circle' }}"
+                        [rounded]="true"></p-tag>
+                </td>
+                <td>{{ jobopening.createdOn | date: 'dd/MMM/yyyy hh:mm:ss a'}}</td>
+                <td>{{ jobopening.createdBy }}</td>
+                <td>{{ jobopening.updatedOn | date: 'dd/MMM/yyyy hh:mm:ss a'}}</td>
+                <td>{{ jobopening.updatedBy }}</td>
+                <td>{{ jobopening.deletedOn | date: 'dd/MMM/yyyy hh:mm:ss a'}}</td>
+                <td>{{ jobopening.deletedBy }}</td>
+                <td>{{ jobopening.remark }}</td>
+
+            </tr>
+        </ng-template>
+
+        <ng-template #emptymessage>
+            <tr>
+                <td colspan="3">No departments found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
