@@ -25,20 +25,20 @@ export interface ViJobOpeningModel {
 export interface JobOpeningModel {
   id: number;
   title: string;
-  description: null;
+  description: null | string;
   noOfApplicants: number;
-  startOn: null;
-  endOn: null;
-  companyId: null;
-  branchId: null;
-  deptId: null;
-  positionId: null;
+  startOn: null | string;
+  endOn: null | string;
+  companyId: null | string;
+  branchId: number;
+  deptId: number;
+  positionId: number;
   openingStatus: boolean;
-  createdOn: null;
-  createdBy: null;
-  updatedOn: null;
-  updatedBy: null;
-  deletedOn: null;
-  deletedBy: null;
-  remark: null;
+  createdOn: null | string;
+  createdBy: null | string;
+  updatedOn: null | string;
+  updatedBy: null | string;
+  deletedOn: null | string;
+  deletedBy: null | string;
+  remark: null | string;
 }
