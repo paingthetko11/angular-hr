@@ -11,6 +11,9 @@ import { BranchComponent } from './pages/branch/branch.component';
 import { PositionComponent } from './pages/position/position.component';
 import { DeductionComponent } from './pages/deduction/deduction.component';
 import { EntryComponent as DeductionEntryComponent } from './pages/deduction/entry/entry.component';
+import { JobOpeningComponent } from './pages/job-opening/job-opening.component';
+
+import { EntryComponent as JobOpeningEntryComponent } from './pages/job-opening/entry/entry.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -49,6 +52,16 @@ export const routes: Routes = [
   { path: 'company', component: CompanyComponent },
   { path: 'branch', component: BranchComponent },
   { path: 'position', component: PositionComponent },
+  {
+    path: 'opening',
+    children: [
+      { path: '', component: JobOpeningComponent },
+      { path: 'entry/:id', component: JobOpeningEntryComponent },
+      { path: 'entry', component: JobOpeningEntryComponent },
+      { path: 'opening/entry', component: JobOpeningComponent },
+      { path: '', redirectTo: 'opening', pathMatch: 'full' },
+    ],
+  },
 
   {
     path: 'deduction',
