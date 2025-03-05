@@ -74,8 +74,8 @@
                 </label>
                 <div class="card flex w-full">
                     <p-select [options]="positions" [(ngModel)]="selectedPosition" optionLabel="positionName"
-                        placeholder="Select a Position" (onChange)="OnPosChange()" class="ng-dirty ng-invalid w-full "
-                        [ngModelOptions]="{ standalone: true }" [ngClass]="{
+                        placeholder="Select a Position" (onChange)="onPositionChange()"
+                        class="ng-dirty ng-invalid w-full " [ngModelOptions]="{ standalone: true }" [ngClass]="{
                             'ng-dirty ng-invalid':
                               allowanceForm.controls['positionId'].invalid &&
                               allowanceForm.get('positionId')?.dirty
