@@ -84,7 +84,6 @@ export class EntryComponent implements OnInit {
     companyId: ['', Validators.required],
     branchId: [0, Validators.required],
     deptId: [0, Validators.required],
-    positionId: [0, Validators.required],
     deductionName: ['', Validators.required],
     description: [''],
     isDefault: [false],
@@ -151,6 +150,7 @@ export class EntryComponent implements OnInit {
       });
     }
   }
+
   sanitizeHtml(html: string | null): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(html || '');
   }
@@ -186,10 +186,11 @@ export class EntryComponent implements OnInit {
       };
 
       if (this.isEdit) {
+
+        /// Create///
         model.deductionId = 0;
         model.createdOn = this.datepipe.transform(new Date(), 'yyyy-MM-dd');
         model.createdBy = 'Admin';
-
         this.isSubmitting = true;
         this.deductionService.create(model).subscribe({
           next: (res) => {
@@ -212,10 +213,38 @@ export class EntryComponent implements OnInit {
             console.error('Error:', err);
           },
         });
+      } else {
+        model.updatedOn = this.datepipe.transform(
+          new Date(),
+          'yyyy-MM-ddTHH:mm:ss'
+        );
+
+        /// Update///
+        model.updatedBy = 'Admin';
+        this.deductionService.update(this.deductionId,model).subscribe({
+          next: (res) => {
+            console.log('API Response:', res);
+            if (res.success) {
+              this.modalVisible = false;
+
+              this.messageService.add({
+                severity: 'info',
+                summary: 'Success',
+                detail: 'Successfully Update',
+              });
+              this.loading = false;
+              this.router.navigate(['/deduction']);
+            }
+          },
+          error: (err) => {
+            this.isSubmitting = false;
+            console.error('Error:', err);
+          },
+        })
       }
-    }
+    } 
     // else {
-    //   Object.keys(this.deductionForm.control).forEach((field) => {
+    //   Object.keys(this.deductionForm.controls).forEach((field) => {
     //     const control = this.deductionForm.get(field);
     //     control?.markAsDirty({ onlySelf: true });
     //   });
