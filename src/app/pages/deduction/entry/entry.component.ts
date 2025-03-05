@@ -151,6 +151,8 @@ export class EntryComponent implements OnInit {
     }
   }
 
+  
+
   sanitizeHtml(html: string | null): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(html || '');
   }
