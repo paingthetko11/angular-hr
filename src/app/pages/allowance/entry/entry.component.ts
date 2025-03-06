@@ -53,7 +53,7 @@ interface Companies {
   styleUrl: './entry.component.scss',
 })
 export class EntryComponent implements OnInit {
-  allowanceId: number = 0;
+  allowanceId = 0;
   model!: AllowaneModel;
   errorMessage!: Message[];
   isSubmitting: boolean = false;
@@ -101,8 +101,6 @@ export class EntryComponent implements OnInit {
     deletedBy: [''],
     remark: [''],
   });
-
- 
 
   ngOnInit(): void {
     this.getCompanies();
