@@ -1,1 +1,123 @@
-<p>entry works!</p>
+<div class="p-8">
+    <p-toast></p-toast>
+    <form [formGroup]="jobOpeningForm" (submit)="submit()">
+        <div class="grid grid-cols-12 gap-2">
+
+            <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
+                <label>Id</label>
+                <input pInputText formControlName="Id" type="number">
+            </div>
+
+            <!-- Title -->
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>Title</label>
+                <input pInputText formControlName="title" type="text">
+            </div>
+
+            <div class="card flex justify-center">
+                <p-datepicker [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true" />
+            </div>
+            
+
+            <!-- This is company -->
+            <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
+                <label>
+                    CompanyId</label>
+                <div class="card flex w-full">
+                    <p-select [options]="companies" [(ngModel)]="selectedCompany" optionLabel="companyName"
+                        placeholder="Select a Company" (onChange)="onCompanyChange()"
+                        class="ng-dirty ng-invalid w-full " [ngModelOptions]="{ standalone: true }" [ngClass]="{
+                            'ng-dirty ng-invalid':
+                              jobOpeningForm.controls['companyId'].invalid &&
+                              jobOpeningForm.get('companyId')?.dirty
+                          }" />
+                </div>
+                <small *ngIf="jobOpeningForm.controls['companyId'].invalid && jobOpeningForm.get('companyId')?.dirty"
+                    class="p-text">
+                    CompanyID is Required
+                </small>
+            </div>
+
+            <!-- BracnchId -->
+            <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
+                <label>
+                    BracnchId
+                </label>
+                <div class="card flex w-full">
+                    <p-select [options]="branches" [(ngModel)]="selectedBranch" optionLabel="branchName"
+                        placeholder="Select a Branch" (onChange)="OnBranchChange()" class="ng-dirty ng-invalid w-full "
+                        [ngModelOptions]="{ standalone: true }" [ngClass]="{
+                            'ng-dirty ng-invalid':
+                              jobOpeningForm.controls['branchId'].invalid &&
+                              jobOpeningForm.get('branchId')?.dirty
+                          }" />
+                </div>
+                <small *ngIf="jobOpeningForm.controls['branchId'].invalid && jobOpeningForm.get('branchId')?.dirty"
+                    class="p-text">
+                    Branch is Required
+                </small>
+            </div>
+
+            <!-- DeptId -->
+            <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
+                <label>
+                    DeptId
+                </label>
+                <div class="card flex w-full">
+                    <p-select [options]="deparments" [(ngModel)]="selectedDepartment" optionLabel="deptName"
+                        placeholder="Select a Department" (onChange)="OnDeptChange()"
+                        class="ng-dirty ng-invalid w-full " [ngModelOptions]="{ standalone: true }" [ngClass]="{
+                            'ng-dirty ng-invalid':
+                              jobOpeningForm.controls['deptId'].invalid &&
+                              jobOpeningForm.get('deptId')?.dirty
+                          }" />
+                </div>
+                <small *ngIf="jobOpeningForm.controls['deptId'].invalid && jobOpeningForm.get('deptId')?.dirty"
+                    class="p-text">
+                    Department is Required
+                </small>
+            </div>
+
+
+            <!-- PositionId -->
+            <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
+                <label>
+                    PositionId
+                </label>
+                <div class="card flex w-full">
+                    <p-select [options]="positions" [(ngModel)]="selectedPosition" optionLabel="positionName"
+                        placeholder="Select a Position" (onChange)="onPositionChange()"
+                        class="ng-dirty ng-invalid w-full " [ngModelOptions]="{ standalone: true }" [ngClass]="{
+                            'ng-dirty ng-invalid':
+                              jobOpeningForm.controls['positionId'].invalid &&
+                              jobOpeningForm.get('positionId')?.dirty
+                          }" />
+                </div>
+                <small *ngIf="jobOpeningForm.controls['positionId'].invalid && jobOpeningForm.get('positionId')?.dirty"
+                    class="p-text">
+                    Position is Required
+                </small>
+            </div>
+
+            <!-- Description -->
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>Description</label>
+                <p-editor formControlName="description" [style]="{ height: '320px' }">
+                </p-editor>
+            </div>
+
+            <div class="col-6 flex flex-column gap-2">
+                <div class="flex align-items-center gap-1">
+                    <p-toggleswitch formControlName="openingStatus"></p-toggleswitch>
+                    
+                    <span class="text-md font-medium ml-2"> Status</span>
+                </div>
+            </div>
+
+            <div class="col-span-12">
+                <button pButton type="submit" icon="pi pi-check" [loading]="isSubmitting" type="submit"
+                    class="w-24">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
