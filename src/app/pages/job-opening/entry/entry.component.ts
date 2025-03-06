@@ -21,6 +21,7 @@ import { BranchService } from '../../../core/services/branch.service';
 import { CompanyService } from '../../../core/services/company.service';
 import { DepartmentService } from '../../../core/services/department.service';
 import { PositionService } from '../../../core/services/position.service';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
   selector: 'app-entry',
@@ -38,7 +39,9 @@ import { PositionService } from '../../../core/services/position.service';
     ToastModule,
     SelectModule,
     EditorModule,
+    DatePickerModule,
   ],
+  providers: [DatePipe, MessageService],
   templateUrl: './entry.component.html',
   styleUrl: './entry.component.scss',
 })
@@ -51,10 +54,12 @@ export class EntryComponent implements OnInit {
   isEdit: boolean = false;
   loading: boolean = false;
   isLoading: boolean = false;
+  openingStatus: boolean = false;
   companies: CompanyModel[] = [];
   branches: BranchModel[] = [];
   deparments: DepartmentModel[] = [];
   positions: PositionModel[] = [];
+  dates: Date[] | undefined;
   selectedCompany!: CompanyModel;
   selectedBranch!: BranchModel;
   selectedDepartment!: DepartmentModel;
@@ -100,6 +105,165 @@ export class EntryComponent implements OnInit {
     if (this.jobopeningId > 0) {
       this.isEdit = true;
       this.loading = true;
+
+      console.log(this.model);
+      this.jobOpeningService.getById(this.jobopeningId).subscribe((res) => {
+        this.model = res.data as JobOpeningModel;
+
+        this.jobOpeningForm.controls.Id.setValue(this.model.id);
+        this.jobOpeningForm.controls.Id.disable();
+        this.jobOpeningForm.controls.title.setValue(this.model.title);
+        this.jobOpeningForm.controls.description.setValue(
+          this.model.description
+        );
+        this.jobOpeningForm.controls.noOfApplicants.setValue(
+          this.model.noOfApplicants
+        );
+        this.jobOpeningForm.controls.startOn.setValue(this.model.startOn);
+        this.jobOpeningForm.controls.endOn.setValue(this.model.endOn);
+        this.jobOpeningForm.controls.companyId.setValue(this.model.companyId);
+        this.jobOpeningForm.controls.branchId.setValue(this.model.branchId);
+        this.jobOpeningForm.controls.deptId.setValue(this.model.deptId);
+        this.jobOpeningForm.controls.positionId.setValue(this.model.positionId);
+        this.jobOpeningForm.controls.openingStatus.setValue(
+          this.model.openingStatus
+        );
+        this.jobOpeningForm.controls.createdOn.setValue(
+          this.model.createdOn
+            ? this.datepipe.transform(this.model.createdOn, 'yyyy-MM-dd')
+            : null
+        );
+
+        this.jobOpeningForm.controls.createdBy.setValue(this.model.createdBy);
+        this.jobOpeningForm.controls.updatedOn.setValue(
+          this.model.updatedOn
+            ? this.datepipe.transform(this.model.updatedOn, 'yyyy-MM-dd')
+            : null
+        );
+
+        this.jobOpeningForm.controls.updatedBy.setValue(this.model.updatedBy);
+        this.jobOpeningForm.controls.deletedOn.setValue(
+          this.model.deletedOn
+            ? this.datepipe.transform(this.model.deletedOn, 'yyyy-MM-dd')
+            : null
+        );
+        this.jobOpeningForm.controls.deletedBy.setValue(this.model.deletedBy);
+        this.jobOpeningForm.controls.remark.setValue(this.model.remark);
+
+        this.getCompanies();
+      });
+    } else {
+      this.onCompanyChange();
+    }
+    if (!this.isEdit) this.jobOpeningForm.reset();
+    this.jobOpeningForm.controls.Id.setValue(0);
+  }
+
+  getCompanies(): void {
+    this.companyService.get().subscribe({
+      next: (res) => {
+        this.companies = res.data as CompanyModel[];
+        if (this.isEdit) {
+          this.selectedCompany = this.companies.filter(
+            (x) => x.companyId == this.model.companyId
+          )[0];
+          this.onCompanyChange();
+        }
+      },
+      error: () => {},
+    });
+  }
+
+  onCompanyChange(): void {
+    if (this.selectedCompany !== undefined && this.selectedCompany !== null) {
+      this.jobOpeningForm.controls.companyId.setValue(
+        this.selectedCompany.companyId
+      );
+      this.getBranch(this.selectedCompany.companyId);
+      this.errorMessage = [];
+    }
+  }
+
+  getBranch(companyId: string): void {
+    this.branchService.getbyCompanyId(companyId).subscribe({
+      next: (res) => {
+        this.branches = res.data;
+        if (this.isEdit) {
+          this.selectedBranch = this.branches.filter(
+            (x) => x.branchId == this.model.branchId
+          )[0];
+          this.OnBranchChange();
+        }
+      },
+      error: () => {},
+    });
+  }
+
+  OnBranchChange(): void {
+    if (this.selectedBranch !== undefined && this.selectedBranch !== null) {
+      this.jobOpeningForm.controls.branchId.setValue(
+        this.selectedBranch.branchId
+      );
+      this.getDept(
+        this.selectedCompany.companyId,
+        this.selectedBranch.branchId
+      );
+      this.errorMessage = [];
+    }
+  }
+
+  getDept(companyId: string, branchId: number): void {
+    this.departmentService.getbyCID(companyId, branchId).subscribe({
+      next: (res) => {
+        this.deparments = res.data;
+        if (this.isEdit) {
+          this.selectedDepartment = this.deparments.filter(
+            (x) => x.deptId == this.model.deptId
+          )[0];
+          this.OnDeptChange();
+        }
+      },
+      error: () => {},
+    });
+  }
+
+  OnDeptChange(): void {
+    if (
+      this.selectedDepartment !== undefined &&
+      this.selectedDepartment !== null
+    ) {
+      this.jobOpeningForm.controls.deptId.setValue(
+        this.selectedDepartment.deptId
+      );
+      this.getPosition(
+        this.selectedCompany.companyId,
+        this.selectedBranch.branchId,
+        this.selectedDepartment.deptId
+      );
+      this.errorMessage = [];
+    }
+  }
+
+  getPosition(companyId: string, branchId: number, deptId: number): void {
+    this.positionService.getByCBDId(companyId, branchId, deptId).subscribe({
+      next: (res) => {
+        this.positions = res.data;
+        if (this.isEdit) {
+          this.selectedPosition = this.positions.filter(
+            (x) => x.positionId == this.model.positionId
+          )[0];
+        }
+      },
+      error: () => {},
+    });
+  }
+
+  onPositionChange(): void {
+    if (this.selectedPosition !== undefined && this.selectedPosition !== null) {
+      this.jobOpeningForm.controls.positionId.setValue(
+        this.selectedPosition.positionId
+      );
+      this.errorMessage = [];
     }
   }
 
@@ -127,6 +291,69 @@ export class EntryComponent implements OnInit {
         deletedBy: this.jobOpeningForm.controls.deletedBy.value ?? '',
         remark: this.jobOpeningForm.controls.remark.value ?? '',
       };
+
+      if (!this.isEdit) {
+        model.id = 0;
+        model.createdOn = this.datepipe.transform(
+          new Date(),
+          'yyyy-MM-ddTHH:mm:ss'
+        );
+        model.createdBy = 'Admin';
+
+        this.isSubmitting = true;
+        this.jobOpeningService.create(model).subscribe({
+          next: (res) => {
+            console.log('API Response:', res);
+            if (res.success) {
+              this.modalVisible = false;
+
+              this.messageService.add({
+                severity: 'info',
+                summary: 'Success',
+                detail: 'Successfully Created',
+              });
+
+              this.loading = false;
+              this.router.navigate(['/JobOpens']);
+            }
+          },
+          error: (err) => {
+            this.isSubmitting = false;
+            console.error('Error:', err);
+          },
+        });
+      } else {
+        model.updatedOn = this.datepipe.transform(
+          new Date(),
+          'yyyy-MM-ddTHH:mm:ss'
+        );
+        model.updatedBy = 'Admin';
+        this.jobOpeningService.update(this.jobopeningId, model).subscribe({
+          next: (res) => {
+            console.log('API Response:', res);
+            if (res.success) {
+              this.modalVisible = false;
+
+              this.messageService.add({
+                severity: 'info',
+                summary: 'Success',
+                detail: 'Successfully Update',
+              });
+              this.loading = false;
+              this.router.navigate(['/JobOpens']);
+            }
+          },
+          error: (err) => {
+            this.isSubmitting = false;
+            console.error('Error:', err);
+          },
+        });
+      }
+    } else {
+      Object.keys(this.jobOpeningForm.controls).forEach((field) => {
+        const control = this.jobOpeningForm.get(field);
+        control?.markAsDirty({ onlySelf: true });
+      });
     }
   }
 }
