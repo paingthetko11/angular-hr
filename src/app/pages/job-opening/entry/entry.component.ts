@@ -1,6 +1,11 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { Editor, EditorModule } from 'primeng/editor';
@@ -21,7 +26,7 @@ import { BranchService } from '../../../core/services/branch.service';
 import { CompanyService } from '../../../core/services/company.service';
 import { DepartmentService } from '../../../core/services/department.service';
 import { PositionService } from '../../../core/services/position.service';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePicker, DatePickerModule } from 'primeng/datepicker';
 
 @Component({
   selector: 'app-entry',
@@ -41,7 +46,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     EditorModule,
     DatePickerModule,
   ],
-  providers: [DatePipe, MessageService],
+  providers: [DatePipe, MessageService, DatePicker],
   templateUrl: './entry.component.html',
   styleUrl: './entry.component.scss',
 })
@@ -59,7 +64,7 @@ export class EntryComponent implements OnInit {
   branches: BranchModel[] = [];
   deparments: DepartmentModel[] = [];
   positions: PositionModel[] = [];
-  dates: Date[] | undefined;
+  startOn: Date[] | undefined;
   selectedCompany!: CompanyModel;
   selectedBranch!: BranchModel;
   selectedDepartment!: DepartmentModel;
@@ -82,14 +87,15 @@ export class EntryComponent implements OnInit {
   jobOpeningForm = this.formBuilder.group({
     Id: [0],
     title: [''],
+    opening: [''],
     description: [''],
     noOfApplicants: [0],
     startOn: [''],
     endOn: [''],
-    companyId: [''],
-    branchId: [0],
-    deptId: [0],
-    positionId: [0],
+    companyId: ['', Validators.required],
+    branchId: [0, Validators.required],
+    deptId: [0, Validators.required],
+    positionId: [0, Validators.required],
     openingStatus: [false],
     createdOn: [''],
     createdBy: [''],
@@ -101,6 +107,8 @@ export class EntryComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.getCompanies();
+
     this.jobopeningId = parseInt(this.route.snapshot.paramMap.get('id') ?? '');
     if (this.jobopeningId > 0) {
       this.isEdit = true;
@@ -119,8 +127,16 @@ export class EntryComponent implements OnInit {
         this.jobOpeningForm.controls.noOfApplicants.setValue(
           this.model.noOfApplicants
         );
-        this.jobOpeningForm.controls.startOn.setValue(this.model.startOn);
-        this.jobOpeningForm.controls.endOn.setValue(this.model.endOn);
+        this.jobOpeningForm.controls.startOn.setValue(
+          this.model.startOn
+            ? this.datepipe.transform(this.model.startOn, 'yyyy-MM-dd')
+            : null
+        );
+        this.jobOpeningForm.controls.endOn.setValue(
+          this.model.endOn
+            ? this.datepipe.transform(this.model.endOn, 'yyyy-MM-dd')
+            : null
+        );
         this.jobOpeningForm.controls.companyId.setValue(this.model.companyId);
         this.jobOpeningForm.controls.branchId.setValue(this.model.branchId);
         this.jobOpeningForm.controls.deptId.setValue(this.model.deptId);
@@ -275,8 +291,19 @@ export class EntryComponent implements OnInit {
         title: this.jobOpeningForm.controls.title.value ?? '',
         description: this.jobOpeningForm.controls.description.value ?? '',
         noOfApplicants: this.jobOpeningForm.controls.noOfApplicants.value ?? 0,
-        startOn: this.jobOpeningForm.controls.startOn.value ?? '',
-        endOn: this.jobOpeningForm.controls.endOn.value ?? '',
+        startOn: this.jobOpeningForm.controls.startOn.value
+          ? this.datepipe.transform(
+              this.jobOpeningForm.controls.startOn.value,
+              'yyyy-MM-dd'
+            )
+          : '',
+
+        endOn: this.jobOpeningForm.controls.endOn.value
+          ? this.datepipe.transform(
+              this.jobOpeningForm.controls.endOn.value,
+              'yyyy-MM-dd'
+            )
+          : '',
         companyId: this.jobOpeningForm.controls.companyId.value ?? '',
         branchId: this.jobOpeningForm.controls.branchId.value ?? 0,
         deptId: this.jobOpeningForm.controls.deptId.value ?? 0,
