@@ -53,4 +53,20 @@ export class JobOpeningComponent implements OnInit {
       this.isLoading = false;
     });
   }
+  update(allowances: JobOpeningModel): void {
+    this.selectedJobOpening = allowances;
+
+    this.router.navigate(['JobOpens/entry', this.selectedJobOpening.id]);
+  }
+
+  delete(allowances: JobOpeningModel): void {
+    this.selectedJobOpening = allowances;
+    if (this.selectedJobOpening !== null) {
+      this.jobopeningService
+        .delete(this.selectedJobOpening.id)
+        .subscribe((res) => {
+          this.loadata();
+        });
+    }
+  }
 }
