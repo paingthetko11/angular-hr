@@ -53,13 +53,13 @@ export const routes: Routes = [
   { path: 'branch', component: BranchComponent },
   { path: 'position', component: PositionComponent },
   {
-    path: 'opening',
+    path: 'JobOpens',
     children: [
       { path: '', component: JobOpeningComponent },
       { path: 'entry/:id', component: JobOpeningEntryComponent },
       { path: 'entry', component: JobOpeningEntryComponent },
-      { path: 'opening/entry', component: JobOpeningComponent },
-      { path: '', redirectTo: 'opening', pathMatch: 'full' },
+      { path: 'JobOpens/entry', component: JobOpeningComponent },
+      { path: '', redirectTo: 'JobOpens', pathMatch: 'full' },
     ],
   },
 
