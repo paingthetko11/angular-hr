@@ -26,39 +26,27 @@
 
             <!-- StartOn -->
             <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
-                <label class="text-gray-600 font-medium">startOn</label>
-                <p-datepicker
-                  formControlName="startOn"
-                  [showIcon]="true"
-                ></p-datepicker>
-                <small
-                  *ngIf="
+                <label class=" font-medium">Start On</label>
+                <p-datepicker formControlName="startOn" [showIcon]="true"></p-datepicker>
+                <small *ngIf="
                     jobOpeningForm.controls['startOn'].invalid &&
                     jobOpeningForm.get('startOn')?.dirty
-                  "
-                  class="p-text text-red-600"
-                >
-                  startOn is required.
+                  " class="p-text text-red-600">
+                    startOn is required.
                 </small>
-              </div>
+            </div>
 
             <!-- End On -->
             <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
-                <label class="text-gray-600 font-medium">End On</label>
-                <p-datepicker
-                  formControlName="endOn"
-                  [showIcon]="true"
-                ></p-datepicker>
-                <small
-                  *ngIf="
+                <label class=" font-medium">End On</label>
+                <p-datepicker formControlName="endOn" [showIcon]="true"></p-datepicker>
+                <small *ngIf="
                     jobOpeningForm.controls['endOn'].invalid &&
                     jobOpeningForm.get('endOn')?.dirty
-                  "
-                  class="p-text text-red-600"
-                >
-                  startOn is required.
+                  " class="p-text text-red-600">
+                    startOn is required.
                 </small>
-              </div>
+            </div>
 
 
             <!-- This is company -->
@@ -148,6 +136,7 @@
                 </p-editor>
             </div>
 
+            <!-- Open Status -->
             <div class="col-6 flex flex-column gap-2">
                 <div class="flex align-items-center gap-1">
                     <p-toggleswitch formControlName="openingStatus"></p-toggleswitch>
@@ -156,6 +145,7 @@
                 </div>
             </div>
 
+            <!-- Submit -->
             <div class="col-span-12">
                 <button pButton type="submit" icon="pi pi-check" [loading]="isSubmitting" type="submit"
                     class="w-24">Submit</button>
