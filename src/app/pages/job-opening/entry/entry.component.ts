@@ -64,7 +64,7 @@ export class EntryComponent implements OnInit {
   branches: BranchModel[] = [];
   deparments: DepartmentModel[] = [];
   positions: PositionModel[] = [];
-  startOn: Date[] | undefined;
+  date: Date | undefined;
   selectedCompany!: CompanyModel;
   selectedBranch!: BranchModel;
   selectedDepartment!: DepartmentModel;
@@ -86,12 +86,11 @@ export class EntryComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
   jobOpeningForm = this.formBuilder.group({
     Id: [0],
-    title: [''],
-    opening: [''],
+    title: ['', Validators.required],
     description: [''],
     noOfApplicants: [0],
-    startOn: [''],
-    endOn: [''],
+    startOn: [null as Date | null, Validators.required],
+    endOn: [null as Date | null, Validators.required],
     companyId: ['', Validators.required],
     branchId: [0, Validators.required],
     deptId: [0, Validators.required],
@@ -128,14 +127,21 @@ export class EntryComponent implements OnInit {
           this.model.noOfApplicants
         );
         this.jobOpeningForm.controls.startOn.setValue(
-          this.model.startOn
-            ? this.datepipe.transform(this.model.startOn, 'yyyy-MM-dd')
-            : null
+          this.model.startOn ? new Date(this.model.startOn) : null
         );
+
+        console.log(
+          'Transformed startOn:',
+          this.datepipe.transform(this.model.startOn, 'yyyy-MM-dd')
+        );
+
         this.jobOpeningForm.controls.endOn.setValue(
-          this.model.endOn
-            ? this.datepipe.transform(this.model.endOn, 'yyyy-MM-dd')
-            : null
+          this.model.endOn ? new Date(this.model.endOn) : null
+        );
+
+        console.log(
+          'Transformed endOn:',
+          this.datepipe.transform(this.model.endOn, 'yyyy-MM-dd')
         );
         this.jobOpeningForm.controls.companyId.setValue(this.model.companyId);
         this.jobOpeningForm.controls.branchId.setValue(this.model.branchId);
@@ -283,6 +289,11 @@ export class EntryComponent implements OnInit {
     }
   }
 
+  dateValidator(control: any) {
+    const datePattern = /^\d{4}-\d{2}-\d{2}$/; // Simple YYYY-MM-DD date regex pattern
+    return datePattern.test(control.value) ? null : { invalidDate: true };
+  }
+
   submit() {
     console.log('Form Submitted:', this.jobOpeningForm.value);
     if (this.jobOpeningForm.valid) {
@@ -310,11 +321,20 @@ export class EntryComponent implements OnInit {
         positionId: this.jobOpeningForm.controls.positionId.value ?? 0,
         openingStatus:
           this.jobOpeningForm.controls.openingStatus.value ?? false,
-        createdOn: this.jobOpeningForm.controls.createdOn.value ?? '',
+        createdOn: this.datepipe.transform(
+          this.jobOpeningForm.controls.createdOn.value,
+          'yyyy-MM-dd'
+        ),
         createdBy: this.jobOpeningForm.controls.createdBy.value ?? '',
-        updatedOn: this.jobOpeningForm.controls.updatedOn.value ?? '',
+        updatedOn: this.datepipe.transform(
+          this.jobOpeningForm.controls.updatedOn.value,
+          'yyyy-MM-dd'
+        ),
+        deletedOn: this.datepipe.transform(
+          this.jobOpeningForm.controls.updatedOn.value,
+          'yyyy-MM-dd'
+        ),
         updatedBy: this.jobOpeningForm.controls.updatedBy.value ?? '',
-        deletedOn: this.jobOpeningForm.controls.deletedOn.value ?? '',
         deletedBy: this.jobOpeningForm.controls.deletedBy.value ?? '',
         remark: this.jobOpeningForm.controls.remark.value ?? '',
       };
