@@ -44,7 +44,7 @@ export class JobOpeningService {
   }
 
   update(id: number, model: JobOpeningModel): Observable<RootModel> {
-    let url: string = `${environment.apiUrl}/api/JobOpens`;
+    let url: string = `${environment.apiUrl}/api/JobOpens/${id}`;
     return this.http.put<RootModel>(url, JSON.stringify(model), {
       headers: {
         'Content-Type': 'application/json',
