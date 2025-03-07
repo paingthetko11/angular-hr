@@ -53,6 +53,7 @@ export class JobOpeningComponent implements OnInit {
       this.isLoading = false;
     });
   }
+  
   update(allowances: JobOpeningModel): void {
     this.selectedJobOpening = allowances;
 
