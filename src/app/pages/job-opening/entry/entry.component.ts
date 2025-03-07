@@ -1,9 +1,12 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormsModule,
   ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -27,6 +30,18 @@ import { CompanyService } from '../../../core/services/company.service';
 import { DepartmentService } from '../../../core/services/department.service';
 import { PositionService } from '../../../core/services/position.service';
 import { DatePicker, DatePickerModule } from 'primeng/datepicker';
+
+// export function pastDateValidator(): ValidatorFn {
+//   return (control: AbstractControl): ValidationErrors | null => {
+//     const today = new Date();
+//     const selectedDate = new Date(control.value);
+
+//     if (selectedDate > today) {
+//       return { futureDate: true };
+//     }
+//     return null;
+//   };
+// }
 
 @Component({
   selector: 'app-entry',
@@ -65,6 +80,8 @@ export class EntryComponent implements OnInit {
   deparments: DepartmentModel[] = [];
   positions: PositionModel[] = [];
   date: Date | undefined;
+  maxDate: Date = new Date();
+  minDate: Date = new Date();
   selectedCompany!: CompanyModel;
   selectedBranch!: BranchModel;
   selectedDepartment!: DepartmentModel;
@@ -106,8 +123,6 @@ export class EntryComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.getCompanies();
-
     this.jobopeningId = parseInt(this.route.snapshot.paramMap.get('id') ?? '');
     if (this.jobopeningId > 0) {
       this.isEdit = true;
@@ -175,13 +190,13 @@ export class EntryComponent implements OnInit {
         this.getCompanies();
       });
     } else {
-      this.onCompanyChange();
+      this.getCompanies();
     }
     if (!this.isEdit) this.jobOpeningForm.reset();
     this.jobOpeningForm.controls.Id.setValue(0);
   }
 
-      // Company///
+  // Company///
   getCompanies(): void {
     this.companyService.get().subscribe({
       next: (res) => {
@@ -207,7 +222,7 @@ export class EntryComponent implements OnInit {
     }
   }
 
-        // Branch//
+  // Branch//
   getBranch(companyId: string): void {
     this.branchService.getbyCompanyId(companyId).subscribe({
       next: (res) => {
@@ -217,6 +232,7 @@ export class EntryComponent implements OnInit {
             (x) => x.branchId == this.model.branchId
           )[0];
           this.OnBranchChange();
+          this.onCompanyChange();
         }
       },
       error: () => {},
@@ -236,7 +252,7 @@ export class EntryComponent implements OnInit {
     }
   }
 
-        // Department//
+  // Department//
   getDept(companyId: string, branchId: number): void {
     this.departmentService.getbyCID(companyId, branchId).subscribe({
       next: (res) => {
@@ -269,7 +285,7 @@ export class EntryComponent implements OnInit {
     }
   }
 
-          // Position//
+  // Position//
   getPosition(companyId: string, branchId: number, deptId: number): void {
     this.positionService.getByCBDId(companyId, branchId, deptId).subscribe({
       next: (res) => {
@@ -293,7 +309,7 @@ export class EntryComponent implements OnInit {
     }
   }
 
-        // Submit//
+  // Submit//
   submit() {
     console.log('Form Submitted:', this.jobOpeningForm.value);
     if (this.jobOpeningForm.valid) {

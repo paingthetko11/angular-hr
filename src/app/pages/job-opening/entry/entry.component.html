@@ -26,13 +26,13 @@
 
             <!-- StartOn -->
             <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
-                <label class=" font-medium">Start On</label>
-                <p-datepicker formControlName="startOn" [showIcon]="true"></p-datepicker>
-                <small *ngIf="
-                    jobOpeningForm.controls['startOn'].invalid &&
-                    jobOpeningForm.get('startOn')?.dirty
-                  " class="p-text text-red-600">
-                    startOn is required.
+                <label class="font-medium" for="startOn">Start On</label>
+                <p-datepicker id="startOn" formControlName="startOn" [minDate]="minDate" 
+                    [showIcon]="true" placeholder="Select start date"></p-datepicker>
+
+                <small *ngIf="jobOpeningForm.controls['startOn'].invalid && jobOpeningForm.controls['startOn'].touched"
+                    class="p-text text-red-600">
+                    Start Date is required.
                 </small>
             </div>
 
