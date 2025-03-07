@@ -29,7 +29,7 @@ export interface JobOpeningModel {
   noOfApplicants: number;
   startOn: string | null;
   endOn: string | null;
-  companyId: string | null;
+  companyId: string ;
   branchId: number;
   deptId: number;
   positionId: number;
