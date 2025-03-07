@@ -181,6 +181,7 @@ export class EntryComponent implements OnInit {
     this.jobOpeningForm.controls.Id.setValue(0);
   }
 
+      // Company///
   getCompanies(): void {
     this.companyService.get().subscribe({
       next: (res) => {
@@ -206,6 +207,7 @@ export class EntryComponent implements OnInit {
     }
   }
 
+        // Branch//
   getBranch(companyId: string): void {
     this.branchService.getbyCompanyId(companyId).subscribe({
       next: (res) => {
@@ -234,6 +236,7 @@ export class EntryComponent implements OnInit {
     }
   }
 
+        // Department//
   getDept(companyId: string, branchId: number): void {
     this.departmentService.getbyCID(companyId, branchId).subscribe({
       next: (res) => {
@@ -266,6 +269,7 @@ export class EntryComponent implements OnInit {
     }
   }
 
+          // Position//
   getPosition(companyId: string, branchId: number, deptId: number): void {
     this.positionService.getByCBDId(companyId, branchId, deptId).subscribe({
       next: (res) => {
@@ -289,11 +293,7 @@ export class EntryComponent implements OnInit {
     }
   }
 
-  dateValidator(control: any) {
-    const datePattern = /^\d{4}-\d{2}-\d{2}$/; // Simple YYYY-MM-DD date regex pattern
-    return datePattern.test(control.value) ? null : { invalidDate: true };
-  }
-
+        // Submit//
   submit() {
     console.log('Form Submitted:', this.jobOpeningForm.value);
     if (this.jobOpeningForm.valid) {
