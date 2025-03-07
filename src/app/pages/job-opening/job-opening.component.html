@@ -108,7 +108,12 @@
                 <td>{{ jobopening.deletedBy }}</td>
                 <td>{{ jobopening.remark }}</td>
 
+                <td class="flex flex-row gap-2">
+                    <p-button (onClick)="update(jobopening)"><i class="pi pi-user-edit"></i>Edit</p-button>
+                    <p-button (onClick)="delete(jobopening)"><i class="pi pi-times"></i>Delete</p-button>
+                </td>
             </tr>
+
         </ng-template>
 
         <ng-template #emptymessage>
