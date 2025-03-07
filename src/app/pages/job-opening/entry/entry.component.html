@@ -12,15 +12,53 @@
             <div class="col-span-12 flex flex-col gap-2">
                 <label>Title</label>
                 <input pInputText formControlName="title" type="text">
+                <small *ngIf="jobOpeningForm.controls['title'].invalid && jobOpeningForm.get('title')?.dirty"
+                    class="p-text">
+                    Title is Required
+                </small>
             </div>
 
-            <!-- StartOn
-            <div class="xl:col-span-12 col-span-12 flex flex-col gap-2">
+            <!-- noOfApplicants -->
+            <div class="col-span-12 flex flex-col gap-2">
+                <label>No of Applicants</label>
+                <input pInputText formControlName="noOfApplicants" type="number">
+            </div>
 
-                <div class="card flex justify-center">
-                    <p-datepicker formControlName="startOn" selectionMode="multiple" [readonlyInput]="true" />
-                </div>
-            </div> -->
+            <!-- StartOn -->
+            <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
+                <label class="text-gray-600 font-medium">startOn</label>
+                <p-datepicker
+                  formControlName="startOn"
+                  [showIcon]="true"
+                ></p-datepicker>
+                <small
+                  *ngIf="
+                    jobOpeningForm.controls['startOn'].invalid &&
+                    jobOpeningForm.get('startOn')?.dirty
+                  "
+                  class="p-text text-red-600"
+                >
+                  startOn is required.
+                </small>
+              </div>
+
+            <!-- End On -->
+            <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
+                <label class="text-gray-600 font-medium">End On</label>
+                <p-datepicker
+                  formControlName="endOn"
+                  [showIcon]="true"
+                ></p-datepicker>
+                <small
+                  *ngIf="
+                    jobOpeningForm.controls['endOn'].invalid &&
+                    jobOpeningForm.get('endOn')?.dirty
+                  "
+                  class="p-text text-red-600"
+                >
+                  startOn is required.
+                </small>
+              </div>
 
 
             <!-- This is company -->
