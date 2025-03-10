@@ -103,7 +103,6 @@ export class EntryComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.getCompanies();
 
     console.log('companies' + this.companies);
 
