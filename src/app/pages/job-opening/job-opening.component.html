@@ -1,7 +1,7 @@
 <div class="card">
     <p-table #dt1 [value]="jobopenings" dataKey="id" [paginator]="true" selectionMode="single"
         [(selection)]="selectedJobOpening" [rows]="10" [rowsPerPageOptions]="[5, 10, 20]" [globalFilterFields]="[
-        'id','companyName','deptId'
+        'id','companyName'
       ]" [tableStyle]="{ 'min-width': '50rem' }">
 
         <ng-template #caption>
@@ -11,7 +11,8 @@
                     <p-inputicon>
                         <i class="pi pi-search"></i>
                     </p-inputicon>
-                    <input pInputText type="text" placeholder="Search keyword" />
+                    <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+                        placeholder="Search keyword" />
                 </p-iconfield>
             </div>
         </ng-template>
