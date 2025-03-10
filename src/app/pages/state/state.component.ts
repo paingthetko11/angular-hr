@@ -20,6 +20,7 @@ import { Router, RouterModule } from '@angular/router';
     InputIconModule,
     InputTextModule,
     CommonModule,
+    FormsModule,
   ],
   templateUrl: './state.component.html',
   styleUrl: './state.component.scss',
