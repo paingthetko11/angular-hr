@@ -1,10 +1,10 @@
 <div class="card">
-    <p-table #dt1 [value]="jobopenings" dataKey="id" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 20]"
+    <p-table #dt1 [value]="jobopenings" dataKey="id" [paginator]="true" selectionMode="single" [(selection)]="selectedJobOpening"  [rows]="10" [rowsPerPageOptions]="[5, 10, 20]"
         [globalFilterFields]="[
-        'id','companyName'
+        'id','companyName','deptId'
       ]" [tableStyle]="{ 'min-width': '50rem' }">
-        <!-- <p-table #dt1 [value]="states" dataKey="stateId" [paginator]="true" [rows]="10"
-      [rowsPerPageOptions]="[10, 20, 30]" [globalFilterFields]="['stateId','stateName', 'stateNameMm']"
+        <!-- <p-table #dt1 [value]="jobopenings" dataKey="id" [paginator]="true" [rows]="10"
+      [rowsPerPageOptions]="[10, 20, 30]" [globalFilterFields]="['id','stateName', 'stateNameMm']"
       [tableStyle]="{ 'min-width': '50rem' }"> -->
 
         <ng-template #caption>
@@ -84,7 +84,7 @@
         </ng-template>
 
         <ng-template #body let-jobopening>
-            <tr style="white-space:nowrap">
+            <tr [pSelectableRow]="jobopening" style="white-space:nowrap">
                 <td>
                     <span class="pi pi-circle" [class.pi-check-circle]="selectedJobOpening === jobopening"></span>
                 </td>
