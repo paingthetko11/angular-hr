@@ -196,7 +196,7 @@ export class EntryComponent implements OnInit {
     this.jobOpeningForm.controls.Id.setValue(0);
   }
 
-  // Company///
+  //Region Company///
   getCompanies(): void {
     this.companyService.get().subscribe({
       next: (res) => {
@@ -228,8 +228,10 @@ export class EntryComponent implements OnInit {
       this.errorMessage = [];
     }
   }
+  //end region
 
-  // Branch//
+
+  // Region Branch
   getBranch(companyId: string): void {
     this.branchService.getbyCompanyId(companyId).subscribe({
       next: (res) => {
@@ -261,8 +263,10 @@ export class EntryComponent implements OnInit {
       this.errorMessage = [];
     }
   }
+  // End Region
 
-  // Department//
+
+  //Region Department//
   getDept(companyId: string, branchId: number): void {
     this.departmentService.getbyCID(companyId, branchId).subscribe({
       next: (res) => {
@@ -297,8 +301,10 @@ export class EntryComponent implements OnInit {
       this.errorMessage = [];
     }
   }
+  //End Region
 
-  // Position//
+
+  //Region Position//
   getPosition(companyId: string, branchId: number, deptId: number): void {
     this.positionService.getByCBDId(companyId, branchId, deptId).subscribe({
       next: (res) => {
@@ -321,6 +327,8 @@ export class EntryComponent implements OnInit {
       this.errorMessage = [];
     }
   }
+  //end Region
+  
 
   // resetForm() {
   //   this.jobOpeningForm.reset({
