@@ -230,7 +230,6 @@ export class EntryComponent implements OnInit {
   }
   //end region
 
-
   // Region Branch
   getBranch(companyId: string): void {
     this.branchService.getbyCompanyId(companyId).subscribe({
@@ -264,7 +263,6 @@ export class EntryComponent implements OnInit {
     }
   }
   // End Region
-
 
   //Region Department//
   getDept(companyId: string, branchId: number): void {
@@ -303,7 +301,6 @@ export class EntryComponent implements OnInit {
   }
   //End Region
 
-
   //Region Position//
   getPosition(companyId: string, branchId: number, deptId: number): void {
     this.positionService.getByCBDId(companyId, branchId, deptId).subscribe({
@@ -328,7 +325,6 @@ export class EntryComponent implements OnInit {
     }
   }
   //end Region
-  
 
   // resetForm() {
   //   this.jobOpeningForm.reset({
@@ -350,104 +346,119 @@ export class EntryComponent implements OnInit {
   submit() {
     console.log('Form Submitted:', this.jobOpeningForm.value);
     if (this.jobOpeningForm.valid) {
-      var model: JobOpeningModel = {
-        id: this.jobOpeningForm.controls.Id.value ?? 0,
-        title: this.jobOpeningForm.controls.title.value ?? '',
-        description: this.jobOpeningForm.controls.description.value ?? '',
-        noOfApplicants: this.jobOpeningForm.controls.noOfApplicants.value ?? 0,
-        startOn: this.jobOpeningForm.controls.startOn.value
-          ? this.datepipe.transform(
-              this.jobOpeningForm.controls.startOn.value,
-              'yyyy-MM-dd'
-            )
-          : '',
+      const startdate = new Date(
+        this.jobOpeningForm.controls.startOn.value ?? ''
+      );
+      const enddate = new Date(this.jobOpeningForm.controls.endOn.value ?? '');
 
-        endOn: this.jobOpeningForm.controls.endOn.value
-          ? this.datepipe.transform(
-              this.jobOpeningForm.controls.endOn.value,
-              'yyyy-MM-dd'
-            )
-          : '',
-        companyId: this.jobOpeningForm.controls.companyId.value ?? '',
-        branchId: this.jobOpeningForm.controls.branchId.value ?? 0,
-        deptId: this.jobOpeningForm.controls.deptId.value ?? 0,
-        positionId: this.jobOpeningForm.controls.positionId.value ?? 0,
-        openingStatus:
-          this.jobOpeningForm.controls.openingStatus.value ?? false,
-        createdOn: this.datepipe.transform(
-          this.jobOpeningForm.controls.createdOn.value,
-          'yyyy-MM-dd'
-        ),
-        createdBy: this.jobOpeningForm.controls.createdBy.value ?? '',
-        updatedOn: this.datepipe.transform(
-          this.jobOpeningForm.controls.updatedOn.value,
-          'yyyy-MM-dd'
-        ),
-        deletedOn: this.datepipe.transform(
-          this.jobOpeningForm.controls.updatedOn.value,
-          'yyyy-MM-dd'
-        ),
-        updatedBy: this.jobOpeningForm.controls.updatedBy.value ?? '',
-        deletedBy: this.jobOpeningForm.controls.deletedBy.value ?? '',
-        remark: this.jobOpeningForm.controls.remark.value ?? '',
-      };
+      if (startdate < enddate) {
+        var model: JobOpeningModel = {
+          id: this.jobOpeningForm.controls.Id.value ?? 0,
+          title: this.jobOpeningForm.controls.title.value ?? '',
+          description: this.jobOpeningForm.controls.description.value ?? '',
+          noOfApplicants:
+            this.jobOpeningForm.controls.noOfApplicants.value ?? 0,
+          startOn: this.jobOpeningForm.controls.startOn.value
+            ? this.datepipe.transform(
+                this.jobOpeningForm.controls.startOn.value,
+                'yyyy-MM-dd'
+              )
+            : '',
 
-      if (!this.isEdit) {
-        model.id = 0;
-        model.createdOn = this.datepipe.transform(
-          new Date(),
-          'yyyy-MM-ddTHH:mm:ss'
-        );
-        model.createdBy = 'Admin';
+          endOn: this.jobOpeningForm.controls.endOn.value
+            ? this.datepipe.transform(
+                this.jobOpeningForm.controls.endOn.value,
+                'yyyy-MM-dd'
+              )
+            : '',
+          companyId: this.jobOpeningForm.controls.companyId.value ?? '',
+          branchId: this.jobOpeningForm.controls.branchId.value ?? 0,
+          deptId: this.jobOpeningForm.controls.deptId.value ?? 0,
+          positionId: this.jobOpeningForm.controls.positionId.value ?? 0,
+          openingStatus:
+            this.jobOpeningForm.controls.openingStatus.value ?? false,
+          createdOn: this.datepipe.transform(
+            this.jobOpeningForm.controls.createdOn.value,
+            'yyyy-MM-dd'
+          ),
+          createdBy: this.jobOpeningForm.controls.createdBy.value ?? '',
+          updatedOn: this.datepipe.transform(
+            this.jobOpeningForm.controls.updatedOn.value,
+            'yyyy-MM-dd'
+          ),
+          deletedOn: this.datepipe.transform(
+            this.jobOpeningForm.controls.updatedOn.value,
+            'yyyy-MM-dd'
+          ),
+          updatedBy: this.jobOpeningForm.controls.updatedBy.value ?? '',
+          deletedBy: this.jobOpeningForm.controls.deletedBy.value ?? '',
+          remark: this.jobOpeningForm.controls.remark.value ?? '',
+        };
 
-        this.isSubmitting = true;
-        this.jobOpeningService.create(model).subscribe({
-          next: (res) => {
-            console.log('API Response:', res);
-            if (res.success) {
-              this.modalVisible = false;
+        if (!this.isEdit) {
+          model.id = 0;
+          model.createdOn = this.datepipe.transform(
+            new Date(),
+            'yyyy-MM-ddTHH:mm:ss'
+          );
+          model.createdBy = 'Admin';
 
-              this.messageService.add({
-                severity: 'info',
-                summary: 'Success',
-                detail: 'Successfully Created',
-              });
+          this.isSubmitting = true;
+          this.jobOpeningService.create(model).subscribe({
+            next: (res) => {
+              console.log('API Response:', res);
+              if (res.success) {
+                this.modalVisible = false;
 
-              this.loading = false;
-              this.router.navigate(['/JobOpens']);
-            }
-          },
-          error: (err) => {
-            this.isSubmitting = false;
-            console.error('Error:', err);
-          },
-        });
+                this.messageService.add({
+                  severity: 'info',
+                  summary: 'Success',
+                  detail: 'Successfully Created',
+                });
+
+                this.loading = false;
+                this.router.navigate(['/JobOpens']);
+              }
+            },
+            error: (err) => {
+              this.isSubmitting = false;
+              console.error('Error:', err);
+            },
+          });
+        } else {
+          model.updatedOn = this.datepipe.transform(
+            new Date(),
+            'yyyy-MM-ddTHH:mm:ss'
+          );
+          model.updatedBy = 'Admin';
+          this.jobOpeningService.update(this.jobopeningId, model).subscribe({
+            next: (res) => {
+              console.log('API Response:', res);
+              if (res.success) {
+                this.modalVisible = false;
+
+                this.messageService.add({
+                  severity: 'info',
+                  summary: 'Success',
+                  detail: 'Successfully Update',
+                });
+
+                this.loading = false;
+                this.router.navigate(['/JobOpens']);
+              }
+            },
+            error: (err) => {
+              this.isSubmitting = false;
+              console.error('Error:', err);
+            },
+          });
+        }
       } else {
-        model.updatedOn = this.datepipe.transform(
-          new Date(),
-          'yyyy-MM-ddTHH:mm:ss'
-        );
-        model.updatedBy = 'Admin';
-        this.jobOpeningService.update(this.jobopeningId, model).subscribe({
-          next: (res) => {
-            console.log('API Response:', res);
-            if (res.success) {
-              this.modalVisible = false;
-
-              this.messageService.add({
-                severity: 'info',
-                summary: 'Success',
-                detail: 'Successfully Update',
-              });
-
-              this.loading = false;
-              this.router.navigate(['/JobOpens']);
-            }
-          },
-          error: (err) => {
-            this.isSubmitting = false;
-            console.error('Error:', err);
-          },
+        console.log('End date is greather than Start Date');
+        this.messageService.add({
+          key: 'globalMessage',
+          severity: 'error',
+          summary: 'End Date is Greather than Start Date',
         });
       }
     } else {
