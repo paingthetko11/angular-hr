@@ -31,8 +31,10 @@
                 <p-datepicker id="startOn" formControlName="startOn" [minDate]="minDate" 
                     [showIcon]="true" placeholder="Select start date"></p-datepicker>
 
-                <small *ngIf="jobOpeningForm.controls['startOn'].invalid && jobOpeningForm.controls['startOn'].touched"
-                    class="p-text text-red-600">
+                    <small *ngIf="
+                    jobOpeningForm.controls['startOn'].invalid &&
+                    jobOpeningForm.get('startOn')?.dirty
+                  " class="p-text text-red-600">
                     Start Date is required.
                 </small>
             </div>
@@ -40,12 +42,12 @@
             <!-- End On -->
             <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
                 <label class=" font-medium">End On</label>
-                <p-datepicker formControlName="endOn" [showIcon]="true"></p-datepicker>
+                <p-datepicker formControlName="endOn" [showIcon]="true"placeholder="Select end date"></p-datepicker>
                 <small *ngIf="
                     jobOpeningForm.controls['endOn'].invalid &&
                     jobOpeningForm.get('endOn')?.dirty
                   " class="p-text text-red-600">
-                    startOn is required.
+                    End Date is required.
                 </small>
             </div>
 
