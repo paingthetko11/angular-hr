@@ -1,8 +1,11 @@
 <div class="card">
-    <p-table #dt1 [value]="jobopenings" dataKey="Id" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 20]"
+    <p-table #dt1 [value]="jobopenings" dataKey="id" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 20]"
         [globalFilterFields]="[
-        'Id',
+        'id','companyName'
       ]" [tableStyle]="{ 'min-width': '50rem' }">
+        <!-- <p-table #dt1 [value]="states" dataKey="stateId" [paginator]="true" [rows]="10"
+      [rowsPerPageOptions]="[10, 20, 30]" [globalFilterFields]="['stateId','stateName', 'stateNameMm']"
+      [tableStyle]="{ 'min-width': '50rem' }"> -->
 
         <ng-template #caption>
             <div class="flex">
@@ -84,7 +87,7 @@
             <tr style="white-space:nowrap">
                 <td>
                     <span class="pi pi-circle" [class.pi-check-circle]="selectedJobOpening === jobopening"></span>
-                  </td>
+                </td>
                 <td>{{ jobopening.id }}</td>
                 <td>{{ jobopening.title }}</td>
                 <td>
