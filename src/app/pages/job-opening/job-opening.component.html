@@ -18,6 +18,7 @@
 
         <ng-template #header>
             <tr style="white-space:nowrap">
+                <th>#</th>
                 <th pSortableColumn="id">
                     ID <p-sortIcon field="id" />
                 </th>
@@ -81,6 +82,9 @@
 
         <ng-template #body let-jobopening>
             <tr style="white-space:nowrap">
+                <td>
+                    <span class="pi pi-circle" [class.pi-check-circle]="selectedJobOpening === jobopening"></span>
+                  </td>
                 <td>{{ jobopening.id }}</td>
                 <td>{{ jobopening.title }}</td>
                 <td>
