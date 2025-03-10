@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -8,7 +8,7 @@ import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { RatingModule } from 'primeng/rating';
 import { SelectModule } from 'primeng/select';
-import { TableModule } from 'primeng/table';
+import { Table, TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { JobOpeningService } from '../../core/services/job-opening.service';
 import { JobOpeningModel } from '../../core/models/job-opening.model';
@@ -30,7 +30,9 @@ import { JobOpeningModel } from '../../core/models/job-opening.model';
     TagModule,
     RatingModule,
     SelectModule,
+    
   ],
+  
   templateUrl: './job-opening.component.html',
   styleUrl: './job-opening.component.scss',
 })
