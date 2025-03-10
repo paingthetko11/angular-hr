@@ -214,6 +214,13 @@ export class EntryComponent implements OnInit {
 
   onCompanyChange(): void {
     if (this.selectedCompany !== undefined && this.selectedCompany !== null) {
+      this.branches = [];
+      this.deparments = [];
+      this.positions = [];
+      this.selectedBranch != null;
+      this.selectedDepartment != null;
+      this.selectedPosition != null;
+
       this.jobOpeningForm.controls.companyId.setValue(
         this.selectedCompany.companyId
       );
@@ -232,7 +239,6 @@ export class EntryComponent implements OnInit {
             (x) => x.branchId == this.model.branchId
           )[0];
           this.OnBranchChange();
-          this.onCompanyChange();
         }
       },
       error: () => {},
@@ -241,6 +247,10 @@ export class EntryComponent implements OnInit {
 
   OnBranchChange(): void {
     if (this.selectedBranch !== undefined && this.selectedBranch !== null) {
+      this.deparments = [];
+      this.positions = [];
+      this.selectedDepartment != null;
+      this.selectedPosition != null;
       this.jobOpeningForm.controls.branchId.setValue(
         this.selectedBranch.branchId
       );
@@ -273,6 +283,9 @@ export class EntryComponent implements OnInit {
       this.selectedDepartment !== undefined &&
       this.selectedDepartment !== null
     ) {
+      this.positions = [];
+      this.selectedPosition != null;
+
       this.jobOpeningForm.controls.deptId.setValue(
         this.selectedDepartment.deptId
       );
@@ -309,7 +322,23 @@ export class EntryComponent implements OnInit {
     }
   }
 
+  // resetForm() {
+  //   this.jobOpeningForm.reset({
+  //     Id: 0,
+  //     openingStatus: false,
+  //   });
+
+  //   this.selectedCompany = {} as CompanyModel;
+  //   this.selectedBranch = {} as BranchModel;
+  //   this.selectedDepartment = {} as DepartmentModel;
+  //   this.selectedPosition = {} as PositionModel;
+
+  //   this.jobOpeningForm.markAsPristine();
+  //   this.jobOpeningForm.markAsUntouched();
+  // }
+
   // Submit//
+
   submit() {
     console.log('Form Submitted:', this.jobOpeningForm.value);
     if (this.jobOpeningForm.valid) {
@@ -402,6 +431,7 @@ export class EntryComponent implements OnInit {
                 summary: 'Success',
                 detail: 'Successfully Update',
               });
+
               this.loading = false;
               this.router.navigate(['/JobOpens']);
             }
