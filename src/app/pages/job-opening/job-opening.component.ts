@@ -12,6 +12,8 @@ import { Table, TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { JobOpeningService } from '../../core/services/job-opening.service';
 import { JobOpeningModel } from '../../core/models/job-opening.model';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-job-opening',
@@ -30,21 +32,35 @@ import { JobOpeningModel } from '../../core/models/job-opening.model';
     TagModule,
     RatingModule,
     SelectModule,
-    
+    SplitButtonModule,
   ],
-  
+
   templateUrl: './job-opening.component.html',
   styleUrl: './job-opening.component.scss',
 })
 export class JobOpeningComponent implements OnInit {
   jobopenings: JobOpeningModel[] = [];
+  items!: MenuItem[] | undefined;
   selectedJobOpening!: JobOpeningModel;
   isLoading: boolean = false;
 
   constructor(
     private jobopeningService: JobOpeningService,
     private router: Router
-  ) {}
+  ) {
+    this.items = [
+      {
+        label: 'Edit',
+        icon: 'pi pi-pencil',
+        command: () => this.update(this.selectedJobOpening),
+      },
+      {
+        label: 'Delete',
+        icon: 'pi pi-trash',
+        command: () => this.delete(this.selectedJobOpening),
+      },
+    ];
+  }
 
   ngOnInit(): void {
     this.loadata();
@@ -55,15 +71,19 @@ export class JobOpeningComponent implements OnInit {
       this.isLoading = false;
     });
   }
-  
-  update(allowances: JobOpeningModel): void {
-    this.selectedJobOpening = allowances;
+
+  create():void{
+    this.router.navigate(['JobOpens/entry']);
+  }
+
+  update(jobopenings: JobOpeningModel): void {
+    this.selectedJobOpening = jobopenings;
 
     this.router.navigate(['JobOpens/entry', this.selectedJobOpening.id]);
   }
 
-  delete(allowances: JobOpeningModel): void {
-    this.selectedJobOpening = allowances;
+  delete(jobopenings: JobOpeningModel): void {
+    this.selectedJobOpening = jobopenings;
     if (this.selectedJobOpening !== null) {
       this.jobopeningService
         .delete(this.selectedJobOpening.id)
@@ -72,4 +92,5 @@ export class JobOpeningComponent implements OnInit {
         });
     }
   }
+  
 }
