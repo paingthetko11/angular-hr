@@ -13,7 +13,8 @@ import { TagModule } from 'primeng/tag';
 import { JobOpeningService } from '../../core/services/job-opening.service';
 import { JobOpeningModel } from '../../core/models/job-opening.model';
 import { SplitButtonModule } from 'primeng/splitbutton';
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'app-job-opening',
@@ -33,8 +34,9 @@ import { MenuItem } from 'primeng/api';
     RatingModule,
     SelectModule,
     SplitButtonModule,
+    ConfirmDialogModule,
   ],
-
+  providers: [ConfirmationService, MessageService],
   templateUrl: './job-opening.component.html',
   styleUrl: './job-opening.component.scss',
 })
@@ -46,7 +48,9 @@ export class JobOpeningComponent implements OnInit {
 
   constructor(
     private jobopeningService: JobOpeningService,
-    private router: Router
+    private router: Router,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
   ) {
     this.items = [
       {
@@ -62,6 +66,41 @@ export class JobOpeningComponent implements OnInit {
     ];
   }
 
+  confirm2(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Do you want to delete this record?',
+      header: 'Danger Zone',
+      icon: 'pi pi-info-circle',
+      rejectLabel: 'Cancel',
+      rejectButtonProps: {
+        label: 'Cancel',
+        severity: 'secondary',
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Delete',
+        severity: 'danger',
+      },
+
+      accept: () => {
+        this.delete(this.selectedJobOpening);
+          this.messageService.add({
+            severity: 'info',
+            summary: 'Confirmed',
+            detail: 'Record deleted',
+          });
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Rejected',
+          detail: 'You have rejected',
+        });
+      },
+    });
+  }
+
   ngOnInit(): void {
     this.loadata();
   }
@@ -72,7 +111,7 @@ export class JobOpeningComponent implements OnInit {
     });
   }
 
-  create():void{
+  create(): void {
     this.router.navigate(['JobOpens/entry']);
   }
 
@@ -92,5 +131,4 @@ export class JobOpeningComponent implements OnInit {
         });
     }
   }
-  
 }
