@@ -6,7 +6,7 @@
 
         <ng-template #caption>
             <div class="flex">
-                <p-button label="Create" routerLink="entry"><i class="pi pi-plus"></i></p-button>
+                <p-splitButton label="Create" icon="pi pi-plus" [model]="items" (onClick)="create()"></p-splitButton>
                 <p-iconfield iconPosition="left" class="ml-auto">
                     <p-inputicon>
                         <i class="pi pi-search"></i>
@@ -16,6 +16,7 @@
                 </p-iconfield>
             </div>
         </ng-template>
+        
 
         <ng-template #header>
             <tr style="white-space:nowrap">
