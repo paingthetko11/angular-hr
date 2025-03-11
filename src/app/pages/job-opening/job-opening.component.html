@@ -1,3 +1,4 @@
+<p-confirm-dialog></p-confirm-dialog>
 <div class="card">
     <p-table #dt1 [value]="jobopenings" dataKey="id" [paginator]="true" selectionMode="single"
         [(selection)]="selectedJobOpening" [rows]="10" [rowsPerPageOptions]="[5, 10, 20]" [globalFilterFields]="[
@@ -6,7 +7,8 @@
 
         <ng-template #caption>
             <div class="flex">
-                <p-splitButton label="Create" icon="pi pi-plus" [model]="items" (onClick)="create()" severity="success"></p-splitButton>
+                <p-splitButton label="Create" icon="pi pi-plus" [model]="items" (onClick)="create()"
+                    severity="success"></p-splitButton>
                 <p-iconfield iconPosition="left" class="ml-auto">
                     <p-inputicon>
                         <i class="pi pi-search"></i>
@@ -16,7 +18,6 @@
                 </p-iconfield>
             </div>
         </ng-template>
-        
 
         <ng-template #header>
             <tr style="white-space:nowrap">
@@ -113,7 +114,9 @@
                 <td>{{ jobopening.deletedOn | date: 'dd/MMM/yyyy hh:mm:ss a'}}</td>
                 <td>{{ jobopening.deletedBy }}</td>
                 <td>{{ jobopening.remark }}</td>
+
             </tr>
+
 
         </ng-template>
 
