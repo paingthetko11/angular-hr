@@ -6,7 +6,7 @@
 
         <ng-template #caption>
             <div class="flex">
-                <p-splitButton label="Create" icon="pi pi-plus" [model]="items" (onClick)="create()"></p-splitButton>
+                <p-splitButton label="Create" icon="pi pi-plus" [model]="items" (onClick)="create()" severity="info"></p-splitButton>
                 <p-iconfield iconPosition="left" class="ml-auto">
                     <p-inputicon>
                         <i class="pi pi-search"></i>
@@ -113,12 +113,6 @@
                 <td>{{ jobopening.deletedOn | date: 'dd/MMM/yyyy hh:mm:ss a'}}</td>
                 <td>{{ jobopening.deletedBy }}</td>
                 <td>{{ jobopening.remark }}</td>
-
-                <td class="flex flex-row gap-2">
-                    <p-button (onClick)="update(jobopening)"><i class="pi pi-user-edit"></i>Edit</p-button>
-                    <p-button (onClick)="delete(jobopening)"><i class="pi pi-times"></i>Delete</p-button>
-                    <!-- <p-button label="Export to Excel" icon="pi pi-file-excel" (click)="exportToExcel()"></p-button> -->
-                </td>
             </tr>
 
         </ng-template>
