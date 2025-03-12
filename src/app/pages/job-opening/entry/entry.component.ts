@@ -326,21 +326,6 @@ export class EntryComponent implements OnInit {
   }
   //end Region
 
-  // resetForm() {
-  //   this.jobOpeningForm.reset({
-  //     Id: 0,
-  //     openingStatus: false,
-  //   });
-
-  //   this.selectedCompany = {} as CompanyModel;
-  //   this.selectedBranch = {} as BranchModel;
-  //   this.selectedDepartment = {} as DepartmentModel;
-  //   this.selectedPosition = {} as PositionModel;
-
-  //   this.jobOpeningForm.markAsPristine();
-  //   this.jobOpeningForm.markAsUntouched();
-  // }
-
   // Submit//
 
   submit() {
