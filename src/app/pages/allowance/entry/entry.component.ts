@@ -103,7 +103,6 @@ export class EntryComponent implements OnInit {
   });
 
   ngOnInit(): void {
-
     console.log('companies' + this.companies);
 
     this.allowanceId = parseInt(this.route.snapshot.paramMap.get('id') ?? '');
@@ -156,7 +155,7 @@ export class EntryComponent implements OnInit {
         this.getCompanies();
       });
     } else {
-      this.onCompanyChange();
+      this.getCompanies();
     }
     if (!this.isEdit) this.allowanceForm.reset();
     this.allowanceForm.controls.allowanceId.setValue(0);
@@ -179,6 +178,13 @@ export class EntryComponent implements OnInit {
 
   onCompanyChange(): void {
     if (this.selectedCompany !== undefined && this.selectedCompany !== null) {
+      this.branches = [];
+      this.deparments = [];
+      this.positions = [];
+      this.selectedBranch != null;
+      this.selectedDepartment != null;
+      this.selectedPosition != null;
+
       this.allowanceForm.controls.companyId.setValue(
         this.selectedCompany.companyId
       );
@@ -204,6 +210,10 @@ export class EntryComponent implements OnInit {
 
   OnBranchChange(): void {
     if (this.selectedBranch !== undefined && this.selectedBranch !== null) {
+      this.deparments = [];
+      this.positions = [];
+      this.selectedDepartment != null;
+      this.selectedPosition != null;
       this.allowanceForm.controls.branchId.setValue(
         this.selectedBranch.branchId
       );
@@ -214,7 +224,9 @@ export class EntryComponent implements OnInit {
       this.errorMessage = [];
     }
   }
+  // End Region
 
+  //Region Department//
   getDept(companyId: string, branchId: number): void {
     this.departmentService.getbyCID(companyId, branchId).subscribe({
       next: (res) => {
@@ -235,6 +247,9 @@ export class EntryComponent implements OnInit {
       this.selectedDepartment !== undefined &&
       this.selectedDepartment !== null
     ) {
+      this.positions = [];
+      this.selectedPosition != null;
+
       this.allowanceForm.controls.deptId.setValue(
         this.selectedDepartment.deptId
       );
@@ -246,7 +261,9 @@ export class EntryComponent implements OnInit {
       this.errorMessage = [];
     }
   }
+  //End Region
 
+  //Region Position//
   getPosition(companyId: string, branchId: number, deptId: number): void {
     this.positionService.getByCBDId(companyId, branchId, deptId).subscribe({
       next: (res) => {
