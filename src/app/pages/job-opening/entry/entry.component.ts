@@ -106,8 +106,8 @@ export class EntryComponent implements OnInit {
     title: ['', Validators.required],
     description: [''],
     noOfApplicants: [0],
-    startOn: [null as Date | null, Validators.required],
-    endOn: [null as Date | null, Validators.required],
+    startOn: [new Date(), Validators.required], // Set default to today
+  endOn: [new Date(), Validators.required],
     companyId: ['', Validators.required],
     branchId: [0, Validators.required],
     deptId: [0, Validators.required],
@@ -122,87 +122,139 @@ export class EntryComponent implements OnInit {
     remark: [''],
   });
 
+  // ngOnInit(): void {
+  //   this.jobopeningId = parseInt(this.route.snapshot.paramMap.get('id') ?? '');
+  //   if (this.jobopeningId > 0) {
+  //     this.isEdit = true;
+  //     this.loading = true;
+
+  //     console.log(this.model);
+  //     this.jobOpeningService.getById(this.jobopeningId).subscribe((res) => {
+  //       this.model = res.data as JobOpeningModel;
+
+  //       this.jobOpeningForm.controls.Id.setValue(this.model.id);
+  //       this.jobOpeningForm.controls.Id.disable();
+  //       this.jobOpeningForm.controls.title.setValue(this.model.title);
+  //       this.jobOpeningForm.controls.description.setValue(
+  //         this.model.description
+  //       );
+  //       this.jobOpeningForm.controls.noOfApplicants.setValue(
+  //         this.model.noOfApplicants
+  //       );
+  //       this.jobOpeningForm.controls.startOn.setValue(
+  //         this.model.startOn ? new Date(this.model.startOn) : null
+  //       );
+
+  //       console.log(
+  //         'Transformed startOn:',
+  //         this.datepipe.transform(this.model.startOn, 'yyyy-MM-dd')
+  //       );
+
+  //       this.jobOpeningForm.controls.endOn.setValue(
+  //         this.model.endOn ? new Date(this.model.endOn) : null
+  //       );
+
+  //       console.log(
+  //         'Transformed endOn:',
+  //         this.datepipe.transform(this.model.endOn, 'yyyy-MM-dd')
+  //       );
+  //       this.jobOpeningForm.controls.companyId.setValue(this.model.companyId);
+  //       this.jobOpeningForm.controls.branchId.setValue(this.model.branchId);
+  //       this.jobOpeningForm.controls.deptId.setValue(this.model.deptId);
+  //       this.jobOpeningForm.controls.positionId.setValue(this.model.positionId);
+  //       this.jobOpeningForm.controls.openingStatus.setValue(
+  //         this.model.openingStatus
+  //       );
+  //       this.jobOpeningForm.controls.createdOn.setValue(
+  //         this.model.createdOn
+  //           ? this.datepipe.transform(this.model.createdOn, 'yyyy-MM-dd')
+  //           : null
+  //       );
+
+  //       this.jobOpeningForm.controls.createdBy.setValue(this.model.createdBy);
+  //       this.jobOpeningForm.controls.updatedOn.setValue(
+  //         this.model.updatedOn
+  //           ? this.datepipe.transform(this.model.updatedOn, 'yyyy-MM-dd')
+  //           : null
+  //       );
+
+  //       this.jobOpeningForm.controls.updatedBy.setValue(this.model.updatedBy);
+  //       this.jobOpeningForm.controls.deletedOn.setValue(
+  //         this.model.deletedOn
+  //           ? this.datepipe.transform(this.model.deletedOn, 'yyyy-MM-dd')
+  //           : null
+  //       );
+  //       this.jobOpeningForm.controls.deletedBy.setValue(this.model.deletedBy);
+  //       this.jobOpeningForm.controls.remark.setValue(this.model.remark);
+
+  //       this.jobOpeningForm.controls.startOn.disable();
+
+  //       this.getCompanies();
+  //     });
+  //   } else {
+  //     // Create Mode
+  //     this.isEdit = false;
+  //     this.jobOpeningForm.reset();
+  //     this.jobOpeningForm.controls.Id.setValue(0);
+  //     this.getCompanies();
+  //   }
+  //   if (!this.isEdit) this.jobOpeningForm.reset();
+  //   this.jobOpeningForm.controls.Id.setValue(0);
+  // }
+
+  //Region Company///
+  
   ngOnInit(): void {
     this.jobopeningId = parseInt(this.route.snapshot.paramMap.get('id') ?? '');
     if (this.jobopeningId > 0) {
       this.isEdit = true;
       this.loading = true;
-
-      console.log(this.model);
+  
       this.jobOpeningService.getById(this.jobopeningId).subscribe((res) => {
         this.model = res.data as JobOpeningModel;
-
-        this.jobOpeningForm.controls.Id.setValue(this.model.id);
-        this.jobOpeningForm.controls.Id.disable();
-        this.jobOpeningForm.controls.title.setValue(this.model.title);
-        this.jobOpeningForm.controls.description.setValue(
-          this.model.description
-        );
-        this.jobOpeningForm.controls.noOfApplicants.setValue(
-          this.model.noOfApplicants
-        );
-        this.jobOpeningForm.controls.startOn.setValue(
-          this.model.startOn ? new Date(this.model.startOn) : null
-        );
-
-        console.log(
-          'Transformed startOn:',
-          this.datepipe.transform(this.model.startOn, 'yyyy-MM-dd')
-        );
-
-        this.jobOpeningForm.controls.endOn.setValue(
-          this.model.endOn ? new Date(this.model.endOn) : null
-        );
-
-        console.log(
-          'Transformed endOn:',
-          this.datepipe.transform(this.model.endOn, 'yyyy-MM-dd')
-        );
-        this.jobOpeningForm.controls.companyId.setValue(this.model.companyId);
-        this.jobOpeningForm.controls.branchId.setValue(this.model.branchId);
-        this.jobOpeningForm.controls.deptId.setValue(this.model.deptId);
-        this.jobOpeningForm.controls.positionId.setValue(this.model.positionId);
-        this.jobOpeningForm.controls.openingStatus.setValue(
-          this.model.openingStatus
-        );
-        this.jobOpeningForm.controls.createdOn.setValue(
-          this.model.createdOn
+  
+        this.jobOpeningForm.patchValue({
+          Id: this.model.id,
+          title: this.model.title,
+          description: this.model.description,
+          noOfApplicants: this.model.noOfApplicants,
+          startOn: this.model.startOn ? new Date(this.model.startOn) : new Date(), // Use today if null
+          endOn: this.model.endOn ? new Date(this.model.endOn) : new Date(), // Use today if null
+          companyId: this.model.companyId,
+          branchId: this.model.branchId,
+          deptId: this.model.deptId,
+          positionId: this.model.positionId,
+          openingStatus: this.model.openingStatus,
+          createdOn: this.model.createdOn
             ? this.datepipe.transform(this.model.createdOn, 'yyyy-MM-dd')
-            : null
-        );
-
-        this.jobOpeningForm.controls.createdBy.setValue(this.model.createdBy);
-        this.jobOpeningForm.controls.updatedOn.setValue(
-          this.model.updatedOn
+            : null,
+          createdBy: this.model.createdBy,
+          updatedOn: this.model.updatedOn
             ? this.datepipe.transform(this.model.updatedOn, 'yyyy-MM-dd')
-            : null
-        );
-
-        this.jobOpeningForm.controls.updatedBy.setValue(this.model.updatedBy);
-        this.jobOpeningForm.controls.deletedOn.setValue(
-          this.model.deletedOn
+            : null,
+          deletedOn: this.model.deletedOn
             ? this.datepipe.transform(this.model.deletedOn, 'yyyy-MM-dd')
-            : null
-        );
-        this.jobOpeningForm.controls.deletedBy.setValue(this.model.deletedBy);
-        this.jobOpeningForm.controls.remark.setValue(this.model.remark);
-
-        this.jobOpeningForm.controls.startOn.disable();
-
+            : null,
+          deletedBy: this.model.deletedBy,
+          remark: this.model.remark,
+        });
+  
         this.getCompanies();
       });
     } else {
       // Create Mode
       this.isEdit = false;
       this.jobOpeningForm.reset();
-      this.jobOpeningForm.controls.Id.setValue(0);
+      this.jobOpeningForm.patchValue({
+        Id: 0,
+        startOn: new Date(), // Set default date
+        endOn: new Date(), // Set default date
+      });
       this.getCompanies();
     }
-    if (!this.isEdit) this.jobOpeningForm.reset();
-    this.jobOpeningForm.controls.Id.setValue(0);
   }
+  
 
-  //Region Company///
   getCompanies(): void {
     this.companyService.get().subscribe({
       next: (res) => {
