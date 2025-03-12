@@ -69,44 +69,9 @@ export class JobOpeningComponent implements OnInit {
       {
         label: 'Excel',
         icon: 'pi pi-file-excel',
-        command: () => this.excel()
-      }
+        command: () => this.excel(),
+      },
     ];
-  }
-
-  confirm2(event: Event) {
-    this.confirmationService.confirm({
-      target: event.target as EventTarget,
-      message: 'Do you want to delete this record?',
-      header: 'Danger Zone',
-      icon: 'pi pi-info-circle',
-      rejectLabel: 'Cancel',
-      rejectButtonProps: {
-        label: 'Cancel',
-        severity: 'secondary',
-        outlined: true,
-      },
-      acceptButtonProps: {
-        label: 'Delete',
-        severity: 'danger',
-      },
-
-      accept: () => {
-        this.delete(this.selectedJobOpening);
-          this.messageService.add({
-            severity: 'info',
-            summary: 'Confirmed',
-            detail: 'Record deleted',
-          });
-      },
-      reject: () => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Rejected',
-          detail: 'You have rejected',
-        });
-      },
-    });
   }
 
   ngOnInit(): void {
@@ -132,11 +97,37 @@ export class JobOpeningComponent implements OnInit {
   delete(jobopenings: JobOpeningModel): void {
     this.selectedJobOpening = jobopenings;
     if (this.selectedJobOpening !== null) {
-      this.jobopeningService
-        .delete(this.selectedJobOpening.id)
-        .subscribe((res) => {
-          this.loadata();
-        });
+      this.confirmationService.confirm({
+        message: 'Are You Sure Want To Delete?',
+        header: 'Delete Confirmation',
+        icon: 'pi pi-info-circle',
+        accept: () => {
+          this.jobopeningService
+            .delete(this.selectedJobOpening.id)
+            .subscribe((res) => {
+              this.messageService.add({
+                key: 'globalMessage',
+                severity: 'success',
+                summary: 'Confirmed',
+                detail: res.message,
+              });
+              this.loadata();
+              // Deselect
+              this.selectedJobOpening = null as any;
+            });
+        },
+        reject: () => {
+          this.selectedJobOpening = null as any;
+        },
+        key: 'jobOpeningDialog',
+      });
+    } else {
+      this.messageService.add({
+        key: 'globalMessage',
+        severity: 'warn',
+        summary: 'Warning',
+        detail: 'Please Select JobOpening',
+      });
     }
   }
 
