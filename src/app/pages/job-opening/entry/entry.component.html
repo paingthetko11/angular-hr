@@ -28,10 +28,10 @@
             <!-- StartOn -->
             <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
                 <label class="font-medium" for="startOn">Start On</label>
-                <p-datepicker id="startOn" formControlName="startOn" [minDate]="minDate" 
-                    [showIcon]="true" placeholder="Select start date"></p-datepicker>
+                <p-datepicker id="startOn" formControlName="startOn" [minDate]="minDate" [showIcon]="true"
+                    placeholder="Select start date"></p-datepicker>
 
-                    <small *ngIf="
+                <small *ngIf="
                     jobOpeningForm.controls['startOn'].invalid &&
                     jobOpeningForm.get('startOn')?.dirty
                   " class="p-text text-red-600">
@@ -42,7 +42,7 @@
             <!-- End On -->
             <div class="xl:col-span-6 col-span-6 flex flex-col gap-2">
                 <label class=" font-medium">End On</label>
-                <p-datepicker formControlName="endOn" [showIcon]="true"placeholder="Select end date"></p-datepicker>
+                <p-datepicker formControlName="endOn" [showIcon]="true" placeholder="Select end date"></p-datepicker>
                 <small *ngIf="
                     jobOpeningForm.controls['endOn'].invalid &&
                     jobOpeningForm.get('endOn')?.dirty
@@ -58,8 +58,9 @@
                     CompanyId</label>
                 <div class="card flex w-full">
                     <p-select [options]="companies" [(ngModel)]="selectedCompany" optionLabel="companyName"
-                        placeholder="Select a Company" (onChange)="onCompanyChange()"
-                        class="ng-dirty ng-invalid w-full " [ngModelOptions]="{ standalone: true }" [ngClass]="{
+                        [filter]="true" filterBy="companyName" placeholder="Select a Company"
+                        (onChange)="onCompanyChange()" class="ng-dirty ng-invalid w-full "
+                        [ngModelOptions]="{ standalone: true }" [ngClass]="{
                             'ng-dirty ng-invalid':
                               jobOpeningForm.controls['companyId'].invalid &&
                               jobOpeningForm.get('companyId')?.dirty
@@ -78,7 +79,8 @@
                 </label>
                 <div class="card flex w-full">
                     <p-select [options]="branches" [(ngModel)]="selectedBranch" optionLabel="branchName"
-                        placeholder="Select a Branch" (onChange)="OnBranchChange()" class="ng-dirty ng-invalid w-full "
+                        filterBy="branchName" [filter]="true" placeholder="Select a Branch"
+                        (onChange)="OnBranchChange()" class="ng-dirty ng-invalid w-full "
                         [ngModelOptions]="{ standalone: true }" [ngClass]="{
                             'ng-dirty ng-invalid':
                               jobOpeningForm.controls['branchId'].invalid &&
@@ -98,8 +100,9 @@
                 </label>
                 <div class="card flex w-full">
                     <p-select [options]="deparments" [(ngModel)]="selectedDepartment" optionLabel="deptName"
-                        placeholder="Select a Department" (onChange)="OnDeptChange()"
-                        class="ng-dirty ng-invalid w-full " [ngModelOptions]="{ standalone: true }" [ngClass]="{
+                        filterBy="deptName" [filter]="true" placeholder="Select a Department"
+                        (onChange)="OnDeptChange()" class="ng-dirty ng-invalid w-full "
+                        [ngModelOptions]="{ standalone: true }" [ngClass]="{
                             'ng-dirty ng-invalid':
                               jobOpeningForm.controls['deptId'].invalid &&
                               jobOpeningForm.get('deptId')?.dirty
@@ -119,8 +122,9 @@
                 </label>
                 <div class="card flex w-full">
                     <p-select [options]="positions" [(ngModel)]="selectedPosition" optionLabel="positionName"
-                        placeholder="Select a Position" (onChange)="onPositionChange()"
-                        class="ng-dirty ng-invalid w-full " [ngModelOptions]="{ standalone: true }" [ngClass]="{
+                        filterBy="positionName" [filter]="true" placeholder="Select a Position"
+                        (onChange)="onPositionChange()" class="ng-dirty ng-invalid w-full "
+                        [ngModelOptions]="{ standalone: true }" [ngClass]="{
                             'ng-dirty ng-invalid':
                               jobOpeningForm.controls['positionId'].invalid &&
                               jobOpeningForm.get('positionId')?.dirty
