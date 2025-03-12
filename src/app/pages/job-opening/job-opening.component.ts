@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -16,6 +16,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ExportService } from '../../core/services/export.service';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
   selector: 'app-job-opening',
@@ -37,7 +38,7 @@ import { ExportService } from '../../core/services/export.service';
     SplitButtonModule,
     ConfirmDialogModule,
   ],
-  providers: [ConfirmationService, MessageService],
+  providers: [DatePipe,ConfirmationService, MessageService],
   templateUrl: './job-opening.component.html',
   styleUrl: './job-opening.component.scss',
 })
@@ -134,4 +135,5 @@ export class JobOpeningComponent implements OnInit {
   excel(): void {
     this.exportService.excel('JobOpens', this.tblDeduction.tableViewChild);
   }
+  
 }
