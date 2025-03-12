@@ -127,3 +127,12 @@
         </ng-template>
     </p-table>
 </div>
+<p-confirmDialog  [breakpoints]="{
+    '1920px': '30vw',
+    '1440px': '30vw',
+    '1024px': '30vw',
+    '768px': '80vw',           
+    '425px': '100vw',
+    '375px': '100vw',
+    '320px': '100vw'}" [style]="{ width: '30vw' }" key="jobOpeningDialog" position="bottom"
+  rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
