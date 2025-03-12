@@ -9,6 +9,8 @@
             <div class="flex">
                 <p-splitButton label="Create" icon="pi pi-plus" [model]="items" (onClick)="create()"
                     severity="success"></p-splitButton>
+
+                    <!-- Search -->
                 <p-iconfield iconPosition="left" class="ml-auto">
                     <p-inputicon>
                         <i class="pi pi-search"></i>
@@ -16,6 +18,8 @@
                     <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
                         placeholder="Search keyword" />
                 </p-iconfield>
+
+              
             </div>
         </ng-template>
 
@@ -127,7 +131,7 @@
         </ng-template>
     </p-table>
 </div>
-<p-confirmDialog  [breakpoints]="{
+<p-confirmDialog [breakpoints]="{
     '1920px': '30vw',
     '1440px': '30vw',
     '1024px': '30vw',
@@ -135,4 +139,4 @@
     '425px': '100vw',
     '375px': '100vw',
     '320px': '100vw'}" [style]="{ width: '30vw' }" key="jobOpeningDialog" position="bottom"
-  rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
+    rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
