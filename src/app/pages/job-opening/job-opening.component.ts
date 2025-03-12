@@ -15,6 +15,7 @@ import { JobOpeningModel } from '../../core/models/job-opening.model';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ExportService } from '../../core/services/export.service';
 
 @Component({
   selector: 'app-job-opening',
@@ -41,6 +42,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
   styleUrl: './job-opening.component.scss',
 })
 export class JobOpeningComponent implements OnInit {
+  @ViewChild(Table) tblDeduction!: Table;
   jobopenings: JobOpeningModel[] = [];
   items!: MenuItem[] | undefined;
   selectedJobOpening!: JobOpeningModel;
@@ -50,7 +52,8 @@ export class JobOpeningComponent implements OnInit {
     private jobopeningService: JobOpeningService,
     private router: Router,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private exportService: ExportService
   ) {
     this.items = [
       {
@@ -63,6 +66,11 @@ export class JobOpeningComponent implements OnInit {
         icon: 'pi pi-trash',
         command: () => this.delete(this.selectedJobOpening),
       },
+      {
+        label: 'Excel',
+        icon: 'pi pi-file-excel',
+        command: () => this.excel()
+      }
     ];
   }
 
@@ -130,5 +138,9 @@ export class JobOpeningComponent implements OnInit {
           this.loadata();
         });
     }
+  }
+
+  excel(): void {
+    this.exportService.excel('JobOpens', this.tblDeduction.tableViewChild);
   }
 }
