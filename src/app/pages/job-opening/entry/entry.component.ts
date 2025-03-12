@@ -187,9 +187,15 @@ export class EntryComponent implements OnInit {
         this.jobOpeningForm.controls.deletedBy.setValue(this.model.deletedBy);
         this.jobOpeningForm.controls.remark.setValue(this.model.remark);
 
+        this.jobOpeningForm.controls.startOn.disable();
+
         this.getCompanies();
       });
     } else {
+      // Create Mode
+      this.isEdit = false;
+      this.jobOpeningForm.reset();
+      this.jobOpeningForm.controls.Id.setValue(0);
       this.getCompanies();
     }
     if (!this.isEdit) this.jobOpeningForm.reset();
