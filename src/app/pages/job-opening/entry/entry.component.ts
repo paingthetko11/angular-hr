@@ -106,8 +106,8 @@ export class EntryComponent implements OnInit {
     title: ['', Validators.required],
     description: [''],
     noOfApplicants: [0],
-    startOn: [new Date(), Validators.required], // Set default to today
-  endOn: [new Date(), Validators.required],
+    startOn: [new Date(), Validators.required],
+    endOn: [new Date(), Validators.required],
     companyId: ['', Validators.required],
     branchId: [0, Validators.required],
     deptId: [0, Validators.required],
@@ -203,22 +203,24 @@ export class EntryComponent implements OnInit {
   // }
 
   //Region Company///
-  
+
   ngOnInit(): void {
     this.jobopeningId = parseInt(this.route.snapshot.paramMap.get('id') ?? '');
     if (this.jobopeningId > 0) {
       this.isEdit = true;
       this.loading = true;
-  
+
       this.jobOpeningService.getById(this.jobopeningId).subscribe((res) => {
         this.model = res.data as JobOpeningModel;
-  
+
         this.jobOpeningForm.patchValue({
           Id: this.model.id,
           title: this.model.title,
           description: this.model.description,
           noOfApplicants: this.model.noOfApplicants,
-          startOn: this.model.startOn ? new Date(this.model.startOn) : new Date(), // Use today if null
+          startOn: this.model.startOn
+            ? new Date(this.model.startOn)
+            : new Date(), // Use today if null
           endOn: this.model.endOn ? new Date(this.model.endOn) : new Date(), // Use today if null
           companyId: this.model.companyId,
           branchId: this.model.branchId,
@@ -238,7 +240,7 @@ export class EntryComponent implements OnInit {
           deletedBy: this.model.deletedBy,
           remark: this.model.remark,
         });
-  
+
         this.getCompanies();
       });
     } else {
@@ -253,7 +255,6 @@ export class EntryComponent implements OnInit {
       this.getCompanies();
     }
   }
-  
 
   getCompanies(): void {
     this.companyService.get().subscribe({
