@@ -1,25 +1,30 @@
 <p-confirm-dialog></p-confirm-dialog>
+
 <div class="card">
+
+
     <p-table #dt1 [value]="jobopenings" dataKey="id" [paginator]="true" selectionMode="single"
         [(selection)]="selectedJobOpening" [rows]="10" [rowsPerPageOptions]="[5, 10, 20]" [globalFilterFields]="[
         'id','companyName'
       ]" [tableStyle]="{ 'min-width': '50rem' }">
 
         <ng-template #caption>
-            <div class="flex">
-                <p-splitButton label="Create" icon="pi pi-plus" [model]="items" (onClick)="create()"
-                    severity="success"></p-splitButton>
+            <div class="flex items-center justify-between mb-3 gap-3 flex-wrap">
+                <!-- Button Wrapper -->
+                <div class="flex-shrink-0">
+                    <p-splitButton label="Create" icon="pi pi-plus" [model]="items" (onClick)="create()"
+                        severity="success"></p-splitButton>
+                </div>
 
-                    <!-- Search -->
-                <p-iconfield iconPosition="left" class="ml-auto">
-                    <p-inputicon>
-                        <i class="pi pi-search"></i>
+                <p-iconfield iconPosition="left" class="ml-auto w-full sm:w-80 md:w-96">
+                    <p-inputicon class="pl-3">
+                        <i class="pi pi-search text-gray-400"></i>
                     </p-inputicon>
                     <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
-                        placeholder="Search keyword" />
+                        placeholder="Search keyword"
+                        class="w-full px-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2" />
                 </p-iconfield>
-
-              
+                
             </div>
         </ng-template>
 
