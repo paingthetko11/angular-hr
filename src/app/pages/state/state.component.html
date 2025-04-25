@@ -62,3 +62,50 @@
             </ng-template>
         </p-table>
     </div>
+
+    <div class="p-4">
+        <h2 class="text-xl font-bold mb-4">Cookie Manager</h2>
+      
+        <div class="mb-4 flex gap-2 items-center">
+          <input
+            [(ngModel)]="newCookieName"
+            placeholder="Cookie Name"
+            class="p-2 border rounded w-40"
+          />
+          <input
+            [(ngModel)]="newCookieValue"
+            placeholder="Cookie Value"
+            class="p-2 border rounded w-40"
+          />
+          <button (click)="addCookie()" class="bg-blue-500 text-white px-4 py-2 rounded">
+            Add Cookie
+          </button>
+        </div>
+      
+        <table class="min-w-full bg-white shadow-md rounded border border-gray-200">
+          <thead>
+            <tr>
+              <th class="px-4 py-2 border-b text-left">Name</th>
+              <th class="px-4 py-2 border-b text-left">Value</th>
+              <th class="px-4 py-2 border-b">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cookie of cookies">
+              <td class="px-4 py-2 border-b">{{ cookie.name }}</td>
+              <td class="px-4 py-2 border-b">{{ cookie.value }}</td>
+              <td class="px-4 py-2 border-b text-center">
+                <button (click)="deleteCookie(cookie.name)" class="bg-red-500 text-white px-3 py-1 rounded">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- <button (click)="addSampleCookies()" class="bg-green-500 text-white px-4 py-2 rounded">
+        Load Sample Cookies
+      </button> -->
+
+
+      
