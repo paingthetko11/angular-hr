@@ -140,3 +140,80 @@
         </ng-template>
     </p-table>
 </div>
+
+<div class="container mx-auto mt-12 p-6 bg-gray-100 rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold text-center mb-6 text-indigo-600">Cookie Testing</h2>
+  
+    <!-- Input Fields -->
+    <div class="form-group text-center mb-6">
+      <label for="inputKey" class="block text-lg font-medium text-gray-700 mb-2">Enter Cookie Key:</label>
+      <input
+        id="inputKey"
+        [(ngModel)]="inputKey"
+        type="text"
+        class="form-control w-full md:w-1/2 mx-auto px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        placeholder="Enter a unique key for the cookie"
+      />
+    </div>
+    <div class="form-group text-center mb-6">
+      <label for="inputValue" class="block text-lg font-medium text-gray-700 mb-2">Enter Cookie Value:</label>
+      <input
+        id="inputValue"
+        [(ngModel)]="inputValue"
+        type="text"
+        class="form-control w-full md:w-1/2 mx-auto px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        placeholder="Enter a value to save in the cookie"
+      />
+    </div>
+  
+    <!-- Buttons -->
+    <div class="flex flex-wrap justify-center gap-4 mb-6">
+      <p-button
+        class="px-6 py-2 rounded-lg"
+        (click)="saveCookie()"
+        label="Save Cookie"
+        severity="success"
+      ></p-button>
+      <p-button
+        class="px-6 py-2 rounded-lg"
+        (click)="clearAllCookies()"
+        label="Clear All Cookies"
+        severity="danger"
+      ></p-button>
+    </div>
+  
+    <!-- Display All Cookies -->
+    <div class="text-center">
+      <h3 class="text-lg font-medium text-gray-700 mb-4">Saved Cookies:</h3>
+      <table class="table-auto w-full md:w-1/2 mx-auto border-collapse border border-gray-300">
+        <thead>
+          <tr>
+            <th class="border border-gray-300 px-4 py-2">Key</th>
+            <th class="border border-gray-300 px-4 py-2">Value</th>
+            <th class="border border-gray-300 px-4 py-2">Status</th>
+            <th class="border border-gray-300 px-4 py-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cookie of cookies">
+            <td class="border border-gray-300 px-4 py-2">{{ cookie.key }}</td>
+            <td class="border border-gray-300 px-4 py-2">{{ cookie.value }}</td>
+            <td class="border border-gray-300 px-4 py-2">
+              {{ cookie.value === 'Expired' ? 'Expired' : 'Valid' }}
+            </td>
+            <td class="border border-gray-300 px-4 py-2">
+              <p-button
+                class="px-4 py-2 rounded-lg"
+                (click)="deleteCookie(cookie.key)"
+                label="Delete"
+                severity="danger"
+              ></p-button>
+            </td>
+          </tr>
+          <tr *ngIf="cookies.length === 0">
+            <td colspan="3" class="border border-gray-300 px-4 py-2 text-center">No cookies saved.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
