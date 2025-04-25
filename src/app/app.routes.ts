@@ -61,7 +61,7 @@ export const routes: Routes = [
       { path: 'JobOpens/entry', component: JobOpeningComponent },
       { path: '', redirectTo: 'JobOpens', pathMatch: 'full' },
     ],
-  },
+  },  
 
   {
     path: 'deduction',
