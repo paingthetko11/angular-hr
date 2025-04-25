@@ -53,6 +53,10 @@ export class AllowanceComponent {
   selectedCompany!: CompanyModel;
   cookieValue: string;
 
+  inputKey: string = ''; // To store the cookie key
+  inputValue: string = ''; // To store the cookie value
+  cookies: { key: string; value: string }[] = [];
+
 
   constructor(
     private allowanceService: AllowanceService,
@@ -66,6 +70,7 @@ export class AllowanceComponent {
 
   ngOnInit(): void {
     this.loadData();
+    this.loadAllCookies()
   }
 
   loadData(): void {
@@ -75,6 +80,60 @@ export class AllowanceComponent {
       console.log(this.allowances);
     });
   }
+
+  saveCookie(): void {
+    if (this.inputKey.trim() && this.inputValue.trim()) {
+      const expirationDate = new Date();
+      expirationDate.setSeconds(expirationDate.getSeconds() + 50); // Set expiration to 5 seconds from now
+      this.cookieService.set(this.inputKey, this.inputValue, { expires: expirationDate });
+      console.log(`Cookie set: ${this.inputKey} = ${this.inputValue}`);
+
+      // Clear the input fields
+      this.inputKey = '';
+      this.inputValue = '';
+
+      // Reload all cookies
+      this.loadAllCookies();
+    } else {
+      console.log('Key or value is empty. Please enter both.');
+    }
+  }
+
+  loadAllCookies(): void {
+    // Get all cookies and store them in the `cookies` array
+    this.cookies = [];
+    const allCookies = this.cookieService.getAll();
+    for (const key in allCookies) {
+      this.cookies.push({ key, value: allCookies[key] });
+    }
+  }
+
+  deleteCookie(key: string): void {
+    // Delete the specified cookie
+    this.cookieService.delete(key);
+    console.log(`Cookie deleted: ${key}`);
+
+    // Reload all cookies
+    this.loadAllCookies();
+  }
+
+  clearAllCookies(): void {
+    // Delete all cookies
+    this.cookieService.deleteAll();
+    console.log('All cookies deleted.');
+
+    // Reload all cookies
+    this.loadAllCookies();
+  }
+
+  checkCookieStatus(): void {
+    const allCookies = this.cookieService.getAll();
+    this.cookies = this.cookies.map((cookie) => ({
+      key: cookie.key,
+      value: allCookies[cookie.key] || 'Expired',
+    }));
+  }
+
 
   update(allowances: AllowaneModel): void {
     this.selectedAllowance = allowances;
