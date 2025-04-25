@@ -20,6 +20,8 @@
     "@angular/router": "^19.1.0",
     "@primeng/themes": "^19.0.6",
     "file-saver": "^2.0.5",
+    "ngx-cookie": "^6.0.1",
+    "ngx-cookie-service": "^19.1.2",
     "primeclt": "^0.1.5",
     "primeicons": "^7.0.0",
     "primeng": "^19.0.9",
