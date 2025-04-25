@@ -9,6 +9,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-state',
@@ -22,14 +23,19 @@ import { Router, RouterModule } from '@angular/router';
     CommonModule,
     FormsModule,
   ],
+  providers: [CookieService],
   templateUrl: './state.component.html',
   styleUrl: './state.component.scss',
 })
 export class StateComponent implements OnInit {
   selectedState!: StateModel;
   states: StateModel[] = [];
+  cookies: { name: string; value: string }[] = [];
+  newCookieName = '';
+  newCookieValue = '';
 
-  constructor(private stateServices: StateService, private route: Router) {}
+
+  constructor(private stateServices: StateService, private route: Router) { }
 
   ngOnInit(): void {
     this.loaddata();
@@ -54,4 +60,42 @@ export class StateComponent implements OnInit {
       });
     }
   }
+
+  loadCookies(): void {
+    const allCookies = document.cookie.split('; ').filter(c => c);
+    this.cookies = allCookies.map(cookieStr => {
+      const [name, ...rest] = cookieStr.split('=');
+      return {
+        name,
+        value: decodeURIComponent(rest.join('='))
+      };
+    });
+  }
+
+  addCookie(): void {
+    if (this.newCookieName && this.newCookieValue) {
+      document.cookie = `${this.newCookieName}=${encodeURIComponent(this.newCookieValue)}; path=/`;
+      this.newCookieName = '';
+      this.newCookieValue = '';
+      this.loadCookies();
+    }
+  }
+
+  deleteCookie(name: string): void {
+    document.cookie = `${name}=; Max-Age=0; path=/`;
+    this.loadCookies();
+  }
+
+  // addSampleCookies(): void {
+  //  const sampleCookies = [
+  
+  //     { name: 'notification', value: 'enabled' }
+  //   ]; 
+  
+  //   sampleCookies.forEach(c => {
+  //     document.cookie = `${c.name}=${encodeURIComponent(c.value)}; path=/`;
+  //   });
+  
+  //   this.loadCookies();
+  // }
 }
