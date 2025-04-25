@@ -13,14 +13,18 @@ import { AllowanceService } from '../../core/services/allowance.service';
 import { AllowaneModel } from '../../core/models/allowane.model';
 import { Select, SelectModule } from 'primeng/select';
 import { CompanyModel } from '../../core/models/company.model';
+import { CookieService } from 'ngx-cookie-service';
 
 interface Companies {
   name: string;
   code: string;
 }
 
+
+
 @Component({
   selector: 'app-allowance',
+  providers: [CookieService],
   imports: [
     RouterModule,
     FormsModule,
@@ -47,13 +51,19 @@ export class AllowanceComponent {
   isLoading: boolean = false;
   companies: Companies[] | undefined;
   selectedCompany!: CompanyModel;
+  cookieValue: string;
+
 
   constructor(
     private allowanceService: AllowanceService,
-    private route: Router
-  ) {}
+    private route: Router,
+    private cookieService: CookieService
+  ) {
+    this.cookieService.set('Test', 'Hello World');
+    this.cookieValue = this.cookieService.get('Test');
+  }
 
-  
+
   ngOnInit(): void {
     this.loadData();
   }
