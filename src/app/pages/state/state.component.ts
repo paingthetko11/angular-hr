@@ -38,10 +38,10 @@ export class StateComponent implements OnInit {
   constructor(private stateServices: StateService, private route: Router) { }
 
   ngOnInit(): void {
-    this.loaddata();
+    this.loadData();
   }
 
-  loaddata(): void {
+  loadData(): void {
     this.stateServices.get().subscribe((res) => {
       this.states = res.data as StateModel[];
     });
@@ -56,7 +56,7 @@ export class StateComponent implements OnInit {
     this.selectedState = state;
     if (this.selectedState !== null) {
       this.stateServices.delete(this.selectedState.stateId).subscribe((res) => {
-        this.loaddata();
+        this.loadData();
       });
     }
   }
