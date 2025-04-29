@@ -86,16 +86,14 @@ export class StateComponent implements OnInit {
     this.loadCookies();
   }
 
-  // addSampleCookies(): void {
-  //  const sampleCookies = [
+  deleteAllCookies(): void {
+    const allCookies = document.cookie.split('; ').filter(c => c);
+    for (const cookieStr of allCookies) {
+      const [name] = cookieStr.split('=');
+      document.cookie = `${name}=; Max-Age=0; path=/`;
+    }
+    this.loadCookies();
+  }
   
-  //     { name: 'notification', value: 'enabled' }
-  //   ]; 
-  
-  //   sampleCookies.forEach(c => {
-  //     document.cookie = `${c.name}=${encodeURIComponent(c.value)}; path=/`;
-  //   });
-  
-  //   this.loadCookies();
-  // }
+
 }
