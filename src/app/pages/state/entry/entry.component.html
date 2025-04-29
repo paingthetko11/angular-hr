@@ -1,6 +1,8 @@
 <div class="p-8">
+    
+      
 
-    <form [formGroup]="stateForm" (submit)="submit()">
+    <form [formGroup]="stateForm" >
         <div class="grid grid-cols-12 gap-2">
             <div class="col-span-12 flex flex-col gap-2">
                 <label>State Id</label>
@@ -15,8 +17,36 @@
                 <input pInputText formControlName="stateNameMm" type="text">
             </div>
             <div class="col-sapn-12">
-                <button pButton type="submit">Submit</button>
             </div>
+            <div class="col-span-12 flex gap-4 mt-4">
+                <button pButton type="button" (click)="saveToCookie()" label="Save to Cookie" class="p-button-success">
+                  Save to Cookie
+                </button>
+              
+                <button pButton type="button" (click)="saveAllCookiesToDatabase()" label="Save All to Database" class="p-button-primary">
+                  Save All to Database
+                </button>
+              </div>
         </div>
     </form>
 </div>
+<div class="mt-8">
+    <h2 class="text-xl font-bold mb-4">Saved State List (From Cookies)</h2>
+    <table class="min-w-full bg-white shadow-md rounded border border-gray-200">
+      <thead>
+        <tr>
+          <th class="px-4 py-2 border-b text-left">State ID</th>
+          <th class="px-4 py-2 border-b text-left">State Name</th>
+          <th class="px-4 py-2 border-b text-left">State Name MM</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cookieData">
+          <td class="px-4 py-2 border-b">{{ item.stateId }}</td>
+          <td class="px-4 py-2 border-b">{{ item.stateName }}</td>
+          <td class="px-4 py-2 border-b">{{ item.stateNameMm }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
